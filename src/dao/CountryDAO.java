@@ -79,9 +79,8 @@ public class CountryDAO {
      * @param cari digunakan sebagai kunci utama dalam melakukan pencarian
      * @return mengirimkan nilai kedalam method getData menggunakan query yang dijadikan parameter
      */
-    public List<Country> search(String category, String cari){
-        return this.getData("select * from countries where regexp_like("+category+",'"+cari+"','i') order by 1");
-                
+    public List<Country> searchCountry(String category, String cari){
+        return this.getData("select * from countries where regexp_like(" + category + ",'" + cari + "','i') order by 1");                
     }
     
     public boolean eksekusi(String sql){

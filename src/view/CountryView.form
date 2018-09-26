@@ -39,26 +39,23 @@
                           <Component id="txtCountryName" alignment="0" min="-2" pref="233" max="-2" attributes="0"/>
                           <Component id="txtRegionId" alignment="0" min="-2" pref="233" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="85" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="cmbKategoriCountry" pref="176" max="32767" attributes="0"/>
-                          <Component id="txtSsearchCountry" max="32767" attributes="0"/>
+                          <Component id="txtSearchCountry" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="85" max="32767" attributes="0"/>
                       <Component id="btnExit" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="btnSimpanCountry" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btnUpdateCountry" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btnDeleteCountry" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="364" pref="364" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="486" pref="486" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="137" max="-2" attributes="0"/>
                       <Component id="btnSearchCountry" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="209" pref="209" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="209" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -72,7 +69,8 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtCountryId" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtSsearchCountry" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtSearchCountry" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnExit" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -87,14 +85,13 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnSearchCountry" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnExit" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnDeleteCountry" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnUpdateCountry" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnSimpanCountry" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnSearchCountry" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" pref="289" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" pref="512" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -185,7 +182,10 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JTextField" name="txtSsearchCountry">
+    <Component class="javax.swing.JTextField" name="txtSearchCountry">
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtSearchCountryKeyReleased"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="cmbKategoriCountry">
       <Properties>
@@ -205,6 +205,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="SEARCH"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSearchCountryActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

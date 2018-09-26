@@ -6,6 +6,7 @@
 package view;
 
 import controller.CountryController;
+import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import model.Country;
@@ -52,7 +53,7 @@ public class CountryView extends javax.swing.JInternalFrame {
         btnExit = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCountry = new javax.swing.JTable();
-        txtSsearchCountry = new javax.swing.JTextField();
+        txtSearchCountry = new javax.swing.JTextField();
         cmbKategoriCountry = new javax.swing.JComboBox<>();
         btnSearchCountry = new javax.swing.JButton();
 
@@ -120,9 +121,20 @@ public class CountryView extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tblCountry);
 
+        txtSearchCountry.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSearchCountryKeyReleased(evt);
+            }
+        });
+
         cmbKategoriCountry.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Country Id", "Conutry Name", "Region ID" }));
 
         btnSearchCountry.setText("SEARCH");
+        btnSearchCountry.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchCountryActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -142,21 +154,19 @@ public class CountryView extends javax.swing.JInternalFrame {
                             .addComponent(txtCountryId, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtCountryName, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtRegionId, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(cmbKategoriCountry, 0, 176, Short.MAX_VALUE)
-                            .addComponent(txtSsearchCountry))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtSearchCountry))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
                         .addComponent(btnExit))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnSimpanCountry)
-                        .addGap(39, 39, 39)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnUpdateCountry)
-                        .addGap(36, 36, 36)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnDeleteCountry)
-                        .addGap(364, 364, 364))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(486, 486, 486)
+                        .addGap(137, 137, 137)
                         .addComponent(btnSearchCountry)
                         .addGap(209, 209, 209)))
                 .addContainerGap())
@@ -168,7 +178,8 @@ public class CountryView extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtCountryId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSsearchCountry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSearchCountry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnExit))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -180,13 +191,12 @@ public class CountryView extends javax.swing.JInternalFrame {
                     .addComponent(txtRegionId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSearchCountry)
-                    .addComponent(btnExit)
                     .addComponent(btnDeleteCountry)
                     .addComponent(btnUpdateCountry)
-                    .addComponent(btnSimpanCountry))
+                    .addComponent(btnSimpanCountry)
+                    .addComponent(btnSearchCountry))
                 .addGap(21, 21, 21)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -206,6 +216,7 @@ public class CountryView extends javax.swing.JInternalFrame {
         String pesan = controller.saveOrUpdateCountry(txtCountryId.getText(),
                 txtCountryName.getText(), txtRegionId.getText(), true);
         serbaGuna.tampilPesan(this, pesan, "Pesan Simpan");
+        bindingCountries(controller.viewCountry());
     }//GEN-LAST:event_btnSimpanCountryActionPerformed
 
     private void btnUpdateCountryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateCountryActionPerformed
@@ -213,6 +224,7 @@ public class CountryView extends javax.swing.JInternalFrame {
         String pesan = controller.saveOrUpdateCountry(txtCountryId.getText(),
                 txtCountryName.getText(), txtRegionId.getText(), false);
         serbaGuna.tampilPesan(this, pesan, "Pesan Update");
+        bindingCountries(controller.viewCountry());
     }//GEN-LAST:event_btnUpdateCountryActionPerformed
 
     private void btnDeleteCountryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCountryActionPerformed
@@ -220,6 +232,7 @@ public class CountryView extends javax.swing.JInternalFrame {
 
         String pesan = controller.hapusCountry(txtCountryId.getText());
         serbaGuna.tampilPesan(this, pesan, "Pesan Delete");
+        bindingCountries(controller.viewCountry());
     }//GEN-LAST:event_btnDeleteCountryActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
@@ -235,6 +248,22 @@ public class CountryView extends javax.swing.JInternalFrame {
         txtRegionId.setText(tblCountry.getValueAt(row, 3).toString());
         edit();
     }//GEN-LAST:event_tblCountryMouseClicked
+
+    private void txtSearchCountryKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchCountryKeyReleased
+        // TODO add your handling code here:
+//        if (txtSearchCountry.getText().equals("")) {
+//                bindingCountries(controller.viewCountry());
+//            }
+//        if (evt.getKeyCode()==KeyEvent.VK_ENTER) {
+//            bindingCountries(controller.searchCountry(cmbKategoriCountry.getSelectedItem().toString(), txtSearchCountry.getText()));
+//        }
+    }//GEN-LAST:event_txtSearchCountryKeyReleased
+
+    private void btnSearchCountryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchCountryActionPerformed
+        // TODO add your handling code here:
+//        List<Country> countrys = controller.searchCountry(cmbKategoriCountry.getSelectedItem().toString(), txtSearchCountry.getText());
+//        bindingCountries(countrys);
+    }//GEN-LAST:event_btnSearchCountryActionPerformed
 
     private void bindingCountries(List<Country> countrys){
         String [] header = {"No","Country Id","Country Name","Region Id"};
@@ -262,7 +291,7 @@ public class CountryView extends javax.swing.JInternalFrame {
         txtCountryName.setText("");
         txtRegionId.setText("");
         btnDeleteCountry.setEnabled(false);
-        btnSearchCountry.setEnabled(false);
+        btnSearchCountry.setEnabled(true);
         btnUpdateCountry.setEnabled(false);
         btnSimpanCountry.setEnabled(true);
     } 
@@ -281,7 +310,7 @@ public class CountryView extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtCountryId;
     private javax.swing.JTextField txtCountryName;
     private javax.swing.JTextField txtRegionId;
-    private javax.swing.JTextField txtSsearchCountry;
+    private javax.swing.JTextField txtSearchCountry;
     // End of variables declaration//GEN-END:variables
 
 

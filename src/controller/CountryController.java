@@ -57,6 +57,9 @@ private SerbaGunaController serbaGunaController;
         else return serbaGunaController.getMessage(cdao.updateCountry(country));
             
     }
+    public List<Country> searchCountry(String category, String cari){
+        return cdao.searchCountry(category, cari);
+    }
     
     public List<Country> viewCountry(){
         return cdao.getAllData();
