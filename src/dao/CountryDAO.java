@@ -82,6 +82,7 @@ public class CountryDAO {
     public List<Country> searchCountry(String category, String cari){
         return this.getData("select * from countries where regexp_like(" + category + ",'" + cari + "','i') order by 1");                
     }
+
     
     public boolean eksekusi(String sql){
         boolean hasil = false;
