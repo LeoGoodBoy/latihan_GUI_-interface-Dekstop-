@@ -9,22 +9,22 @@ package model;
  *
  * @author Nande
  */
-public class Employees {
+public class Employee {
     private int employeeId, salary;
     private float commissionPct;
     private String firstName, lastName, email, phoneNumber, hireDate;
     private Job job;
     private Department department;
-    private Employees manager;
+    private Employee manager;
 
-    public Employees() {
+    public Employee() {
     }
 
-    public Employees(int employeeId) {
+    public Employee(int employeeId) {
         this.employeeId = employeeId;
     }
 
-    public Employees(int employeeId, int salary, float commissionPct, String firstName, String lastName, String email, String phoneNumber, String hireDate, Job job, Department department, Employees manager) {
+    public Employee(int employeeId, int salary, float commissionPct, String firstName, String lastName, String email, String phoneNumber, String hireDate, Job job, Department department, Employee manager) {
         this.employeeId = employeeId;
         this.salary = salary;
         this.commissionPct = commissionPct;
@@ -183,14 +183,14 @@ public class Employees {
     /**
      * @return the manager
      */
-    public Employees getManager() {
+    public Employee getManager() {
         return manager;
     }
 
     /**
      * @param manager the manager to set
      */
-    public void setManager(Employees manager) {
+    public void setManager(Employee manager) {
         this.manager = manager;
     }
     
