@@ -96,4 +96,12 @@ public class EmployeeDAO {
                 + "salary = "+ employee.getSalary() + ", commission_pct =  " + employee.getCommissionPct() + ", " 
                 + "manager_id = " +employee.getManager() + ", department_id " + employee.getDepartment() + " )");
     }
+    
+    public boolean deleteEmployee(int id){
+        return this.eksekusi("DELETE FROM employee WHERE employee_id =" + id);
+    }
+    
+    public List<Employee> search(String category, String cari) {
+        return this.getData("select * from employees where regexp_like(" + category + ",'" + cari + "','i') order by 1");
+    }
 }
