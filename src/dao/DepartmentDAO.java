@@ -11,8 +11,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import model.Country;
+import model.Location;
 import model.Department;
+import model.Employee;
 
 /**
  *
@@ -37,8 +38,8 @@ public class DepartmentDAO {
                 Department department = new Department();
                 department.setDepartmentId(resultSet.getInt("department_id"));
                 department.setDepartmentName(resultSet.getString("department_name"));
-                //department.setEmployee(resultSet.getInt("manager_id"));
-                //department.setLocationId(resultSet.getInt("location_id"));
+                department.setEmployee(new Employee(resultSet.getInt("manager_id")));
+                department.setLocation(new Location(resultSet.getInt("location_id")));
                 departments.add(department);
             }
         } catch (SQLException e) {
