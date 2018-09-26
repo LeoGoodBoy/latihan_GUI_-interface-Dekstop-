@@ -24,7 +24,6 @@ public class LocationDAO {
         this.koneksi = koneksi;
     }
     
-    
     public boolean eksekusi(String sql) {
         try {
             PreparedStatement statment = koneksi.prepareStatement(sql);
@@ -37,8 +36,7 @@ public class LocationDAO {
     }
     
     public int autoId() {
-        return this.getData("select max(location_id)+1 location_id,max(location_name)"
-                + "location_name from locations").get(0).getLocation_id();
+        return this.getData("select max(LOCATION_ID)+1 LOCATION_ID, max(STREET_ADDRESS) STREET_ADDRESS, max(POSTAL_CODE) POSTAL_CODE, max(CITY) CITY, max(STATE_PROVINCE) STATE_PROVINCE, max(COUNTRY_ID) COUNTRY_ID from locations").get(0).getLocation_id();
     }
 
     public List<Location> getData(String sql) {
@@ -63,8 +61,31 @@ public class LocationDAO {
         return locations;
     }
     
-    public boolean simpanLocation(String regName) {
+    public boolean simpanLocation(String street_address, String postal_code, String city, String state_province, String country_id) {
         int id = this.autoId();
-        return this.eksekusi("insert into locations values (" + id + ",'" + regName + "')");
+        return this.eksekusi("insert into locations values (" + id 
+                + ",'" + street_address 
+                + "','"+ postal_code
+                + "','"+ city
+                + "','"+state_province
+                + "','"+country_id
+                + "')");
     }
+    
+    public boolean updateLocation(Location location) {
+        return this.eksekusi("update locations set street_address='"+location.getStreet_address()
+                +"', POSTAL_CODE='"+location.getPostal_code()
+                +"', CITY='"+location.getCity()
+                +"', STATE_PROVINCE='"+location.getState_province()
+                +"', COUNTRY_ID='"+location.getCountry_id()
+                +"' where location_id=" + location.getLocation_id());
+    }
+    public boolean hapusRegion(int id) {
+        return this.eksekusi("delete from locations where location_id =" + id + "");
+    }
+    
+    public List<Location> search(String category, String cari) {
+        return this.getData("select * from locations where regexp_like(" + category + ",'" + cari + "','i') order by 1");
+    }
+    
 }

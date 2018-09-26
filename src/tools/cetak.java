@@ -25,10 +25,10 @@ public class cetak {
 //        for (Region region : rdao.getAllData()) {
 //            System.out.println(region.getRegionId() + "-" + region.getRegionName());
 //        }
-        System.out.println("TAMPIL LOCATION");
-        for (Location location : ldao.getData("select * from locations")) {
-            System.out.println(location.getLocation_id() + "-" + location.getStreet_address());
-        }
+//        System.out.println("TAMPIL LOCATION");
+//        for (Location location : ldao.getData("select * from locations")) {
+//            System.out.println(location.getLocation_id() + "-" + location.getStreet_address());
+//        }
 //        
 //        System.out.println("");
 //        Scanner scp = new Scanner(System.in);
@@ -53,5 +53,7 @@ public class cetak {
 //        
 //        cdao.simpanCountry("KL", "INDONESE", 1);
 //        cdao.hapusCountry("KL");
+            ldao.simpanLocation("jalanjend", "ABCD", "SANGGAU", "KALIMANTAN", "IT");
+            
     }
 }
