@@ -15,24 +15,12 @@ public class Location {
     private String postal_code;
     private String city;
     private String state_province;
-    private String country_id;
+    private Country country_id;
 
-    /**
-     * 
-     */
     public Location() {
     }
-    
-    /**
-     * 
-     * @param location_id
-     * @param Street_address
-     * @param postal_code
-     * @param city
-     * @param state_province
-     * @param country_id 
-     */
-    public Location(int location_id, String Street_address, String postal_code, String city, String state_province, String country_id) {
+
+    public Location(int location_id, String Street_address, String postal_code, String city, String state_province, Country country_id) {
         this.location_id = location_id;
         this.Street_address = Street_address;
         this.postal_code = postal_code;
@@ -114,15 +102,17 @@ public class Location {
     /**
      * @return the country_id
      */
-    public String getCountry_id() {
+    public Country getCountry_id() {
         return country_id;
     }
 
     /**
      * @param country_id the country_id to set
      */
-    public void setCountry_id(String country_id) {
+    public void setCountry_id(Country country_id) {
         this.country_id = country_id;
     }
+    
+    
 
 }
