@@ -68,11 +68,12 @@ public class JobDAO {
     }
 
     public List<Job> getById(String jobId) {
-        return this.getData("SELECT job_title, min_salary, max_salary where job_id='" + jobId + "'");
+        return this.getData("SELECT * from jobs where job_id='" + jobId + "'");
     }
 
-    public List<Job> search(String category, String cari) {
-        return this.getData("SELECT * FROM jobs WHERE regexp_like(" + category + ",'" + cari + "','i') order by 1");
+    public List<Job> searchJob(String category, String cari) {
+        return this.getData("SELECT * FROM jobs WHERE regexp_like(" + category
+                + ",'" + cari + "','i') order by 1");
     }
 
     public boolean eksekusi(String sql) {
@@ -88,18 +89,18 @@ public class JobDAO {
         return hasil;
     }
 
-    public boolean deleteJob(String jobId) {
-        return this.eksekusi("DELETE FROM jobs WHERE job_id='" + jobId + "'");
-    }
-
     public boolean simpanJob(String jobId, String jobTitle, int minSalary, int maxSalary) {
         return this.eksekusi("INSERT INTO jobs VALUES ('" + jobId + "', '" + jobTitle
                 + "', " + minSalary + ", " + maxSalary + ")");
     }
 
+    public boolean deleteJob(String jobId) {
+        return this.eksekusi("DELETE FROM jobs WHERE job_id='" + jobId + "'");
+    }
+
     public boolean updateJob(Job job) {
         return this.eksekusi("UPDATE jobs set job_title = '" + job.getJobTitle()
                 + "', min_salary = " + job.getMinSalary() + ", max_salary = "
-                + job.getMaxSalary() + " where job_id='" + job.getJobId()+"'");
+                + job.getMaxSalary() + " where job_id='" + job.getJobId() + "'");
     }
 }
