@@ -10,5 +10,6 @@ package controller;
  * @author chochong
  */
 public class LocationController {
+        
     
 }
