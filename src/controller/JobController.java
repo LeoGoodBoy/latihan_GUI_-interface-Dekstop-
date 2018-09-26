@@ -24,11 +24,11 @@ public class JobController {
     }
     
     public String simpanJob(String jobId, String jobTitle, int minSalary, int maxSalary){
-        return this.serbaGunaController.getMessage(jdao.simpanJob(jobId, jobTitle, 0, 0));
+        return this.serbaGunaController.getMessage(jdao.simpanJob(jobId, jobTitle, minSalary, maxSalary));
     }
     
-    public String updateJob(String jobId, String jobTitle){
-        Job job = null;
+    public String updateJob(String jobId, String jobTitle, int minSalary, int maxSalary){
+        Job job = new Job(jobId, jobTitle, minSalary, maxSalary);
         return this.serbaGunaController.getMessage(jdao.updateJob(job));
     }
     

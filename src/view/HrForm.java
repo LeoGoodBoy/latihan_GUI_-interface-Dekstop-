@@ -79,6 +79,7 @@ public class HrForm extends javax.swing.JFrame {
         });
         jMenu1.add(mniLocation);
 
+        mniJob.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, java.awt.event.InputEvent.CTRL_MASK));
         mniJob.setText("Job");
         mniJob.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,7 +113,7 @@ public class HrForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         RegionView regionView = new RegionView();
         regionView.show();
-        dpHr.add(regionView);
+        dpHr.add(regionView); 
 //        this.getParent().add(regionView);
 //        regionView.setVisible(true);
     }//GEN-LAST:event_mniRegionActionPerformed
