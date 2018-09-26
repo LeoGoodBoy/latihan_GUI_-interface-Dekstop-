@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Country;
+import model.Region;
 
 
 /**
@@ -45,6 +46,7 @@ public class CountryDAO {
                 Country country = new Country();
                 country.setCountryId(resultSet.getString("COUNTRY_ID"));
                 country.setCountryName(resultSet.getString("COUNTRY_NAME"));
+                country.setRegion(new Region(resultSet.getInt("REGION_ID")));
                 countrys.add(country);
             }
         } catch (SQLException e) {

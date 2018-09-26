@@ -335,6 +335,7 @@ public class RegionView extends javax.swing.JInternalFrame {
         btnUpdate.setEnabled(true);
         btnDelete.setEnabled(true);
     }
+    
     private void reset(){
         txtRegionId.setText("");
         txtRegionId.setEnabled(true);
