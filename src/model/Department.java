@@ -9,7 +9,7 @@ package model;
  *
  * @author Nande
  */
-class Department {
+public class Department {
     private int departmentId,managerId,locationId;
     private String departmentName;
 
