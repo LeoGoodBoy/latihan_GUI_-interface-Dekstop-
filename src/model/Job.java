@@ -9,6 +9,6 @@ package model;
  *
  * @author Nande
  */
-public class Employees {
+class Job {
     
 }
