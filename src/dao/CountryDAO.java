@@ -109,7 +109,6 @@ public class CountryDAO {
         return this.eksekusi("update countries set country_name='" + country.getCountryName()
                 + "', region_id="+ country.getRegion().getRegionId()
                 + " where country_id='" + country.getCountryId() +"'");
-
     }
     
 }
