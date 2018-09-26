@@ -5,10 +5,87 @@
  */
 package dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+import model.Country;
+import model.Location;
+
 /**
  *
  * @author chochong
  */
 public class LocationDAO {
+    private Connection koneksi;
+
+    public LocationDAO(Connection koneksi) {
+        this.koneksi = koneksi;
+    }
+    
+    public boolean eksekusi(String sql) {
+        try {
+            PreparedStatement statment = koneksi.prepareStatement(sql);
+            statment.execute();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return true;
+    }
+    
+    public int autoId() {
+        return this.getData("select max(LOCATION_ID)+1 LOCATION_ID, max(STREET_ADDRESS) STREET_ADDRESS, max(POSTAL_CODE) POSTAL_CODE, max(CITY) CITY, max(STATE_PROVINCE) STATE_PROVINCE, max(COUNTRY_ID) COUNTRY_ID from locations").get(0).getLocation_id();
+    }
+
+    public List<Location> getData(String sql) {
+        List<Location> locations = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = koneksi.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Location location = new Location();
+                location.setLocation_id(resultSet.getInt("LOCATION_ID"));
+                location.setStreet_address(resultSet.getString("STREET_ADDRESS"));
+                location.setPostal_code(resultSet.getString("POSTAL_CODE"));
+                location.setCity(resultSet.getString("CITY"));
+                location.setState_province(resultSet.getString("STATE_PROVINCE"));
+                location.setCountry_id(new Country(resultSet.getString("COUNTRY_ID")));
+                locations.add(location);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return locations;
+    }
+    
+    public boolean simpanLocation(String street_address, String postal_code, String city, String state_province, String country_id) {
+        int id = this.autoId();
+        return this.eksekusi("insert into locations values (" + id 
+                + ",'" + street_address 
+                + "','"+ postal_code
+                + "','"+ city
+                + "','"+state_province
+                + "','"+country_id
+                + "')");
+    }
+    
+    public boolean updateLocation(Location location) {
+        return this.eksekusi("update locations set street_address='"+location.getStreet_address()
+                +"', POSTAL_CODE='"+location.getPostal_code()
+                +"', CITY='"+location.getCity()
+                +"', STATE_PROVINCE='"+location.getState_province()
+                +"', COUNTRY_ID='"+location.getCountry_id()
+                +"' where location_id=" + location.getLocation_id());
+    }
+    public boolean hapusRegion(int id) {
+        return this.eksekusi("delete from locations where location_id =" + id + "");
+    }
+    
+    public List<Location> search(String category, String cari) {
+        return this.getData("select * from locations where regexp_like(" + category + ",'" + cari + "','i') order by 1");
+    }
     
 }

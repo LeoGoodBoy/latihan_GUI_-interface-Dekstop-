@@ -17,6 +17,10 @@ public class Country {
     public Country() {
     }
 
+    public Country(String countryId) {
+        this.countryId = countryId;
+    }
+
     public Country(String countryId, String countryName) {
         this.countryId = countryId;
         this.countryName = countryName;

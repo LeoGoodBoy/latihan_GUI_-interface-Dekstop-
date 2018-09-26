@@ -30,8 +30,9 @@ public class HrForm extends javax.swing.JFrame {
         dpHr = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        mniCountry = new javax.swing.JMenuItem();
         mniRegion = new javax.swing.JMenuItem();
+        mniLocation = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -49,14 +50,14 @@ public class HrForm extends javax.swing.JFrame {
 
         jMenu1.setText("File");
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem1.setText("Country");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        mniCountry.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
+        mniCountry.setText("Country");
+        mniCountry.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                mniCountryActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(mniCountry);
 
         mniRegion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
         mniRegion.setText("Region");
@@ -67,6 +68,15 @@ public class HrForm extends javax.swing.JFrame {
             }
         });
         jMenu1.add(mniRegion);
+
+        mniLocation.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
+        mniLocation.setText("Location");
+        mniLocation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniLocationActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mniLocation);
 
         jMenuBar1.add(jMenu1);
 
@@ -98,12 +108,19 @@ public class HrForm extends javax.swing.JFrame {
 //        regionView.setVisible(true);
     }//GEN-LAST:event_mniRegionActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void mniCountryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCountryActionPerformed
         // TODO add your handling code here:
         CountryView countryView = new CountryView();
         countryView.show();
         dpHr.add(countryView);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_mniCountryActionPerformed
+
+    private void mniLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniLocationActionPerformed
+        // TODO add your handling code here:
+        LocationView locationView = new LocationView();
+        locationView.show();
+        dpHr.add(locationView);
+    }//GEN-LAST:event_mniLocationActionPerformed
 
     /**
      * @param args the command line arguments
@@ -145,7 +162,8 @@ public class HrForm extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem mniCountry;
+    private javax.swing.JMenuItem mniLocation;
     private javax.swing.JMenuItem mniRegion;
     // End of variables declaration//GEN-END:variables
 }

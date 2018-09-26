@@ -37,8 +37,6 @@ public class Employee {
         this.department = department;
         this.manager = manager;
     }
-
-    
     
     /**
      * @return the employeeId
