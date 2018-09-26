@@ -42,4 +42,8 @@ public class RegionController {
         return rdao.getAllData();
     }
     
+    public List<Region> searchRegion(String category, String cari){
+        return rdao.search(category, cari);
+    }
+    
 }
