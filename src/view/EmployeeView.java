@@ -6,6 +6,7 @@
 package view;
 
 import controller.EmployeeController;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -28,7 +29,7 @@ public class EmployeeView extends javax.swing.JInternalFrame {
     EmployeeController controller;
     SerbaGunaView serbaGunaView;
     String date;
-    public EmployeeView() {
+    public EmployeeView() throws SQLException {
         initComponents();
         this.controller = new EmployeeController(new Koneksi().getKoneksi());
         this.serbaGunaView = new SerbaGunaView();

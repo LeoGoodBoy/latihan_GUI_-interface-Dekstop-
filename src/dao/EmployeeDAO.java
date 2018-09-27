@@ -8,6 +8,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Department;
@@ -31,48 +32,76 @@ public class EmployeeDAO {
         this.koneksi = koneksi;
     }
 
+    private Employee getDataIdName(String query) {
+        Employee employee = new Employee(); 
+        try{
+            try (PreparedStatement statement = koneksi.prepareStatement(query); ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    employee.setEmployeeId(resultSet.getInt("employee_id"));
+                    employee.setLastName(resultSet.getString("last_name"));
+                }
+            }
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return employee;
+    }
+
     private List<Employee> getData(String query) {
         List<Employee> employees = new ArrayList<>();
         try {
-            PreparedStatement statement = koneksi.prepareStatement(query);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                Employee employee = new Employee();
-                jdao = new JobDAO(koneksi);
-
-                String jobId = jdao.getById(resultSet.getString("job_id")).get(0).getJobId();
-                String jobTitle = jdao.getById(resultSet.getString("job_id")).get(0).getJobTitle();
-                Job job = new Job(jobId, jobTitle);
-                int managerId = 0;
-                String lastName = "";
-                int lengt = this.getById(resultSet.getInt("manager_id")).size();
-                if(lengt > 0) {
-                    managerId = this.getById(resultSet.getInt("manager_id")).get(0).getEmployeeId();
-                    lastName = this.getById(resultSet.getInt("manager_id")).get(0).getLastName();
+            try (PreparedStatement statement = koneksi.prepareStatement(query); ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Employee employee = new Employee();
+                    jdao = new JobDAO(koneksi);
+                    
+                    String jobId = jdao.getById(resultSet.getString("job_id")).get(0).getJobId();
+                    String jobTitle = jdao.getById(resultSet.getString("job_id")).get(0).getJobTitle();
+                    Job job = new Job(jobId, jobTitle);
+                    int managerId = 0;
+                    String lastName = "";
+                    int lengt = this.getById(resultSet.getInt("manager_id")).size();
+                    if (lengt > 0) {
+                        managerId = this.getIdName(resultSet.getInt("manager_id")).getEmployeeId();
+                        lastName = this.getIdName(resultSet.getInt("manager_id")).getLastName();
+                    }
+                    Employee manager;
+                    
+                    if (managerId == 0) {
+                        manager = new Employee();
+                    } else {
+                        manager = new Employee(managerId, lastName);
+                    }
+                    
+                    ddao = new DepartmentDAO(koneksi);
+                    
+                    int dId = 0;
+                    String dName = "";
+                    lengt = ddao.getIdNameById(resultSet.getInt("department_id")).size();
+                    if(lengt > 0){
+                        dId = ddao.getIdNameById(resultSet.getInt("department_id")).get(0).getDepartmentId();
+                        dName = ddao.getIdNameById(resultSet.getInt("department_id")).get(0).getDepartmentName();
+                    }
+                        
+                    Department department;
+                    if(dId == 0) department = new Department();
+                    else department = new Department(dId, dName);
+                    
+                    employee.setEmployeeId(resultSet.getInt("employee_id"));
+                    employee.setFirstName(resultSet.getString("first_name"));
+                    employee.setLastName(resultSet.getString("last_name"));
+                    employee.setEmail(resultSet.getString("email"));
+                    employee.setPhoneNumber(resultSet.getString("phone_number"));
+                    employee.setHireDate(resultSet.getDate("hire_date").toString());
+                    employee.setJob(job);
+                    employee.setSalary(resultSet.getInt("salary"));
+                    employee.setCommissionPct(resultSet.getFloat("commission_pct"));
+                    employee.setManager(manager);
+                    
+                    employee.setDepartment(department);
+                    employees.add(employee);
                 }
-                Employee manager;
-                
-                if(managerId == 0) manager = new Employee();
-                else manager = new Employee(managerId, lastName);
-
-                ddao = new DepartmentDAO(koneksi);
-                int dId = ddao.getIdNameById(resultSet.getInt("department_id")).get(0).getDepartmentId();
-                String dName = ddao.getIdNameById(resultSet.getInt("department_id")).get(0).getDepartmentName();
-                
-                Department department = new Department(dId, dName);
-                employee.setEmployeeId(resultSet.getInt("employee_id"));
-                employee.setFirstName(resultSet.getString("first_name"));
-                employee.setLastName(resultSet.getString("last_name"));
-                employee.setEmail(resultSet.getString("email"));
-                employee.setPhoneNumber(resultSet.getString("phone_number"));
-                employee.setHireDate(resultSet.getDate("hire_date").toString());
-                employee.setJob(job);
-                employee.setSalary(resultSet.getInt("salary"));
-                employee.setCommissionPct(resultSet.getFloat("commission_pct"));
-                employee.setManager(manager);
-
-                employee.setDepartment(department);
-                employees.add(employee);
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -81,7 +110,7 @@ public class EmployeeDAO {
         return employees;
     }
 
-    public List<Employee> getAllData() {
+    public List<Employee> getAllData(){
         return this.getData("SELECT * FROM employees order by 1");
     }
 
@@ -98,14 +127,18 @@ public class EmployeeDAO {
         return hasil;
     }
 
-    public int getNextId() {
+    public int getNextId() throws SQLException {
         int id = this.getData("SELECT * FROM employees where rownum = 1 order by 1 desc").get(0).getEmployeeId();
         id++;
         return id;
     }
 
-    public List<Employee> getById(int id) {
+    public List<Employee> getById(int id)  {
         return this.getData("select * from employees where employee_id = " + id);
+    }
+    
+    public Employee getIdName(int employeeId){
+        return this.getDataIdName("select * from employees where employee_id = " + employeeId);
     }
 
     public boolean simpanEmployee(Employee employee) {
