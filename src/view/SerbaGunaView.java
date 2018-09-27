@@ -15,6 +15,5 @@ import javax.swing.JOptionPane;
 public class SerbaGunaView {
     public void tampilPesan(Component component, String pesan, String judul){
         JOptionPane.showMessageDialog(component, pesan, judul, JOptionPane.INFORMATION_MESSAGE);
-        
     }
 }

@@ -21,12 +21,15 @@ import model.Region;
  */
 public class CountryDAO {
     private Connection koneksi;
+    
+    private RegionDAO rdao ;
 
     public CountryDAO() {
     }
 
     public CountryDAO(Connection koneksi) {
         this.koneksi = koneksi;
+        this.rdao = new RegionDAO(koneksi);
     }
 
     public Connection getKoneksi() {
@@ -46,7 +49,9 @@ public class CountryDAO {
                 Country country = new Country();
                 country.setCountryId(resultSet.getString("COUNTRY_ID"));
                 country.setCountryName(resultSet.getString("COUNTRY_NAME"));
-                country.setRegion(new Region(resultSet.getInt("REGION_ID")));
+                //country.setRegion(new Region(resultSet.getInt("REGION_ID")));
+                Region region = rdao.getById(resultSet.getInt("REGION_ID")).get(0);
+                country.setRegion(region);
                 countrys.add(country);
             }
         } catch (SQLException e) {

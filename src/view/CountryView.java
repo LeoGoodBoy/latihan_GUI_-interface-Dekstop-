@@ -30,6 +30,7 @@ public class CountryView extends javax.swing.JInternalFrame {
         controller = new CountryController(new Koneksi().getKoneksi());
         serbaGuna = new SerbaGunaView();
         bindingCountries(controller.viewCountry());
+        controller.loadCmbRegionId(cmbRegionId);
     }
 
     /**
@@ -56,6 +57,7 @@ public class CountryView extends javax.swing.JInternalFrame {
         cmbKategoriCountry = new javax.swing.JComboBox<>();
         btnSearchCountry = new javax.swing.JButton();
         txtRegionId = new javax.swing.JTextField();
+        cmbRegionId = new javax.swing.JComboBox<>();
 
         setTitle("Master Country");
         setToolTipText("ini master country");
@@ -169,6 +171,8 @@ public class CountryView extends javax.swing.JInternalFrame {
                                 .addComponent(btnExit))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtRegionId, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbRegionId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnSimpanCountry)
@@ -202,7 +206,8 @@ public class CountryView extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtRegionId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtRegionId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbRegionId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDeleteCountry)
@@ -284,13 +289,13 @@ public class CountryView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtRegionIdActionPerformed
 
     private void bindingCountries(List<Country> countrys){
-        String [] header = {"No","Country Id","Country Name","Region Id"};
+        String [] header = {"No","Country Id","Country Name","Region Name"};
         String [][] data = new String[countrys.size()][header.length];
         for (int i = 0; i < countrys.size(); i++) {
             data [i][0] = (i+1)+"";
             data [i][1] = countrys.get(i).getCountryId();
             data [i][2] = countrys.get(i).getCountryName();
-            data [i][3] = countrys.get(i).getRegion().getRegionId() + "";       
+            data [i][3] = countrys.get(i).getRegion().getRegionName()+ "";       
         }
         tblCountry.setModel(new DefaultTableModel(data, header));
         reset();
@@ -320,6 +325,7 @@ public class CountryView extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnSimpanCountry;
     private javax.swing.JButton btnUpdateCountry;
     private javax.swing.JComboBox<String> cmbKategoriCountry;
+    private javax.swing.JComboBox<String> cmbRegionId;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
