@@ -142,7 +142,7 @@ public class LocationView extends javax.swing.JInternalFrame {
             }
         });
 
-        cmbKategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Region_Id", "Region_Name" }));
+        cmbKategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Location_Id", "Street_Address", "Postal_Code", "City", "State_Province" }));
 
         tblLocation.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -304,9 +304,7 @@ public class LocationView extends javax.swing.JInternalFrame {
 
     private void txtSearchInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txtSearchInputMethodTextChanged
         // TODO add your handling code here:
-        if (txtSearch.getText().equals("")) {
-            bindingLocation(controller.viewLocation());
-        }
+       
 
     }//GEN-LAST:event_txtSearchInputMethodTextChanged
 
@@ -316,12 +314,13 @@ public class LocationView extends javax.swing.JInternalFrame {
 
     private void txtSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyPressed
         // TODO add your handling code here:
-        //        if (txtSearch.getText().equals("")) {
-        //            bindingRegions(controller.viewRegion());
-        //        }
+       
     }//GEN-LAST:event_txtSearchKeyPressed
 
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
+        if (txtSearch.getText().equals("")) {
+            bindingLocation(controller.viewLocation());
+        }
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             bindingLocation(controller.searchLocation(cmbKategori.getSelectedItem().toString(),
                     txtSearch.getText()));
