@@ -91,12 +91,14 @@ public class EmployeeDAO {
     }
     
     public boolean updateEmployee(Employee employee){
-        return this.eksekusi("UPDATE employees SET firts_name = '" 
+        String query = "UPDATE employees SET first_name = '" 
                 + employee.getFirstName() +"', last_name = '" + employee.getLastName() + "',"
                 + "email = '" + employee.getEmail() + "', phone_number = '"+ employee.getPhoneNumber() + "', "
-                + "hire_date = '" + employee.getHireDate() + "', job_id = '" + employee.getJob().getJobId() +"', "
+                + "hire_date = to_date('" + employee.getHireDate() + "', 'mm/dd/yyyy') , job_id = '" + employee.getJob().getJobId() +"', "
                 + "salary = "+ employee.getSalary() + ", commission_pct =  " + employee.getCommissionPct() + ", " 
-                + "manager_id = " +employee.getManager() + ", department_id " + employee.getDepartment() + " )");
+                + "manager_id = " +employee.getManager().getEmployeeId() + ", department_id = " 
+                + employee.getDepartment().getDepartmentId() + " WHERE employee_id = " + employee.getEmployeeId();
+        return this.eksekusi(query);
     }
     
     public boolean deleteEmployee(int id){

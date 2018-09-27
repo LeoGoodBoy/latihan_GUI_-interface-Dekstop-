@@ -79,6 +79,17 @@ public class EmployeeDAOTest {
     }
     
     
+    public void tesUpdateEmployee(){
+        System.out.println("Update Employee Data");
+        Connection koneksi = new Koneksi().getKoneksi();
+        EmployeeDAO edao = new EmployeeDAO(koneksi);
+        Job job = new Job("IT_PROG");
+        Department department = new Department(60);
+        Employee manager = new Employee(103);
+        Employee employee = new Employee(208, 6000, (float)0.2, "Kurnia", "Sandy", "windingzs", "0878282", "06/25/2018", job, department, manager);
+        assertTrue(edao.updateEmployee(employee));
+    }
+    
     public void tesDelete(){
         System.out.println("Delete Employee Data");
         Connection koneksi = new Koneksi().getKoneksi();

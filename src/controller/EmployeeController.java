@@ -38,6 +38,16 @@ public class EmployeeController {
         return this.serbaGunaController.getMessage(edao.simpanEmployee(employee));
     }
     
+    public String updateEmployee(String employeeId, String salary, String commission, String firstName, String lastName, String email, String phoneNumber, String hireDate, String jobId, String departmentId, String managerId){
+        Job job = new Job(jobId);
+        Department department = new Department(Integer.parseInt(departmentId));
+        Employee manager = new Employee(Integer.parseInt(managerId));
+        Employee employee = new Employee(Integer.parseInt(employeeId), Integer.parseInt(salary), Float.parseFloat(commission), firstName, lastName, email, phoneNumber, hireDate, job, department, manager);
+        return this.serbaGunaController.getMessage(edao.updateEmployee(employee));
+    }
     
+    public String hapusEmployee(String employeeId){
+        return this.serbaGunaController.getMessage(edao.deleteEmployee(Integer.parseInt(employeeId)));
+    }
     
 }

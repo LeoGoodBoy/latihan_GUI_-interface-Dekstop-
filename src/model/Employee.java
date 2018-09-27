@@ -24,6 +24,20 @@ public class Employee {
         this.employeeId = employeeId;
     }
 
+    public Employee(int employeeId, int salary, float commissionPct, String firstName, String lastName, String email, String phoneNumber, String hireDate, Job job, Department department, Employee manager) {
+        this.employeeId = employeeId;
+        this.salary = salary;
+        this.commissionPct = commissionPct;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.hireDate = hireDate;
+        this.job = job;
+        this.department = department;
+        this.manager = manager;
+    }
+
     public Employee(int salary, float commissionPct, String firstName, String lastName, String email, String phoneNumber, String hireDate, Job job, Department department, Employee manager) {
         this.salary = salary;
         this.commissionPct = commissionPct;
