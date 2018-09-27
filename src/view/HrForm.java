@@ -167,7 +167,11 @@ public class HrForm extends javax.swing.JFrame {
     }//GEN-LAST:event_mniDepartmentActionPerformed
 
     private void mniEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniEmployeeActionPerformed
-        EmployeeView employeeView = new EmployeeView();
+//        EmployeeView employeeView = new EmployeeView();
+//        employeeView.show();
+//        dpHr.add(employeeView);
+
+        EmployeeViewSimple employeeView = new EmployeeViewSimple();
         employeeView.show();
         dpHr.add(employeeView);
     }//GEN-LAST:event_mniEmployeeActionPerformed

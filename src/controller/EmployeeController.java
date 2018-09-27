@@ -40,6 +40,7 @@ public class EmployeeController {
         Job job = new Job(jobId);
         Department department = new Department(Integer.parseInt(departmentId));
         Employee manager = new Employee(Integer.parseInt(managerId));
+        
         Employee employee = new Employee(Integer.parseInt(salary), Float.parseFloat(commission), firstName, lastName, email, phoneNumber, hireDate, job, department, manager);
         return this.serbaGunaController.getMessage(edao.simpanEmployee(employee));
     }

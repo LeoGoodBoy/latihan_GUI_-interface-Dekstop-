@@ -55,40 +55,42 @@
                               <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtDepartmentId" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                              <Component id="txtHireDate" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                              <Component id="txtManagerId" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                              <Component id="txtCommissionPct" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                              <Component id="txtSalary" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                              <Component id="txtJobId" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                              <Component id="txtPhoneNumber" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                              <Component id="txtEmail" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                              <Component id="txtLastName" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                              <Component id="txtFirstName" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                              <Component id="txtEmployeeId" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="txtDepartmentId" alignment="0" pref="200" max="32767" attributes="0"/>
+                              <Component id="txtManagerId" alignment="0" pref="200" max="32767" attributes="0"/>
+                              <Component id="txtCommissionPct" alignment="0" pref="200" max="32767" attributes="0"/>
+                              <Component id="txtSalary" alignment="0" pref="200" max="32767" attributes="0"/>
+                              <Component id="txtJobId" alignment="0" pref="200" max="32767" attributes="0"/>
+                              <Component id="txtPhoneNumber" alignment="0" pref="200" max="32767" attributes="0"/>
+                              <Component id="txtEmail" alignment="0" pref="200" max="32767" attributes="0"/>
+                              <Component id="txtLastName" alignment="0" pref="200" max="32767" attributes="0"/>
+                              <Component id="txtFirstName" alignment="0" pref="200" max="32767" attributes="0"/>
+                              <Component id="txtEmployeeId" alignment="0" pref="200" max="32767" attributes="0"/>
+                              <Component id="dcHireDate" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                          <Component id="btnSimpan" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="btnUpdate" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="btnDelete" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="txtHireDate" min="-2" pref="200" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="btnSimpan" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="btnUpdate" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="btnDelete" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
                   </Group>
+                  <EmptySpace pref="22" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
-                          <Component id="jScrollPane1" pref="556" max="32767" attributes="0"/>
-                      </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="txtSearch" min="-2" pref="200" max="-2" attributes="0"/>
                       </Group>
+                      <Component id="jScrollPane1" alignment="1" min="-2" pref="573" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -127,9 +129,9 @@
                               <Component id="txtPhoneNumber" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtHireDate" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                              <Component id="dcHireDate" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -162,6 +164,8 @@
                               <Component id="btnUpdate" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="btnDelete" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="txtHireDate" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jScrollPane1" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -306,6 +310,8 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="SEARCH :"/>
           </Properties>
+        </Component>
+        <Component class="com.toedter.calendar.JDateChooser" name="dcHireDate">
         </Component>
       </SubComponents>
     </Container>
