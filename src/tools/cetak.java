@@ -53,7 +53,7 @@ public class cetak {
 //        
 //        cdao.simpanCountry("KL", "INDONESE", 1);
 //        cdao.hapusCountry("KL");
-            ldao.simpanLocation("jalanjend", "ABCD", "SANGGAU", "KALIMANTAN", "IT");
+        //    ldao.simpanLocation("jalanjend", "ABCD", "SANGGAU", "KALIMANTAN", "IT");
             
     }
 }
