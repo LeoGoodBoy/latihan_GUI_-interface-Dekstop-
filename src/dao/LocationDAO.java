@@ -41,14 +41,14 @@ public class LocationDAO {
             e.printStackTrace();
         }
         return hasil;
-    }
+    } 
     
     public int autoId() {
         return this.getData("select max(LOCATION_ID)+100 LOCATION_ID, max(STREET_ADDRESS) STREET_ADDRESS, "
                 + "max(POSTAL_CODE) POSTAL_CODE, max(CITY) CITY, max(STATE_PROVINCE) STATE_PROVINCE, "
                 + "max(COUNTRY_ID) COUNTRY_ID from locations").get(0).getLocation_id();
     }
-
+ 
     public List<Location> getData(String sql) {
         List<Location> locations = new ArrayList<>();
         try {

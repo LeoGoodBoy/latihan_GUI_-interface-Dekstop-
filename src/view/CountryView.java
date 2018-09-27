@@ -31,7 +31,7 @@ public class CountryView extends javax.swing.JInternalFrame {
         controller = new CountryController(new Koneksi().getKoneksi());
         serbaGuna = new SerbaGunaView();
         bindingCountries(controller.viewCountry());
-        controller.loadCmb(cmbRegionId); 
+        controller.loadCmb(cmbRegionId);
     }
 
     /**
