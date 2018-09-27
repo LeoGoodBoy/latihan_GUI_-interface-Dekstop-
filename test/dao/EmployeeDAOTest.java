@@ -7,7 +7,9 @@ package dao;
 
 import java.sql.Connection;
 import java.util.List;
+import model.Department;
 import model.Employee;
+import model.Job;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -51,7 +53,47 @@ public class EmployeeDAOTest {
         System.out.println("Get All Data Employee");
         Connection koneksi = new Koneksi().getKoneksi();
         EmployeeDAO edao = new EmployeeDAO(koneksi);
-        List<Employee> employee = edao.getAllData();
-        assertNotNull(employee);
+        List<Employee> employees = edao.getAllData();
+        assertNotNull(employees);
+    }
+    
+    @Test
+    public void tesSearch(){
+        System.out.println("Search Data");
+        Connection koneksi = new Koneksi().getKoneksi();
+        EmployeeDAO edao = new EmployeeDAO(koneksi);
+        List<Employee> employees = edao.search("employee_id", "100");
+        assertNotNull(employees);
+    }
+    
+    
+    public void tesAddEmployee(){
+        System.out.println("Add Employee Data");
+        Connection koneksi = new Koneksi().getKoneksi();
+        EmployeeDAO edao = new EmployeeDAO(koneksi);
+        Job job = new Job("IT_PROG");
+        Department department = new Department(60);
+        Employee manager = new Employee(103);
+        Employee employee = new Employee(5000, (float)0.2, "Kurnia", "Sandy", "windingz3", "0878282", "06/25/2018", job, department, manager);
+        assertTrue(edao.simpanEmployee(employee));
+    }
+    
+    
+    public void tesUpdateEmployee(){
+        System.out.println("Update Employee Data");
+        Connection koneksi = new Koneksi().getKoneksi();
+        EmployeeDAO edao = new EmployeeDAO(koneksi);
+        Job job = new Job("IT_PROG");
+        Department department = new Department(60);
+        Employee manager = new Employee(103);
+        Employee employee = new Employee(208, 6000, (float)0.2, "Kurnia", "Sandy", "windingzs", "0878282", "06/25/2018", job, department, manager);
+        assertTrue(edao.updateEmployee(employee));
+    }
+    
+    public void tesDelete(){
+        System.out.println("Delete Employee Data");
+        Connection koneksi = new Koneksi().getKoneksi();
+        EmployeeDAO edao = new EmployeeDAO(koneksi);
+        assertTrue(edao.deleteEmployee(207));
     }
 }

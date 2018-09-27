@@ -10,7 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Semaphore;
 import model.Department;
 import model.Employee;
 import model.Job;
@@ -80,25 +79,30 @@ public class EmployeeDAO {
     }
     
     public boolean simpanEmployee(Employee employee){
-        return this.eksekusi("INSERT INTO employees VALUES(" + this.getNextId() + ", '" 
+        String query = "INSERT INTO employees VALUES(" + this.getNextId() + ", '" 
                 + employee.getFirstName() +"', '" + employee.getLastName() + "', '"
-                + employee.getEmail() + "', '"+ employee.getPhoneNumber() + "', '"
-                + employee.getHireDate() + "', '" + employee.getJob().getJobId() +"', "
+                + employee.getEmail() + "', '"+ employee.getPhoneNumber() + "',to_date('"
+                + employee.getHireDate() + "', 'mm/dd/yyyy'), '" + employee.getJob().getJobId() +"', "
                 + employee.getSalary() + ", " + employee.getCommissionPct() + ", " 
-                + employee.getManager() + ", " + employee.getDepartment() + " )");
+                + employee.getManager().getEmployeeId() + ", " 
+                + employee.getDepartment().getDepartmentId()+ ")";
+        
+        return this.eksekusi(query);
     }
     
     public boolean updateEmployee(Employee employee){
-        return this.eksekusi("UPDATE employees SET firts_name = '" 
+        String query = "UPDATE employees SET first_name = '" 
                 + employee.getFirstName() +"', last_name = '" + employee.getLastName() + "',"
                 + "email = '" + employee.getEmail() + "', phone_number = '"+ employee.getPhoneNumber() + "', "
-                + "hire_date = '" + employee.getHireDate() + "', job_id = '" + employee.getJob().getJobId() +"', "
+                + "hire_date = to_date('" + employee.getHireDate() + "', 'mm/dd/yyyy') , job_id = '" + employee.getJob().getJobId() +"', "
                 + "salary = "+ employee.getSalary() + ", commission_pct =  " + employee.getCommissionPct() + ", " 
-                + "manager_id = " +employee.getManager() + ", department_id " + employee.getDepartment() + " )");
+                + "manager_id = " +employee.getManager().getEmployeeId() + ", department_id = " 
+                + employee.getDepartment().getDepartmentId() + " WHERE employee_id = " + employee.getEmployeeId();
+        return this.eksekusi(query);
     }
     
     public boolean deleteEmployee(int id){
-        return this.eksekusi("DELETE FROM employee WHERE employee_id =" + id);
+        return this.eksekusi("DELETE FROM employees WHERE employee_id =" + id);
     }
     
     public List<Employee> search(String category, String cari) {

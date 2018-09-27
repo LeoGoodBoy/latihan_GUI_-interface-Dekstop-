@@ -350,6 +350,10 @@ public class LocationView extends javax.swing.JInternalFrame {
         edit();
     }//GEN-LAST:event_tblLocationMouseClicked
 
+    private void cmbKategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbKategoriActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbKategoriActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;

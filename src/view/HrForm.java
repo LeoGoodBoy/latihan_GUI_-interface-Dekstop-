@@ -34,6 +34,7 @@ public class HrForm extends javax.swing.JFrame {
         mniRegion = new javax.swing.JMenuItem();
         mniLocation = new javax.swing.JMenuItem();
         mniJob = new javax.swing.JMenuItem();
+        mniDepartment = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -88,6 +89,15 @@ public class HrForm extends javax.swing.JFrame {
         });
         jMenu1.add(mniJob);
 
+        mniDepartment.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_MASK));
+        mniDepartment.setText("Department");
+        mniDepartment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniDepartmentActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mniDepartment);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edit");
@@ -139,6 +149,13 @@ public class HrForm extends javax.swing.JFrame {
         dpHr.add(jobView);
     }//GEN-LAST:event_mniJobActionPerformed
 
+    private void mniDepartmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDepartmentActionPerformed
+        // TODO add your handling code here:
+        DepartmentView departmentView = new DepartmentView();
+        departmentView.show();
+        dpHr.add(departmentView);
+    }//GEN-LAST:event_mniDepartmentActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -180,6 +197,7 @@ public class HrForm extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem mniCountry;
+    private javax.swing.JMenuItem mniDepartment;
     private javax.swing.JMenuItem mniJob;
     private javax.swing.JMenuItem mniLocation;
     private javax.swing.JMenuItem mniRegion;
