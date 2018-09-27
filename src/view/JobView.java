@@ -56,6 +56,9 @@ public class JobView extends javax.swing.JInternalFrame {
         txtMaxSalary = new javax.swing.JTextField();
         txtMinSalary = new javax.swing.JTextField();
 
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
         setTitle("Master Job");
 
         jLabel1.setText("ID JOB :");
