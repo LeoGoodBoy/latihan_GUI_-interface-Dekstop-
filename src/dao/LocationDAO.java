@@ -36,7 +36,7 @@ public class LocationDAO {
     }
     
     public int autoId() {
-        return this.getData("select max(LOCATION_ID)+1 LOCATION_ID, max(STREET_ADDRESS) STREET_ADDRESS, max(POSTAL_CODE) POSTAL_CODE, max(CITY) CITY, max(STATE_PROVINCE) STATE_PROVINCE, max(COUNTRY_ID) COUNTRY_ID from locations").get(0).getLocation_id();
+        return this.getData("select max(LOCATION_ID)+100 LOCATION_ID, max(STREET_ADDRESS) STREET_ADDRESS, max(POSTAL_CODE) POSTAL_CODE, max(CITY) CITY, max(STATE_PROVINCE) STATE_PROVINCE, max(COUNTRY_ID) COUNTRY_ID from locations").get(0).getLocation_id();
     }
 
     public List<Location> getData(String sql) {
@@ -66,7 +66,7 @@ public class LocationDAO {
         return this.eksekusi("insert into locations values ('"
                 + locationId + "','" + location.getStreet_address() + "',"
                 + location.getPostal_code() + "','" + location.getCity() + "',"
-                + location.getState_province() + "','" + location.getCountry_id() + ")");
+                + location.getState_province() + "','" + location.getCountry_id().getCountryId() + ")");
     }
     
     public boolean updateLocation(Location location) {
@@ -74,7 +74,7 @@ public class LocationDAO {
                 +"', POSTAL_CODE='"+location.getPostal_code()
                 +"', CITY='"+location.getCity()
                 +"', STATE_PROVINCE='"+location.getState_province()
-                +"', COUNTRY_ID='"+location.getCountry_id()
+                +"', COUNTRY_ID='"+location.getCountry_id().getCountryId()
                 +"' where location_id=" + location.getLocation_id());
     }
     

@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Country;
+import model.Region;
 
 
 /**
@@ -45,6 +46,7 @@ public class CountryDAO {
                 Country country = new Country();
                 country.setCountryId(resultSet.getString("COUNTRY_ID"));
                 country.setCountryName(resultSet.getString("COUNTRY_NAME"));
+                country.setRegion(new Region(resultSet.getInt("REGION_ID")));
                 countrys.add(country);
             }
         } catch (SQLException e) {
@@ -67,9 +69,6 @@ public class CountryDAO {
      * @param id digunakan sebagai kunci utama dalam melakukan pencarian
      * @return mengirimkan nilai kedalam method getData menggunakan query yang dijadikan parameter
      */
-    public List<Country> getById(int id){
-        return this.getData("select region_id, region_name from countries where region_id = '"+id+"'");
-    }
     
     /**
      * search digunakan untuk mengambil data dari tabel region berdasarkan id tertentu
@@ -77,10 +76,10 @@ public class CountryDAO {
      * @param cari digunakan sebagai kunci utama dalam melakukan pencarian
      * @return mengirimkan nilai kedalam method getData menggunakan query yang dijadikan parameter
      */
-    public List<Country> search(String category, String cari){
-        return this.getData("select * from countries where regexp_like("+category+",'"+cari+"','i') order by 1");
-                
+    public List<Country> searchCountry(String category, String cari){
+        return this.getData("select * from countries where regexp_like(" + category + ",'" + cari + "','i') order by 1");                
     }
+
     
     public boolean eksekusi(String sql){
         boolean hasil = false;
@@ -96,9 +95,10 @@ public class CountryDAO {
     }
     
     public boolean simpanCountry(Country country){
-        return this.eksekusi("insert into COUNTRIES values ('"
+        String query = "insert into COUNTRIES values ('"
                 +country.getCountryId()+"','"+country.getCountryName()+"',"
-                +country.getRegion().getRegionId()+")");
+                +country.getRegion().getRegionId()+")";
+        return this.eksekusi(query);
     }
     
     public boolean hapusCountry(String id){

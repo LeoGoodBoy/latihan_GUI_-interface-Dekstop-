@@ -75,10 +75,10 @@ public class RegionView extends javax.swing.JInternalFrame {
         });
 
         txtSearch.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 txtSearchInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         txtSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -344,6 +344,7 @@ public class RegionView extends javax.swing.JInternalFrame {
         btnUpdate.setEnabled(true);
         btnDelete.setEnabled(true);
     }
+    
     private void reset(){
         txtRegionId.setText("");
         txtRegionId.setEnabled(true);

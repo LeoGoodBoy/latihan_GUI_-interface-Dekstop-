@@ -7,6 +7,7 @@ package controller;
 
 import dao.CountryDAO;
 import java.sql.Connection;
+import java.util.List;
 import model.Country;
 import model.Region;
 
@@ -55,6 +56,13 @@ private SerbaGunaController serbaGunaController;
         if (isSave) return serbaGunaController.getMessage(cdao.simpanCountry(country));
         else return serbaGunaController.getMessage(cdao.updateCountry(country));
             
+    }
+    public List<Country> searchCountry(String category, String cari){
+        return cdao.searchCountry(category, cari);
+    }
+    
+    public List<Country> viewCountry(){
+        return cdao.getAllData();
     }
 
     
