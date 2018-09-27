@@ -11,8 +11,9 @@ package controller;
  */
 public class SerbaGunaController {
     public String getMessage(boolean cek){
-        String pesan = "gagal";
+        String pesan = "Gagal";
         if (cek)pesan = "Berhasil";
+        
         return pesan;
     }
     

@@ -10,6 +10,7 @@ package model;
  * @author chochong
  */
 public class Location {
+
     private int location_id;
     private String Street_address;
     private String postal_code;
@@ -23,7 +24,15 @@ public class Location {
     public Location(int location_id) {
         this.location_id = location_id;
     }
-    
+
+    public Location(int location_id, String Street_address, String postal_code, String city, String state_province) {
+        this.location_id = location_id;
+        this.Street_address = Street_address;
+        this.postal_code = postal_code;
+        this.city = city;
+        this.state_province = state_province;
+    }
+
     public Location(int location_id, String Street_address, String postal_code, String city, String state_province, Country country_id) {
         this.location_id = location_id;
         this.Street_address = Street_address;
@@ -116,7 +125,5 @@ public class Location {
     public void setCountry_id(Country country_id) {
         this.country_id = country_id;
     }
-    
-    
 
 }

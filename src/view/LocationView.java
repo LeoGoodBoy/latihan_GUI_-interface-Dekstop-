@@ -6,6 +6,7 @@
 package view;
 
 import controller.LocationController;
+import dao.LocationDAO;
 import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -29,6 +30,7 @@ public class LocationView extends javax.swing.JInternalFrame {
         initComponents();
         controller = new LocationController(new Koneksi().getKoneksi());
         serbaGuna = new SerbaGunaView();
+
         bindingLocation(controller.viewLocation());
     }
 
@@ -152,6 +154,11 @@ public class LocationView extends javax.swing.JInternalFrame {
 
             }
         ));
+        tblLocation.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblLocationMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblLocation);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -270,16 +277,16 @@ public class LocationView extends javax.swing.JInternalFrame {
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
         // TODO add your handling code here:
-        String pesan = controller.simpanUpdateLocation(txtLocationId.getText(), txtStreetAddress.getText(),
-                txtCity.getText(), txtPostalCode.getText(), txtStateProvince.getText(), txtCountryId.getText(), true);
+        String pesan = controller.simpanLocation(txtStreetAddress.getText(),
+                txtCity.getText(), txtPostalCode.getText(), txtStateProvince.getText(), txtCountryId.getText());
         serbaGuna.tampilPesan(this, pesan, "Pesan Simpan");
         bindingLocation(controller.viewLocation());
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
-        String pesan = controller.simpanUpdateLocation(txtLocationId.getText(), txtStreetAddress.getText(),
-                txtCity.getText(), txtPostalCode.getText(), txtStateProvince.getText(), txtCountryId.getText(), false);
+        String pesan = controller.updateLocation(txtLocationId.getText(), txtStreetAddress.getText(),
+                txtCity.getText(), txtPostalCode.getText(), txtStateProvince.getText(), txtCountryId.getText());
         serbaGuna.tampilPesan(this, pesan, "Pesan Update");
         bindingLocation(controller.viewLocation());
     }//GEN-LAST:event_btnUpdateActionPerformed
@@ -304,7 +311,7 @@ public class LocationView extends javax.swing.JInternalFrame {
 
     private void txtSearchInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txtSearchInputMethodTextChanged
         // TODO add your handling code here:
-       
+
 
     }//GEN-LAST:event_txtSearchInputMethodTextChanged
 
@@ -314,7 +321,7 @@ public class LocationView extends javax.swing.JInternalFrame {
 
     private void txtSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyPressed
         // TODO add your handling code here:
-       
+
     }//GEN-LAST:event_txtSearchKeyPressed
 
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
@@ -330,6 +337,18 @@ public class LocationView extends javax.swing.JInternalFrame {
     private void txtSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSearchKeyTyped
+
+    private void tblLocationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLocationMouseClicked
+        // TODO add your handling code here:
+        int row = tblLocation.getSelectedRow();
+        txtLocationId.setText(tblLocation.getValueAt(row, 1).toString());
+        txtStreetAddress.setText(tblLocation.getValueAt(row, 2).toString());
+        txtPostalCode.setText(tblLocation.getValueAt(row, 3).toString());
+        txtCity.setText(tblLocation.getValueAt(row, 4).toString());
+        txtStateProvince.setText(tblLocation.getValueAt(row, 5).toString());
+        txtCountryId.setText(tblLocation.getValueAt(row, 6).toString());
+        edit();
+    }//GEN-LAST:event_tblLocationMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -358,15 +377,16 @@ public class LocationView extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     private void bindingLocation(List<Location> location) {
-        String[] header = {"No", "Location ID", "Street Address", "City", "State Province", "Country ID"};
+        String[] header = {"No", "Location ID", "Street Address", "Postal_Code", "City", "State Province", "Country ID"};
         String[][] data = new String[location.size()][header.length];
         for (int i = 0; i < location.size(); i++) {
             data[i][0] = (i + 1) + "";
             data[i][1] = location.get(i).getLocation_id() + "";
             data[i][2] = location.get(i).getStreet_address() + "";
-            data[i][3] = location.get(i).getCity() + "";
-            data[i][4] = location.get(i).getState_province() + "";
-            data[i][5] = location.get(i).getCountry_id() + "";
+            data[i][3] = location.get(i).getPostal_code() + "";
+            data[i][4] = location.get(i).getCity() + "";
+            data[i][5] = location.get(i).getState_province() + "";
+            data[i][6] = location.get(i).getCountry_id().getCountryId() + "";
         }
         tblLocation.setModel(new DefaultTableModel(data, header));
         reset();
