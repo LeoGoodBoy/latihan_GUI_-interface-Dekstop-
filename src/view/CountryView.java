@@ -32,6 +32,7 @@ public class CountryView extends javax.swing.JInternalFrame {
         serbaGuna = new SerbaGunaView();
         bindingCountries(controller.viewCountry());
         controller.loadCmb(cmbRegionId); 
+        txtCountryId.setText("hmmmmmm");
     }
 
     /**

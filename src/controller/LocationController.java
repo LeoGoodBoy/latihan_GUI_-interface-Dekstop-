@@ -9,7 +9,9 @@ import dao.CountryDAO;
 import dao.LocationDAO;
 import java.awt.TextArea;
 import java.sql.Connection;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import model.Country;
@@ -67,7 +69,8 @@ public class LocationController {
     }
     
     public void loadMaxId(JTextField txt){
-//        txt.setText(ldao.autoId());
+        int a = ldao.autoId();
+        txt.setText("wadaw");
     }
 
 }
