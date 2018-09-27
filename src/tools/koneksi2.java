@@ -11,28 +11,27 @@ import oracle.jdbc.pool.OracleDataSource;
 
 /**
  *
- * @author chochong
+ * @author 680183
  */
-public class Koneksi {
-    private Connection koneksi = null;
-    
-    public Connection getKoneksi(){
+public class koneksi2 {
+ private Connection connect= null;
+    public Connection getConnection(){
         try {
             OracleDataSource ods = new OracleDataSource();
-            ods.setServerName("localhost");
             ods.setDriverType("thin");
+            ods.setServerName("localhost");
             ods.setPortNumber(1521);
             ods.setServiceName("XE");
+            ods.setDatabaseName("HR");
             ods.setUser("system");
             ods.setPassword("ayamgeprek");
-
-            koneksi = ods.getConnection();
-            koneksi.createStatement().executeQuery("alter session set current_schema=hr");
+            connect = ods.getConnection();
+            connect.createStatement()
+                    .execute("alter session set " + "current_schema=hr");
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }  
-        return koneksi;
-        
-    }
+           System.out.println(e.getMessage());
+          // e.printStackTrace();
+        }
+        return connect;
+    }   
 }
