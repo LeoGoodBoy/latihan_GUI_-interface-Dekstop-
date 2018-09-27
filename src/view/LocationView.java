@@ -31,7 +31,7 @@ public class LocationView extends javax.swing.JInternalFrame {
         controller = new LocationController(new Koneksi().getKoneksi());
         serbaGuna = new SerbaGunaView();
         controller.loadCmb(cmbCountryId);
-
+        controller.loadMaxId(txtCountryId);
         bindingLocation(controller.viewLocation());
     }
 
@@ -133,6 +133,12 @@ public class LocationView extends javax.swing.JInternalFrame {
         jPanel2.setName(""); // NOI18N
 
         jLabel7.setText("Location ID : ");
+
+        txtLocationId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLocationIdActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("Street Address :");
 
@@ -378,6 +384,11 @@ public class LocationView extends javax.swing.JInternalFrame {
     private void cmbCountryIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCountryIdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbCountryIdActionPerformed
+
+    private void txtLocationIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLocationIdActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_txtLocationIdActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

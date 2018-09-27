@@ -48,7 +48,7 @@ public class LocationDAO {
                 + "max(POSTAL_CODE) POSTAL_CODE, max(CITY) CITY, max(STATE_PROVINCE) STATE_PROVINCE, "
                 + "max(COUNTRY_ID) COUNTRY_ID from locations").get(0).getLocation_id();
     }
-
+ 
     public List<Location> getData(String sql) {
         List<Location> locations = new ArrayList<>();
         try {

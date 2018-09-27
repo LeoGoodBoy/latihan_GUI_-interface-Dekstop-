@@ -7,9 +7,11 @@ package controller;
 
 import dao.CountryDAO;
 import dao.LocationDAO;
+import java.awt.TextArea;
 import java.sql.Connection;
 import java.util.List;
 import javax.swing.JComboBox;
+import javax.swing.JTextField;
 import model.Country;
 import model.Location;
 
@@ -62,6 +64,10 @@ public class LocationController {
         for (Country country : countrys) {
             cmb.addItem(country.getCountryId()+"-"+country.getCountryName());
         }
+    }
+    
+    public void loadMaxId(JTextField txt){
+//        txt.setText(ldao.autoId());
     }
 
 }
