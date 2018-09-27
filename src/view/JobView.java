@@ -328,10 +328,13 @@ public class JobView extends javax.swing.JInternalFrame {
         txtJobId.setText("");
         txtJobId.setEnabled(true);
         txtJobName.setText("");
+        txtMinSalary.setText("");
+        txtMaxSalary.setText("");
         btnUpdate.setEnabled(false);
         btnDelete.setEnabled(false);
         btnSimpan.setEnabled(true);
     }
+     
     
     private void edit (){
         txtJobId.setEnabled(false);

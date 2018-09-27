@@ -95,7 +95,7 @@ public class JobDAOTest {
         System.out.println("Insert New Data to Jobs Table");
         Connection koneksi = new Koneksi().getKoneksi();
         JobDAO jdao = new JobDAO(koneksi);
-        String jobId = "AOA", jobTitle = "Agent of Area";
+        String jobId = "AOS", jobTitle = "Agent on Site";
         int maxSalary = 13000, minSalary = 15000;
         assertTrue(jdao.simpanJob(jobId, jobTitle, maxSalary, minSalary));
     }
@@ -105,7 +105,7 @@ public class JobDAOTest {
         System.out.println("Delete Job By Id");
         Connection koneksi = new Koneksi().getKoneksi();
         JobDAO jdao = new JobDAO(koneksi);
-        String jobId = "AOAAAA";
+        String jobId = "AOI";
         assertTrue(jdao.deleteJob(jobId));
     }
 
@@ -114,7 +114,7 @@ public class JobDAOTest {
         System.out.println("Update job");
         Connection koneksi = new Koneksi().getKoneksi();
         JobDAO jdao = new JobDAO(koneksi);
-        String jobId = "AOA", jobTitle = "Agent of Areaaas";
+        String jobId = "AOA", jobTitle = "Agent of Areas";
         int maxSalary = 1250, minSalary = 14598;
         Job job = new Job(jobId, jobTitle, minSalary, maxSalary);
         assertTrue(jdao.updateJob(job));
