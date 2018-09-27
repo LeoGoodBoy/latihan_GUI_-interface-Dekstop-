@@ -22,6 +22,9 @@ import model.Region;
 public class CountryDAO {
     private Connection koneksi;
     private RegionDAO rdao;
+    /**
+     * 
+     */
     public CountryDAO() {
     }
 
@@ -114,6 +117,10 @@ public class CountryDAO {
         return this.eksekusi("update countries set country_name='" + country.getCountryName()
                 + "', region_id="+ country.getRegion().getRegionId()
                 + " where country_id='" + country.getCountryId() +"'");
+    }
+    
+    public List<Country> getById(String id) {
+        return this.getData("select * from countries where country_id = '" + id + "'");
     }
     
 }
