@@ -8,6 +8,7 @@ package controller;
 import dao.EmployeeDAO;
 import java.sql.Connection;
 import java.util.List;
+import javax.swing.JComboBox;
 import model.Department;
 import model.Employee;
 import model.Job;
@@ -57,6 +58,13 @@ public class EmployeeController {
     
     public String hapusEmployee(String employeeId){
         return this.serbaGunaController.getMessage(edao.deleteEmployee(Integer.parseInt(employeeId)));
+    }
+    
+    public  void loadCmb(JComboBox cmb){
+        List<Employee> employees = edao.getAllData();
+        for(Employee employee : employees) {
+            cmb.addItem(employee.getEmployeeId() + " - " + employee.getLastName());
+        }
     }
     
 }

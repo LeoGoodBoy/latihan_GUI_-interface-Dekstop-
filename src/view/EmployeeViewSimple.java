@@ -6,6 +6,7 @@
 package view;
 
 import controller.EmployeeController;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
