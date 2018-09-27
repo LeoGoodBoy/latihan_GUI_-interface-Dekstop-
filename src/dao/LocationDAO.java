@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import model.Country;
+import model.Department;
 import model.Location;
 
 /**
@@ -90,5 +91,7 @@ public class LocationDAO {
         return this.getData("select * from locations order by 1");
     }
     
-    
+    public List<Location> getById(int id) {
+        return this.getData("select * from locations where location_id = " + id);
+    }
 }

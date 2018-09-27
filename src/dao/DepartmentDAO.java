@@ -14,21 +14,27 @@ import java.util.List;
 import model.Location;
 import model.Department;
 import model.Employee;
+import model.Region;
 
 /**
  *
  * @author Martin
  */
 public class DepartmentDAO {
+
     private Connection koneksi;
+    private LocationDAO ldao;
+    private EmployeeDAO edao;
 
     public DepartmentDAO() {
     }
 
     public DepartmentDAO(Connection koneksi) {
         this.koneksi = koneksi;
+        this.ldao = new LocationDAO(koneksi);
+        this.edao = new EmployeeDAO(koneksi);
     }
-    
+
     public List<Department> getData(String sql) {
         List<Department> departments = new ArrayList<>();
         try {
@@ -38,8 +44,13 @@ public class DepartmentDAO {
                 Department department = new Department();
                 department.setDepartmentId(resultSet.getInt("department_id"));
                 department.setDepartmentName(resultSet.getString("department_name"));
-                department.setEmployee(new Employee(resultSet.getInt("manager_id")));
-                department.setLocation(new Location(resultSet.getInt("location_id")));
+                int managerId = resultSet.getInt("MANAGER_ID");
+                if(managerId != 0){
+                    Employee employee = edao.getById(managerId).get(0);
+                    department.setEmployee(employee);
+                }
+                Location location = ldao.getById(resultSet.getInt("location_id")).get(0);
+                department.setLocation(location);
                 departments.add(department);
             }
         } catch (SQLException e) {
@@ -58,11 +69,11 @@ public class DepartmentDAO {
     public List<Department> getAllData() {
         return this.getData("SELECT * FROM DEPARTMENTS ORDER BY 1");
     }
-    
+
     public int autoId() {
         return this.getData("SELECT MAX(department_id)+10 department_id, MAX(department_name) department_name, MAX(manager_id) manager_id, MAX(location_id) location_id FROM DEPARTMENTS").get(0).getDepartmentId();
     }
-    
+
     public boolean eksekusi(String sql) {
         try {
             PreparedStatement statment = koneksi.prepareStatement(sql);
@@ -73,24 +84,28 @@ public class DepartmentDAO {
         }
         return true;
     }
-    
-    public boolean simpanDepartment(Department department){
+
+    public List<Department> getById(int id) {
+        return this.getData("select department_id from departments where department_id = '" + id + "'");
+    }
+
+    public boolean simpanDepartment(Department department) {
         int id = autoId();
-        return this.eksekusi("INSERT INTO DEPARTMENTS VALUES ("+id+",'"+department.getDepartmentName()+"',"
-                +department.getEmployee().getEmployeeId()+"," + department.getLocation().getLocation_id() +")");
+        return this.eksekusi("INSERT INTO DEPARTMENTS VALUES (" + id + ",'" + department.getDepartmentName() + "',"
+                + department.getEmployee().getEmployeeId() + "," + department.getLocation().getLocation_id() + ")");
     }
-    
-    public boolean hapusDepartment(String id){
-        return this.eksekusi("DELETE FROM DEPARTMENTS WHERE DEPARTMENT_ID ='"+id+"'");
+
+    public boolean hapusDepartment(String id) {
+        return this.eksekusi("DELETE FROM DEPARTMENTS WHERE DEPARTMENT_ID ='" + id + "'");
     }
-    
+
     public boolean updateDepartment(Department department) {
         return this.eksekusi("UPDATE DEPARTMENTS SET DEPARTMENT_NAME = '" + department.getDepartmentName()
                 + "', MANAGER_ID = " + department.getEmployee().getEmployeeId()
                 + ", LOCATION_ID = " + department.getLocation().getLocation_id()
                 + " WHERE DEPARTMENT_ID = " + department.getDepartmentId());
     }
-    
+
     public List<Department> search(String category, String cari) {
         return this.getData("SELECT * FROM DEPARTMENTS WHERE REGEXP_LIKE(" + category + ",'" + cari + "','i') order by 1");
     }
