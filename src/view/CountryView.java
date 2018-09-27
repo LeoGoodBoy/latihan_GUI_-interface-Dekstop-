@@ -21,6 +21,7 @@ public class CountryView extends javax.swing.JInternalFrame {
     private SerbaGunaView serbaGuna;
     
     private CountryController controller;
+    
 
     /**
      * Creates new form CountryView
@@ -30,7 +31,7 @@ public class CountryView extends javax.swing.JInternalFrame {
         controller = new CountryController(new Koneksi().getKoneksi());
         serbaGuna = new SerbaGunaView();
         bindingCountries(controller.viewCountry());
-       // controller.loadCmbRegionId(cmbRegionId);
+        controller.loadCmb(cmbRegionId); 
     }
 
     /**
@@ -289,13 +290,13 @@ public class CountryView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtRegionIdActionPerformed
 
     private void bindingCountries(List<Country> countrys){
-        String [] header = {"No","Country Id","Country Name","Region Id"};
+        String [] header = {"No","Country Id","Country Name","Region Name"};
         String [][] data = new String[countrys.size()][header.length];
         for (int i = 0; i < countrys.size(); i++) {
             data [i][0] = (i+1)+"";
             data [i][1] = countrys.get(i).getCountryId();
             data [i][2] = countrys.get(i).getCountryName();
-            data [i][3] = countrys.get(i).getRegion().getRegionId() + "";       
+            data [i][3] = countrys.get(i).getRegion().getRegionName()+ "";       
         }
         tblCountry.setModel(new DefaultTableModel(data, header));
         reset();
