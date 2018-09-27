@@ -36,7 +36,7 @@ public class LocationDAO {
     }
     
     public int autoId() {
-        return this.getData("select max(LOCATION_ID)+1 LOCATION_ID, max(STREET_ADDRESS) STREET_ADDRESS, max(POSTAL_CODE) POSTAL_CODE, max(CITY) CITY, max(STATE_PROVINCE) STATE_PROVINCE, max(COUNTRY_ID) COUNTRY_ID from locations").get(0).getLocation_id();
+        return this.getData("select max(LOCATION_ID)+100 LOCATION_ID, max(STREET_ADDRESS) STREET_ADDRESS, max(POSTAL_CODE) POSTAL_CODE, max(CITY) CITY, max(STATE_PROVINCE) STATE_PROVINCE, max(COUNTRY_ID) COUNTRY_ID from locations").get(0).getLocation_id();
     }
 
     public List<Location> getData(String sql) {
@@ -61,15 +61,12 @@ public class LocationDAO {
         return locations;
     }
     
-    public boolean simpanLocation(String street_address, String postal_code, String city, String state_province, String country_id) {
-        int id = this.autoId();
-        return this.eksekusi("insert into locations values (" + id 
-                + ",'" + street_address 
-                + "','"+ postal_code
-                + "','"+ city
-                + "','"+state_province
-                + "','"+country_id
-                + "')");
+   public boolean simpanLocation(Location location) {
+        int locationId = this.autoId();
+        return this.eksekusi("insert into locations values ('"
+                + locationId + "','" + location.getStreet_address() + "',"
+                + location.getPostal_code() + "','" + location.getCity() + "',"
+                + location.getState_province() + "','" + location.getCountry_id().getCountryId() + ")");
     }
     
     public boolean updateLocation(Location location) {
@@ -77,15 +74,21 @@ public class LocationDAO {
                 +"', POSTAL_CODE='"+location.getPostal_code()
                 +"', CITY='"+location.getCity()
                 +"', STATE_PROVINCE='"+location.getState_province()
-                +"', COUNTRY_ID='"+location.getCountry_id()
+                +"', COUNTRY_ID='"+location.getCountry_id().getCountryId()
                 +"' where location_id=" + location.getLocation_id());
     }
-    public boolean hapusRegion(int id) {
-        return this.eksekusi("delete from locations where location_id =" + id + "");
+    
+    public boolean hapusLocation(int locationId) {
+        return this.eksekusi("delete from locations where location_id ='" + locationId + "'");
     }
     
-    public List<Location> search(String category, String cari) {
+    public List<Location> searchLocation(String category, String cari) {
         return this.getData("select * from locations where regexp_like(" + category + ",'" + cari + "','i') order by 1");
     }
+    
+    public List<Location> getAllDataLocation() {
+        return this.getData("select * from locations order by 1");
+    }
+    
     
 }

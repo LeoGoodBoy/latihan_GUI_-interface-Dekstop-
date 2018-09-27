@@ -33,6 +33,7 @@ public class HrForm extends javax.swing.JFrame {
         mniCountry = new javax.swing.JMenuItem();
         mniRegion = new javax.swing.JMenuItem();
         mniLocation = new javax.swing.JMenuItem();
+        mniJob = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -78,6 +79,15 @@ public class HrForm extends javax.swing.JFrame {
         });
         jMenu1.add(mniLocation);
 
+        mniJob.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, java.awt.event.InputEvent.CTRL_MASK));
+        mniJob.setText("Job");
+        mniJob.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniJobActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mniJob);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edit");
@@ -103,7 +113,7 @@ public class HrForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         RegionView regionView = new RegionView();
         regionView.show();
-        dpHr.add(regionView);
+        dpHr.add(regionView); 
 //        this.getParent().add(regionView);
 //        regionView.setVisible(true);
     }//GEN-LAST:event_mniRegionActionPerformed
@@ -121,6 +131,13 @@ public class HrForm extends javax.swing.JFrame {
         locationView.show();
         dpHr.add(locationView);
     }//GEN-LAST:event_mniLocationActionPerformed
+
+    private void mniJobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniJobActionPerformed
+        // TODO add your handling code here:
+        JobView jobView = new JobView();
+        jobView.show();
+        dpHr.add(jobView);
+    }//GEN-LAST:event_mniJobActionPerformed
 
     /**
      * @param args the command line arguments
@@ -163,6 +180,7 @@ public class HrForm extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem mniCountry;
+    private javax.swing.JMenuItem mniJob;
     private javax.swing.JMenuItem mniLocation;
     private javax.swing.JMenuItem mniRegion;
     // End of variables declaration//GEN-END:variables
