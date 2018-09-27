@@ -8,18 +8,23 @@ package dao;
 import java.sql.Connection;
 import java.util.List;
 import model.Country;
+import model.Region;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import tools.Koneksi;
 
 /**
  *
  * @author Lenovo
  */
 public class CountryDAOTest {
+    
+    Connection koneksi = new Koneksi().getKoneksi();
+    CountryDAO cdao = new CountryDAO(koneksi);
     
     public CountryDAOTest() {
     }
@@ -50,8 +55,6 @@ public class CountryDAOTest {
         Connection expResult = null;
         Connection result = instance.getKoneksi();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.kenapa ya?");
     }
 
     /**
@@ -61,10 +64,7 @@ public class CountryDAOTest {
     public void testSetKoneksi() {
         System.out.println("setKoneksi");
         Connection koneksi = null;
-        CountryDAO instance = new CountryDAO();
-        instance.setKoneksi(koneksi);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+        cdao.setKoneksi(koneksi);
     }
 //
     /**
@@ -73,118 +73,79 @@ public class CountryDAOTest {
     @Test
     public void testGetData() {
         System.out.println("getData");
-        String sql = "select * from employees";
-        CountryDAO instance = new CountryDAO();
-        List<Country> expResult = null;
-        List<Country> result = instance.getData(sql);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+        String sql = "select * from countries order by 1";
+        List<Country> countrys = cdao.getData(sql);
+        assertNotNull(countrys);
     }
 //
-//    /**
-//     * Test of getAllData method, of class CountryDAO.
-//     */
-//    @Test
-//    public void testGetAllData() {
-//        System.out.println("getAllData");
-//        CountryDAO instance = new CountryDAO();
-//        List<Country> expResult = null;
-//        List<Country> result = instance.getAllData();
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
+    /**
+     * Test of getAllData method, of class CountryDAO.
+     */
+    @Test
+    public void testGetAllData() {
+        System.out.println("get All Data Countries");
+        List<Country> countrys =  cdao.getAllData();
+        assertNotNull(countrys);
+    }
+
+    /**
+     * Test of eksekusi method, of class CountryDAO.
+     */
+    @Test
+    public void testEksekusi() {
+        System.out.println("eksekusi");
+        String sql = "select * from countries order by 1";
+        boolean expResult = true;
+        boolean result = cdao.eksekusi(sql);
+        assertEquals(expResult, result);
+    }
+
+     /**
+     * Test of searchCountry method, of class CountryDAO.
+     */
+    @Test
+    public void testSearchCountry() {
+        System.out.println("searchCountry");
+        List<Country> countrys = cdao.searchCountry("Country_id", "AB");
+        assertNotNull(countrys);
+    }
+    
+    /**
+     * Test of simpanCountry method, of class CountryDAO.
+     */
+    @Test
+    public void testSimpanCountry() {
+        System.out.println("simpanCountry");
+        Region region = new Region(3);
+        Country country = new Country("AD", "ADANG", region);
+        boolean expResult = true;
+        boolean result = cdao.simpanCountry(country);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of hapusCountry method, of class CountryDAO.
+     */
+    @Test
+    public void testHapusCountry() {
+        System.out.println("hapusCountry");
+        String id = "ID";
+        boolean expResult = true;
+        boolean result = cdao.hapusCountry(id);
+        assertEquals(expResult, result);
+    }
 //
-//    /**
-//     * Test of getById method, of class CountryDAO.
-//     */
-//    @Test
-//    public void testGetById() {
-//        System.out.println("getById");
-//        int id = 0;
-//        CountryDAO instance = new CountryDAO();
-//        List<Country> expResult = null;
-//        List<Country> result = instance.getById(id);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
-//    /**
-//     * Test of searchCountry method, of class CountryDAO.
-//     */
-//    @Test
-//    public void testSearchCountry() {
-//        System.out.println("searchCountry");
-//        String category = "";
-//        String cari = "";
-//        CountryDAO instance = new CountryDAO();
-//        List<Country> expResult = null;
-//        List<Country> result = instance.searchCountry(category, cari);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
-//    /**
-//     * Test of eksekusi method, of class CountryDAO.
-//     */
-//    @Test
-//    public void testEksekusi() {
-//        System.out.println("eksekusi");
-//        String sql = "";
-//        CountryDAO instance = new CountryDAO();
-//        boolean expResult = false;
-//        boolean result = instance.eksekusi(sql);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
-//    /**
-//     * Test of simpanCountry method, of class CountryDAO.
-//     */
-//    @Test
-//    public void testSimpanCountry() {
-//        System.out.println("simpanCountry");
-//        Country country = null;
-//        CountryDAO instance = new CountryDAO();
-//        boolean expResult = false;
-//        boolean result = instance.simpanCountry(country);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
-//    /**
-//     * Test of hapusCountry method, of class CountryDAO.
-//     */
-//    @Test
-//    public void testHapusCountry() {
-//        System.out.println("hapusCountry");
-//        String id = "ID";
-//        CountryDAO instance = new CountryDAO();
-//        boolean expResult = true;
-//        boolean result = instance.hapusCountry(id);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.KENAPA YA?");
-//    }
-//
-//    /**
-//     * Test of updateCountry method, of class CountryDAO.
-//     */
-//    @Test
-//    public void testUpdateCountry() {
-//        System.out.println("updateCountry");
-//        Country country = null;
-//        CountryDAO instance = new CountryDAO();
-//        boolean expResult = false;
-//        boolean result = instance.updateCountry(country);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
+    /**
+     * Test of updateCountry method, of class CountryDAO.
+     */
+    @Test
+    public void testUpdateCountry() {
+        System.out.println("updateCountry");
+        Region region = new Region(3);
+        Country country = new Country("AB", "ABANG", region);
+        boolean expResult = true;
+        boolean result = cdao.updateCountry(country);
+        assertEquals(expResult, result);
+    }
     
 }

@@ -69,9 +69,6 @@ public class CountryDAO {
      * @param id digunakan sebagai kunci utama dalam melakukan pencarian
      * @return mengirimkan nilai kedalam method getData menggunakan query yang dijadikan parameter
      */
-    public List<Country> getById(int id){
-        return this.getData("select region_id, region_name from countries where region_id = '"+id+"'");
-    }
     
     /**
      * search digunakan untuk mengambil data dari tabel region berdasarkan id tertentu
@@ -98,9 +95,10 @@ public class CountryDAO {
     }
     
     public boolean simpanCountry(Country country){
-        return this.eksekusi("insert into COUNTRIES values ('"
+        String query = "insert into COUNTRIES values ('"
                 +country.getCountryId()+"','"+country.getCountryName()+"',"
-                +country.getRegion().getRegionId()+")");
+                +country.getRegion().getRegionId()+")";
+        return this.eksekusi(query);
     }
     
     public boolean hapusCountry(String id){
