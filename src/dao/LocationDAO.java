@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import model.Country;
+import model.Department;
 import model.Location;
 
 /**
@@ -25,18 +26,22 @@ public class LocationDAO {
     }
     
     public boolean eksekusi(String sql) {
+        boolean hasil = false;
         try {
             PreparedStatement statment = koneksi.prepareStatement(sql);
             statment.execute();
+            hasil = true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
-        return true;
+        return hasil;
     }
     
     public int autoId() {
-        return this.getData("select max(LOCATION_ID)+100 LOCATION_ID, max(STREET_ADDRESS) STREET_ADDRESS, max(POSTAL_CODE) POSTAL_CODE, max(CITY) CITY, max(STATE_PROVINCE) STATE_PROVINCE, max(COUNTRY_ID) COUNTRY_ID from locations").get(0).getLocation_id();
+        return this.getData("select max(LOCATION_ID)+100 LOCATION_ID, max(STREET_ADDRESS) STREET_ADDRESS, "
+                + "max(POSTAL_CODE) POSTAL_CODE, max(CITY) CITY, max(STATE_PROVINCE) STATE_PROVINCE, "
+                + "max(COUNTRY_ID) COUNTRY_ID from locations").get(0).getLocation_id();
     }
 
     public List<Location> getData(String sql) {
@@ -61,13 +66,31 @@ public class LocationDAO {
         return locations;
     }
     
-   public boolean simpanLocation(Location location) {
-        int locationId = this.autoId();
-        return this.eksekusi("insert into locations values ('"
-                + locationId + "','" + location.getStreet_address() + "',"
-                + location.getPostal_code() + "','" + location.getCity() + "',"
-                + location.getState_province() + "','" + location.getCountry_id().getCountryId() + ")");
+    
+    public boolean simpanLocation(Location location) {
+        int locationId = this.autoId(); 
+        System.out.println(location.getCountry_id()==null);
+        System.out.println(locationId);
+        return this.eksekusi("insert into locations values ("
+                + locationId
+                + ",'"  + location.getStreet_address()
+                + "','" + location.getPostal_code()
+                + "','" + location.getCity()
+                + "','" + location.getState_province()
+                + "','"  + location.getCountry_id().getCountryId()+ "')");
     }
+    
+    
+//   public boolean simpanLocation(String street_address, String postal_code, String city, String state_province, String country_id) {
+//        int locationId = this.autoId();
+//        return this.eksekusi("insert into locations values (" + locationId 
+//                +",'" + street_address
+//                +"','" + postal_code
+//                +"','" + city
+//                +"','" + state_province
+//                +"','" + country_id
+//                +"') ORDER BY location_id");
+//    }
     
     public boolean updateLocation(Location location) {
         return this.eksekusi("update locations set street_address='"+location.getStreet_address()
@@ -89,6 +112,9 @@ public class LocationDAO {
     public List<Location> getAllDataLocation() {
         return this.getData("select * from locations order by 1");
     }
+
     
-    
+    public List<Location> getById(int id) {
+        return this.getData("select * from locations where location_id = " + id);
+    }
 }

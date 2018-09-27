@@ -24,7 +24,7 @@ public class Employee {
         this.employeeId = employeeId;
     }
 
-    public Employee(int employeeId, int salary, float commissionPct, String firstName, String lastName, String email, String phoneNumber, String hireDate, Job job, Department department, Employee manager) {
+    public Employee(int employeeId,  String firstName, String lastName, String email, String phoneNumber, String hireDate, Job job, int salary, float commissionPct, Department department, Employee manager) {
         this.employeeId = employeeId;
         this.salary = salary;
         this.commissionPct = commissionPct;

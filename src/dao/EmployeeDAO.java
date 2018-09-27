@@ -78,6 +78,10 @@ public class EmployeeDAO {
         return id;
     }
     
+    public List<Employee> getById(int id) {
+        return this.getData("select * from employees where employee_id = " + id );
+    }
+    
     public boolean simpanEmployee(Employee employee){
         String query = "INSERT INTO employees VALUES(" + this.getNextId() + ", '" 
                 + employee.getFirstName() +"', '" + employee.getLastName() + "', '"

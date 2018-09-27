@@ -22,14 +22,12 @@ public class Region {
     public Region(int regionId) {
         this.regionId = regionId;
     }
-    
 
     public Region(int regionId, String regionName) {
         this.regionId = regionId;
         this.regionName = regionName;
     }
     
-
     public Region(int regionId, String regionName, List<Country> country) {
         this.regionId = regionId;
         this.regionName = regionName;

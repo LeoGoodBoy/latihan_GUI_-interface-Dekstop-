@@ -6,6 +6,7 @@
 package controller;
 
 import dao.EmployeeDAO;
+import java.sql.Connection;
 import java.util.List;
 import model.Department;
 import model.Employee;
@@ -21,6 +22,11 @@ public class EmployeeController {
 
     public EmployeeController() {
     }
+
+    public EmployeeController(Connection koneksi) {
+        this.edao = new EmployeeDAO(koneksi);
+        this.serbaGunaController = new SerbaGunaController();
+    }
     
     public List<Employee> viewEmployee(){
         return edao.getAllData();
@@ -30,7 +36,7 @@ public class EmployeeController {
         return edao.search(category, cari);
     }
     
-    public String simpanEmployee(String salary, String commission, String firstName, String lastName, String email, String phoneNumber, String hireDate, String jobId, String departmentId, String managerId){
+    public String simpanEmployee( String firstName, String lastName, String email, String phoneNumber, String hireDate, String jobId, String salary, String commission, String departmentId, String managerId){
         Job job = new Job(jobId);
         Department department = new Department(Integer.parseInt(departmentId));
         Employee manager = new Employee(Integer.parseInt(managerId));
@@ -38,11 +44,14 @@ public class EmployeeController {
         return this.serbaGunaController.getMessage(edao.simpanEmployee(employee));
     }
     
-    public String updateEmployee(String employeeId, String salary, String commission, String firstName, String lastName, String email, String phoneNumber, String hireDate, String jobId, String departmentId, String managerId){
+    public String updateEmployee(String employeeId, String firstName, String lastName, String email, String phoneNumber, String hireDate, String jobId,String salary, String commission, String departmentId, String managerId){
         Job job = new Job(jobId);
         Department department = new Department(Integer.parseInt(departmentId));
         Employee manager = new Employee(Integer.parseInt(managerId));
-        Employee employee = new Employee(Integer.parseInt(employeeId), Integer.parseInt(salary), Float.parseFloat(commission), firstName, lastName, email, phoneNumber, hireDate, job, department, manager);
+        String[]  dates = new String[3];
+        dates = hireDate.split("-");
+//        hireDate = dates[1] + "/" + dates[2] + "/" + dates[0];
+        Employee employee = new Employee(Integer.parseInt(employeeId), firstName, lastName, email, phoneNumber, hireDate, job , Integer.parseInt(salary), Float.parseFloat(commission), department, manager);
         return this.serbaGunaController.getMessage(edao.updateEmployee(employee));
     }
     

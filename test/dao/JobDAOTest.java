@@ -53,6 +53,7 @@ public class JobDAOTest {
         String jobId = "AD_PRES";
         assertNotNull(jdao.getData("SELECT * from jobs where job_id='" + jobId + "'"));
     }
+    
 
     @Test
     public void getAllDatas() {

@@ -78,7 +78,7 @@ public class EmployeeDAOTest {
         assertTrue(edao.simpanEmployee(employee));
     }
     
-    
+    @Test
     public void tesUpdateEmployee(){
         System.out.println("Update Employee Data");
         Connection koneksi = new Koneksi().getKoneksi();
@@ -86,7 +86,7 @@ public class EmployeeDAOTest {
         Job job = new Job("IT_PROG");
         Department department = new Department(60);
         Employee manager = new Employee(103);
-        Employee employee = new Employee(208, 6000, (float)0.2, "Kurnia", "Sandy", "windingzs", "0878282", "06/25/2018", job, department, manager);
+        Employee employee = new Employee(210,  "Kurnia", "Sandy", "windingz2", "0878282", "06/25/2018", job, 6000, (float)0.2, department, manager);
         assertTrue(edao.updateEmployee(employee));
     }
     
