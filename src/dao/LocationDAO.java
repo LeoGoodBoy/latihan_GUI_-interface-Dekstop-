@@ -41,7 +41,7 @@ public class LocationDAO {
             e.printStackTrace();
         }
         return hasil;
-    }
+    } 
     
     public int autoId() {
         return this.getData("select max(LOCATION_ID)+100 LOCATION_ID, max(STREET_ADDRESS) STREET_ADDRESS, "

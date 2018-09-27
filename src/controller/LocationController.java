@@ -69,8 +69,9 @@ public class LocationController {
     }
     
     public void loadMaxId(JTextField txt){
-        int a = ldao.autoId();
-        txt.setText("wadaw");
+        ldao.autoId();
+        String t = "hmmmmmm";
+        txt.setText(t);
     }
 
 }

@@ -30,9 +30,10 @@ public class LocationView extends javax.swing.JInternalFrame {
         initComponents();
         controller = new LocationController(new Koneksi().getKoneksi());
         serbaGuna = new SerbaGunaView();
-        controller.loadCmb(cmbCountryId);
-        controller.loadMaxId(txtCountryId);
         bindingLocation(controller.viewLocation());
+        controller.loadCmb(cmbCountryId);
+        controller.loadMaxId(txtLocationId);
+        
     }
 
     /**
