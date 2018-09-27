@@ -25,6 +25,7 @@ public class Koneksi {
             ods.setServiceName("XE");
             ods.setUser("system");
             ods.setPassword("2615");
+
             koneksi = ods.getConnection();
             koneksi.createStatement().executeQuery("alter session set current_schema=hr");
         } catch (SQLException e) {
@@ -32,5 +33,6 @@ public class Koneksi {
             e.printStackTrace();
         }  
         return koneksi;
+        
     }
 }
