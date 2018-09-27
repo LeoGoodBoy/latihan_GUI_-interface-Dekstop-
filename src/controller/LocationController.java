@@ -25,15 +25,21 @@ public class LocationController {
         this.serbaGunaController = new SerbaGunaController();
     }
 
-    public String simpanUpdateLocation(String location_id, String street_address, String postal_code, String city, String state_province, String country_id, boolean isSave) {
+    public String simpanLocation(String street_address, String postal_code,
+            String city, String state_province, String country_id) {
         Country country = new Country(country_id);
-        Location location = new Location(Integer.parseInt(location_id), street_address, postal_code, city, state_province, country);
-        if (isSave) {
-            return serbaGunaController.getMessage(ldao.simpanLocation(location));
-        } else {
-            return serbaGunaController.getMessage(ldao.updateLocation(location));
-        }
+        Location location = new Location(0, street_address, postal_code, city, state_province, country);
+        return serbaGunaController.getMessage(ldao.simpanLocation(location));
     }
+
+    public String updateLocation(String locationId, String street_address, String postal_code,
+            String city, String state_province, String country_id) {
+        Country country = new Country(country_id);
+        Location location = new Location(Integer.parseInt(locationId), street_address, postal_code, city, state_province, country);
+        return serbaGunaController.getMessage(ldao.updateLocation(location));
+    }
+
+//   
     public String hapusLocation(String locationId) {
         int location = Integer.parseInt(locationId);
         return serbaGunaController.getMessage(ldao.hapusLocation(location));

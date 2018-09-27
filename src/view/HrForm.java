@@ -35,6 +35,7 @@ public class HrForm extends javax.swing.JFrame {
         mniLocation = new javax.swing.JMenuItem();
         mniJob = new javax.swing.JMenuItem();
         mniDepartment = new javax.swing.JMenuItem();
+        mniEmployee = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -98,6 +99,15 @@ public class HrForm extends javax.swing.JFrame {
         });
         jMenu1.add(mniDepartment);
 
+        mniEmployee.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
+        mniEmployee.setText("Employee");
+        mniEmployee.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniEmployeeActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mniEmployee);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edit");
@@ -156,6 +166,12 @@ public class HrForm extends javax.swing.JFrame {
         dpHr.add(departmentView);
     }//GEN-LAST:event_mniDepartmentActionPerformed
 
+    private void mniEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniEmployeeActionPerformed
+        EmployeeView employeeView = new EmployeeView();
+        employeeView.show();
+        dpHr.add(employeeView);
+    }//GEN-LAST:event_mniEmployeeActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -198,6 +214,7 @@ public class HrForm extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem mniCountry;
     private javax.swing.JMenuItem mniDepartment;
+    private javax.swing.JMenuItem mniEmployee;
     private javax.swing.JMenuItem mniJob;
     private javax.swing.JMenuItem mniLocation;
     private javax.swing.JMenuItem mniRegion;
