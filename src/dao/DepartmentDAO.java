@@ -60,7 +60,7 @@ public class DepartmentDAO {
     }
     
     public int autoId() {
-        return this.getData("SELECT MAX(region_id)+10 region_id,MAX(region_name)region_name FROM DEPARTMENTS").get(0).getDepartmentId();
+        return this.getData("SELECT MAX(department_id)+10 department_id, MAX(department_name) department_name, MAX(manager_id) manager_id, MAX(location_id) location_id FROM DEPARTMENTS").get(0).getDepartmentId();
     }
     
     public boolean eksekusi(String sql) {
@@ -74,9 +74,10 @@ public class DepartmentDAO {
         return true;
     }
     
-    public boolean simpanDepartmnet(Department department){
-        return this.eksekusi("INSERT INTO DEPARTMENTS VALUES ('"+department.getDepartmentId()+"','"+department.getDepartmentName()+"',"
-                +department.getEmployee().getManager().getEmployeeId()+"','" + department.getLocation().getLocation_id() +"')");
+    public boolean simpanDepartment(Department department){
+        int id = autoId();
+        return this.eksekusi("INSERT INTO DEPARTMENTS VALUES ("+id+",'"+department.getDepartmentName()+"',"
+                +department.getEmployee().getEmployeeId()+"," + department.getLocation().getLocation_id() +")");
     }
     
     public boolean hapusDepartment(String id){
@@ -90,4 +91,7 @@ public class DepartmentDAO {
                 + "' WHERE DEPARTMENT_ID = '" + department.getDepartmentId() +"'");
     }
     
+    public List<Department> search(String category, String cari) {
+        return this.getData("SELECT * FROM DEPARTMENTS WHERE REGEXP_LIKE(" + category + ",'" + cari + "','i') order by 1");
+    }
 }

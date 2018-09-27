@@ -27,6 +27,12 @@ public class Department {
         this.departmentName = departmentName;
     }
 
+    public Department(String departmentName, Employee employee, Location location) {
+        this.departmentName = departmentName;
+        this.employee = employee;
+        this.location = location;
+    }
+
     public Department(int departmentId, String departmentName, Employee employee) {
         this.departmentId = departmentId;
         this.departmentName = departmentName;

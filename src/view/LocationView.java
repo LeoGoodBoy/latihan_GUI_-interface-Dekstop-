@@ -143,6 +143,11 @@ public class LocationView extends javax.swing.JInternalFrame {
         });
 
         cmbKategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Region_Id", "Region_Name" }));
+        cmbKategori.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbKategoriActionPerformed(evt);
+            }
+        });
 
         tblLocation.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -331,6 +336,10 @@ public class LocationView extends javax.swing.JInternalFrame {
     private void txtSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSearchKeyTyped
+
+    private void cmbKategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbKategoriActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbKategoriActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
