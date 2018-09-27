@@ -36,22 +36,21 @@ public class EmployeeController {
         return edao.search(category, cari);
     }
     
-    public String simpanEmployee( String firstName, String lastName, String email, String phoneNumber, String hireDate, String jobId, String salary, String commission, String departmentId, String managerId){
+    public String simpanOrUpdateEmployee(String employeeId, String firstName, String lastName, String email, String phoneNumber, String hireDate, String jobId, String salary, String commission, String departmentId, String managerId, boolean isUpdate){
         Job job = new Job(jobId);
         Department department = new Department(Integer.parseInt(departmentId));
         Employee manager = new Employee(Integer.parseInt(managerId));
         
-        Employee employee = new Employee(Integer.parseInt(salary), Float.parseFloat(commission), firstName, lastName, email, phoneNumber, hireDate, job, department, manager);
-        return this.serbaGunaController.getMessage(edao.simpanEmployee(employee));
+        Employee employee = new Employee(Integer.parseInt(employeeId), firstName, lastName, email, phoneNumber, hireDate, job , Integer.parseInt(salary), Float.parseFloat(commission), department, manager);
+        if(isUpdate) return this.serbaGunaController.getMessage(edao.updateEmployee(employee));
+        else return this.serbaGunaController.getMessage(edao.simpanEmployee(employee));
     }
     
     public String updateEmployee(String employeeId, String firstName, String lastName, String email, String phoneNumber, String hireDate, String jobId,String salary, String commission, String departmentId, String managerId){
         Job job = new Job(jobId);
         Department department = new Department(Integer.parseInt(departmentId));
         Employee manager = new Employee(Integer.parseInt(managerId));
-        String[]  dates = new String[3];
-        dates = hireDate.split("-");
-//        hireDate = dates[1] + "/" + dates[2] + "/" + dates[0];
+        
         Employee employee = new Employee(Integer.parseInt(employeeId), firstName, lastName, email, phoneNumber, hireDate, job , Integer.parseInt(salary), Float.parseFloat(commission), department, manager);
         return this.serbaGunaController.getMessage(edao.updateEmployee(employee));
     }

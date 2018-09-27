@@ -5,7 +5,12 @@
  */
 package view;
 
-import javax.swing.BorderFactory;
+import controller.EmployeeController;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import model.Employee;
+import tools.Koneksi;
 
 /**
  *
@@ -16,8 +21,13 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
     /**
      * Creates new form EmployeeViewSimple
      */
+    EmployeeController controller;
+    SerbaGunaView serbaGunaView;
     public EmployeeViewSimple() {
         initComponents();
+        this.controller = new EmployeeController(new Koneksi().getKoneksi());
+        this.serbaGunaView =  new SerbaGunaView();
+        bindingEmployee(controller.viewEmployee());
 //        pnlDetails.setBorder(BorderFactory.createTitledBorder("Region Details"));
     }
 
@@ -59,9 +69,9 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
         jLabel11 = new javax.swing.JLabel();
         txtCommissionPct = new javax.swing.JTextField();
         txtSalary = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        cmbJobId = new javax.swing.JComboBox<>();
+        cmbManager = new javax.swing.JComboBox<>();
+        cmbDepartment = new javax.swing.JComboBox<>();
         jPanel4 = new javax.swing.JPanel();
         btnSave = new javax.swing.JButton();
         btnDrop = new javax.swing.JButton();
@@ -166,11 +176,11 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
 
         jLabel11.setText("Department");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbJobId.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbManager.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbDepartment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -188,9 +198,9 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtSalary)
                     .addComponent(txtCommissionPct, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, 0, 100, Short.MAX_VALUE)
-                    .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(cmbJobId, 0, 100, Short.MAX_VALUE)
+                    .addComponent(cmbManager, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cmbDepartment, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(81, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -199,7 +209,7 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbJobId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
@@ -211,17 +221,27 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbManager, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         btnDrop.setText("Drop");
+        btnDrop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDropActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -329,6 +349,48 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        boolean isUpdate = false;
+        if(txtEmployeeId.isEnabled()) isUpdate = true;
+        controller.simpanOrUpdateEmployee(txtEmployeeId.getText(), txtFirstName.getText(), 
+                txtLastName.getText(), txtEmail.getText(), txtPhoneNumber.getText(), formatDate(), 
+                cmbJobId.getSelectedItem().toString(), txtSalary.getText(),txtCommissionPct.getText(),
+                cmbManager.getSelectedItem().toString(), cmbDepartment.getSelectedItem().toString(), isUpdate);
+        
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnDropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDropActionPerformed
+         // TODO add your handling code here:
+         String pesan = controller.hapusEmployee(txtEmployeeId.getText());
+        this.serbaGunaView.tampilPesan(this, pesan, "Pesan Delete" );
+        bindingEmployee(controller.viewEmployee());
+    }//GEN-LAST:event_btnDropActionPerformed
+    private String formatDate(){
+        String hasil = "";
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        hasil = sdf.format(dcHireDate.getDate());
+        return hasil;
+    }
+    private void bindingEmployee(List<Employee> employees){
+        String[] header = {"No", "Employee ID", "First Name", "Last Name", "Email", "Phone Number", "Hire Date", "Job",
+            "Salary", "Commission PCT", "Manager", "Department"};
+        String[][] data = new String[employees.size()][header.length];
+        for (int i = 0; i < employees.size(); i++) {
+            data[i][0] = (i + 1) + "";
+            data[i][1] = employees.get(i).getEmployeeId() + "";
+            data[i][2] = employees.get(i).getFirstName();
+            data[i][3] = employees.get(i).getLastName();
+            data[i][4] = employees.get(i).getEmail();
+            data[i][5] = employees.get(i).getPhoneNumber()+ "";
+            data[i][6] = employees.get(i).getHireDate();
+            data[i][7] = employees.get(i).getJob().getJobId()+ " - " + employees.get(i).getJob().getJobTitle();
+            data[i][8] = employees.get(i).getSalary()+ "";
+            data[i][9] = employees.get(i).getCommissionPct()+ "";
+            data[i][10] = employees.get(i).getManager().getEmployeeId()+ " - " + employees.get(i).getManager().getLastName();
+            data[i][11] = employees.get(i).getDepartment().getDepartmentId()+ " - " + employees.get(i).getDepartment().getDepartmentName();
+        }
+        tblEmployee.setModel(new DefaultTableModel(data, header));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDrop;
@@ -336,10 +398,10 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnSave;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cmbCategory;
+    private javax.swing.JComboBox<String> cmbDepartment;
+    private javax.swing.JComboBox<String> cmbJobId;
+    private javax.swing.JComboBox<String> cmbManager;
     private com.toedter.calendar.JDateChooser dcHireDate;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

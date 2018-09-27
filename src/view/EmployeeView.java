@@ -293,11 +293,11 @@ public class EmployeeView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tblEmployeeMouseClicked
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-        formatDate();
-        String pesan = controller.simpanEmployee(txtFirstName.getText(), txtLastName.getText(), txtEmail.getText(), txtPhoneNumber.getText(), date, txtJobId.getText()
-            , txtSalary.getText(), txtCommissionPct.getText(), txtDepartmentId.getText(), txtManagerId.getText());
-        this.serbaGunaView.tampilPesan(this, pesan, "Pesan Simpan");
-        bindingEmployee(controller.viewEmployee());
+//        formatDate();
+//        String pesan = controller.simpanEmployee(txtFirstName.getText(), txtLastName.getText(), txtEmail.getText(), txtPhoneNumber.getText(), date, txtJobId.getText()
+//            , txtSalary.getText(), txtCommissionPct.getText(), txtDepartmentId.getText(), txtManagerId.getText());
+//        this.serbaGunaView.tampilPesan(this, pesan, "Pesan Simpan");
+//        bindingEmployee(controller.viewEmployee());
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
