@@ -5,10 +5,19 @@
  */
 package controller;
 
+import dao.DepartmentDAO;
+import java.sql.Connection;
+
 /**
  *
  * @author Martin
  */
 public class DepartmentController {
+    private DepartmentDAO ddao;
+
+    public DepartmentController(Connection koneksi) {
+        this.ddao = new DepartmentDAO(koneksi);
+    }
+    
     
 }

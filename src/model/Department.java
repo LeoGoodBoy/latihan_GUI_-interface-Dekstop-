@@ -10,8 +10,10 @@ package model;
  * @author Nande
  */
 public class Department {
-    private int departmentId,managerId,locationId;
+    private int departmentId;
     private String departmentName;
+    private Employee employee;
+    private Location location;
 
     public Department() {
     }
@@ -20,22 +22,22 @@ public class Department {
         this.departmentId = departmentId;
     }
 
-    public Department(int departmentId, int managerId) {
+    public Department(int departmentId, String departmentName) {
         this.departmentId = departmentId;
-        this.managerId = managerId;
-    }
-
-    public Department(int departmentId, int managerId, int locationId) {
-        this.departmentId = departmentId;
-        this.managerId = managerId;
-        this.locationId = locationId;
-    }
-
-    public Department(int departmentId, int managerId, int locationId, String departmentName) {
-        this.departmentId = departmentId;
-        this.managerId = managerId;
-        this.locationId = locationId;
         this.departmentName = departmentName;
+    }
+
+    public Department(int departmentId, String departmentName, Employee employee) {
+        this.departmentId = departmentId;
+        this.departmentName = departmentName;
+        this.employee = employee;
+    }
+
+    public Department(int departmentId, String departmentName, Employee employee, Location location) {
+        this.departmentId = departmentId;
+        this.departmentName = departmentName;
+        this.employee = employee;
+        this.location = location;
     }
 
     /**
@@ -51,35 +53,7 @@ public class Department {
     public void setDepartmentId(int departmentId) {
         this.departmentId = departmentId;
     }
-
-    /**
-     * @return the managerId
-     */
-    public int getManagerId() {
-        return managerId;
-    }
-
-    /**
-     * @param managerId the managerId to set
-     */
-    public void setManagerId(int managerId) {
-        this.managerId = managerId;
-    }
-
-    /**
-     * @return the locationId
-     */
-    public int getLocationId() {
-        return locationId;
-    }
-
-    /**
-     * @param locationId the locationId to set
-     */
-    public void setLocationId(int locationId) {
-        this.locationId = locationId;
-    }
-
+     
     /**
      * @return the departmentName
      */
@@ -92,6 +66,34 @@ public class Department {
      */
     public void setDepartmentName(String departmentName) {
         this.departmentName = departmentName;
+    }
+
+    /**
+     * @return the employee
+     */
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    /**
+     * @param employee the employee to set
+     */
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    /**
+     * @return the location
+     */
+    public Location getLocation() {
+        return location;
+    }
+
+    /**
+     * @param location the location to set
+     */
+    public void setLocation(Location location) {
+        this.location = location;
     }
        
 }

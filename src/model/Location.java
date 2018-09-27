@@ -20,6 +20,10 @@ public class Location {
     public Location() {
     }
 
+    public Location(int location_id) {
+        this.location_id = location_id;
+    }
+    
     public Location(int location_id, String Street_address, String postal_code, String city, String state_province, Country country_id) {
         this.location_id = location_id;
         this.Street_address = Street_address;

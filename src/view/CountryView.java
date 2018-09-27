@@ -127,7 +127,7 @@ public class CountryView extends javax.swing.JInternalFrame {
             }
         });
 
-        cmbKategoriCountry.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Country Id", "Conutry Name", "Region ID" }));
+        cmbKategoriCountry.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Country_Id", "Country_Name", "Region_ID" }));
 
         btnSearchCountry.setText("SEARCH");
         btnSearchCountry.addActionListener(new java.awt.event.ActionListener() {
@@ -251,18 +251,18 @@ public class CountryView extends javax.swing.JInternalFrame {
 
     private void txtSearchCountryKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchCountryKeyReleased
         // TODO add your handling code here:
-//        if (txtSearchCountry.getText().equals("")) {
-//                bindingCountries(controller.viewCountry());
-//            }
-//        if (evt.getKeyCode()==KeyEvent.VK_ENTER) {
-//            bindingCountries(controller.searchCountry(cmbKategoriCountry.getSelectedItem().toString(), txtSearchCountry.getText()));
-//        }
+        if (txtSearchCountry.getText().equals("")) {
+                bindingCountries(controller.viewCountry());
+            }
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER) {
+            bindingCountries(controller.searchCountry(cmbKategoriCountry.getSelectedItem().toString(), txtSearchCountry.getText()));
+        }
     }//GEN-LAST:event_txtSearchCountryKeyReleased
 
     private void btnSearchCountryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchCountryActionPerformed
         // TODO add your handling code here:
-//        List<Country> countrys = controller.searchCountry(cmbKategoriCountry.getSelectedItem().toString(), txtSearchCountry.getText());
-//        bindingCountries(countrys);
+        List<Country> countrys = controller.searchCountry(cmbKategoriCountry.getSelectedItem().toString(), txtSearchCountry.getText());
+        bindingCountries(countrys);
     }//GEN-LAST:event_btnSearchCountryActionPerformed
 
     private void bindingCountries(List<Country> countrys){

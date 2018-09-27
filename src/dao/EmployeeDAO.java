@@ -60,4 +60,48 @@ public class EmployeeDAO {
         return this.getData("SELECT * FROM employees order by 1");
     }
     
+    private boolean eksekusi(String sql){
+        boolean hasil = false;
+        try {
+            PreparedStatement statment = koneksi.prepareStatement(sql);
+            statment.executeQuery();
+            hasil = true;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return hasil;
+    }
+    
+    private int getNextId(){
+        int id = this.getData("SELECT * FROM employees where rownum = 1 order by 1 desc").get(0).getEmployeeId();
+        id++;
+        return id;
+    }
+    
+    public boolean simpanEmployee(Employee employee){
+        return this.eksekusi("INSERT INTO employees VALUES(" + this.getNextId() + ", '" 
+                + employee.getFirstName() +"', '" + employee.getLastName() + "', '"
+                + employee.getEmail() + "', '"+ employee.getPhoneNumber() + "', '"
+                + employee.getHireDate() + "', '" + employee.getJob().getJobId() +"', "
+                + employee.getSalary() + ", " + employee.getCommissionPct() + ", " 
+                + employee.getManager() + ", " + employee.getDepartment() + " )");
+    }
+    
+    public boolean updateEmployee(Employee employee){
+        return this.eksekusi("UPDATE employees SET firts_name = '" 
+                + employee.getFirstName() +"', last_name = '" + employee.getLastName() + "',"
+                + "email = '" + employee.getEmail() + "', phone_number = '"+ employee.getPhoneNumber() + "', "
+                + "hire_date = '" + employee.getHireDate() + "', job_id = '" + employee.getJob().getJobId() +"', "
+                + "salary = "+ employee.getSalary() + ", commission_pct =  " + employee.getCommissionPct() + ", " 
+                + "manager_id = " +employee.getManager() + ", department_id " + employee.getDepartment() + " )");
+    }
+    
+    public boolean deleteEmployee(int id){
+        return this.eksekusi("DELETE FROM employee WHERE employee_id =" + id);
+    }
+    
+    public List<Employee> search(String category, String cari) {
+        return this.getData("select * from employees where regexp_like(" + category + ",'" + cari + "','i') order by 1");
+    }
 }
