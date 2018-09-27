@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import model.Country;
+import model.Department;
 import model.Location;
 
 /**
@@ -113,5 +114,7 @@ public class LocationDAO {
     }
 
     
-    
+    public List<Location> getById(int id) {
+        return this.getData("select * from locations where location_id = " + id);
+    }
 }

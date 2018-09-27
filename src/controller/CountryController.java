@@ -6,8 +6,10 @@
 package controller;
 
 import dao.CountryDAO;
+import dao.RegionDAO;
 import java.sql.Connection;
 import java.util.List;
+import javax.swing.JComboBox;
 import model.Country;
 import model.Region;
 
@@ -18,10 +20,12 @@ import model.Region;
 public class CountryController {
 private SerbaGunaController serbaGunaController;
     private CountryDAO cdao;
+    private RegionDAO rdao;
 
     public CountryController(Connection koneksi) {
         this.cdao = new CountryDAO(koneksi);
         this.serbaGunaController  = new SerbaGunaController();
+        this.rdao = new RegionDAO(koneksi);
     }
 
 //    public String simpanCountry(String country_id, String country_name, String region_id) {
@@ -65,5 +69,11 @@ private SerbaGunaController serbaGunaController;
         return cdao.getAllData();
     }
 
+    public  void loadCmb(JComboBox cmb){
+        List<Region> regions = rdao.getAllData();
+        for (Region region : regions) {
+            cmb.addItem(region.getRegionId()+ " - "+region.getRegionName());
+        }
+    }
     
 }

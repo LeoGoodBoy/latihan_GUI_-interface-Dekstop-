@@ -6,10 +6,13 @@
 package view;
 
 import controller.DepartmentController;
+import dao.EmployeeDAO;
+import dao.LocationDAO;
 import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import model.Department;
+import model.Employee;
 import tools.Koneksi;
 
 /**
@@ -22,6 +25,10 @@ public class DepartmentView extends javax.swing.JInternalFrame {
 
     private final DepartmentController controller;
     
+    private final LocationDAO ldao;
+    private final EmployeeDAO edao;
+    
+    
     /**
      * Creates new form DepartmentView
      */
@@ -29,6 +36,8 @@ public class DepartmentView extends javax.swing.JInternalFrame {
         initComponents();
         controller = new DepartmentController(new Koneksi().getKoneksi());
         serbaGuna = new SerbaGunaView();
+        ldao = new LocationDAO(new Koneksi().getKoneksi());
+        edao = new EmployeeDAO(new Koneksi().getKoneksi());
         bindingDepartment(controller.viewDepartment());
     }
 
@@ -346,14 +355,15 @@ public class DepartmentView extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
     
     private void bindingDepartment(List<Department> department) {
-        String[] header = {"No", "Department ID", "Department Name", "Manager Id", "Location Id"};
+        String[] header = {"No", "Department ID", "Department Name", "Manager Name", "City"};
         String[][] data = new String[department.size()][header.length];
         for (int i = 0; i < department.size(); i++) {
+            Employee employee = department.get(i).getEmployee();
             data[i][0] = (i + 1) + "";
             data[i][1] = department.get(i).getDepartmentId() + "";
             data[i][2] = department.get(i).getDepartmentName() + "";
-            data[i][3] = department.get(i).getEmployee().getEmployeeId() + "";
-            data[i][4] = department.get(i).getLocation().getLocation_id() + "";
+            if(employee!=null)data[i][3] = department.get(i).getEmployee().getLastName() + "";
+            data[i][4] = department.get(i).getLocation().getCity() + "";
         }
         tblDepartment.setModel(new DefaultTableModel(data, header));
         reset();
