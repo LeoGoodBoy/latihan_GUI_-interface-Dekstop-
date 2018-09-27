@@ -86,9 +86,9 @@ public class DepartmentDAO {
     
     public boolean updateDepartment(Department department) {
         return this.eksekusi("UPDATE DEPARTMENTS SET DEPARTMENT_NAME = '" + department.getDepartmentName()
-                + "', MANAGER_ID = '" + department.getEmployee().getManager().getEmployeeId()
-                + "', LOCATION_ID = '" + department.getLocation().getLocation_id()
-                + "' WHERE DEPARTMENT_ID = '" + department.getDepartmentId() +"'");
+                + "', MANAGER_ID = " + department.getEmployee().getEmployeeId()
+                + ", LOCATION_ID = " + department.getLocation().getLocation_id()
+                + " WHERE DEPARTMENT_ID = " + department.getDepartmentId());
     }
     
     public List<Department> search(String category, String cari) {
