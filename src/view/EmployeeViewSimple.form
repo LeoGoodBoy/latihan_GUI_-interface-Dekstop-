@@ -150,14 +150,14 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace pref="23" max="32767" attributes="0"/>
+                      <EmptySpace pref="16" max="32767" attributes="0"/>
                       <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
                           <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="23" max="32767" attributes="0"/>
+                      <EmptySpace pref="16" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -193,15 +193,13 @@
                               <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="txtEmployeeId" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
-                                  <Component id="txtPhoneNumber" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtEmail" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtLastName" alignment="0" pref="152" max="32767" attributes="0"/>
-                                  <Component id="txtFirstName" alignment="0" max="32767" attributes="0"/>
-                              </Group>
-                              <Component id="dcHireDate" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="txtEmployeeId" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
+                              <Component id="txtPhoneNumber" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtEmail" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtLastName" alignment="0" pref="152" max="32767" attributes="0"/>
+                              <Component id="txtFirstName" alignment="0" max="32767" attributes="0"/>
+                              <Component id="dcHireDate" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                       </Group>
@@ -240,7 +238,7 @@
                               <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                               <Component id="dcHireDate" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="16" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -308,14 +306,19 @@
                               <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="txtSalary" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtCommissionPct" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
-                              <Component id="cmbJobId" alignment="0" pref="100" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="cmbJobId" max="32767" attributes="0"/>
                               <Component id="cmbManager" alignment="0" max="32767" attributes="0"/>
                               <Component id="cmbDepartment" alignment="0" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="txtSalary" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                                      <Component id="txtCommissionPct" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="0" pref="55" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace pref="81" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -431,7 +434,7 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="0" pref="21" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="25" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="btnSave" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="btnDrop" alignment="3" min="-2" max="-2" attributes="0"/>

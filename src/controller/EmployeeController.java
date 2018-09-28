@@ -25,6 +25,8 @@ public class EmployeeController {
     SerbaGunaController serbaGunaController;
     private JobDAO jdao;
     Connection koneksi;
+    JobController jobController;
+    DepartmentController departmentController;
     private DepartmentDAO ddao;
 
     public EmployeeController() {
@@ -58,10 +60,10 @@ public class EmployeeController {
     }
 
     public String updateEmployee(String employeeId, String firstName, String lastName, String email, String phoneNumber, String hireDate, String jobId, String salary, String commission, String departmentId, String managerId) {
-        Job job = new Job(jobId);
-        Department department = new Department(Integer.parseInt(departmentId));
-        Employee manager = new Employee(Integer.parseInt(managerId));
-
+        
+        Job job = jdao.getByJobTitle(jobId);
+        Employee manager = edao.getByLastName(lastName);
+        Department department = ddao.getByDepartmentName(departmentId);
         Employee employee = new Employee(Integer.parseInt(employeeId), firstName, lastName, email, phoneNumber, hireDate, job, Integer.parseInt(salary), Float.parseFloat(commission), department, manager);
         return this.serbaGunaController.getMessage(edao.updateEmployee(employee));
     }

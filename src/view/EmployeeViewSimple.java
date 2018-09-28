@@ -6,6 +6,7 @@
 package view;
 
 import controller.EmployeeController;
+import controller.JobController;
 import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,17 +32,22 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
      * Creates new form EmployeeViewSimple
      */
     EmployeeController controller;
+    JobController jobController;
     SerbaGunaView serbaGunaView;
     Vector cmbItems;
     List<Pair<String, String>> listCmb;
+    Vector listJob;
     public EmployeeViewSimple() {
         initComponents();
         this.controller = new EmployeeController(new Koneksi().getKoneksi());
-        this.serbaGunaView =  new SerbaGunaView();
-        this.cmbItems  = new Vector();
+        this.serbaGunaView = new SerbaGunaView();
+        this.cmbItems = new Vector();
         bindingEmployee(controller.viewEmployee());
         listCmb = new ArrayList<>();
         setCmbCategory();
+        this.jobController = new JobController(new Koneksi().getKoneksi());
+        this.getCmbJob();
+        this.setCmbJob();
 //        pnlDetails.setBorder(BorderFactory.createTitledBorder("Region Details"));
     }
 
@@ -153,14 +159,13 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtEmployeeId, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtPhoneNumber)
-                        .addComponent(txtEmail)
-                        .addComponent(txtLastName, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
-                        .addComponent(txtFirstName))
-                    .addComponent(dcHireDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtEmployeeId, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPhoneNumber)
+                    .addComponent(txtEmail)
+                    .addComponent(txtLastName, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+                    .addComponent(txtFirstName)
+                    .addComponent(dcHireDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(54, 54, 54))
         );
         jPanel2Layout.setVerticalGroup(
@@ -190,7 +195,7 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(dcHireDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel7.setText("Job");
@@ -216,13 +221,16 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
                     .addComponent(jLabel10)
                     .addComponent(jLabel11))
                 .addGap(28, 28, 28)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtSalary)
-                    .addComponent(txtCommissionPct, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbJobId, 0, 100, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cmbJobId, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cmbManager, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cmbDepartment, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(81, Short.MAX_VALUE))
+                    .addComponent(cmbDepartment, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCommissionPct, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 55, Short.MAX_VALUE)))
+                .addGap(26, 26, 26))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -278,7 +286,7 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGap(0, 21, Short.MAX_VALUE)
+                .addGap(0, 25, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
                     .addComponent(btnDrop)))
@@ -289,13 +297,13 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
         pnlDetailsLayout.setHorizontalGroup(
             pnlDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlDetailsLayout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
+                .addContainerGap(16, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         pnlDetailsLayout.setVerticalGroup(
             pnlDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -362,24 +370,27 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         boolean isUpdate = false;
-        if(txtEmployeeId.isEnabled()) isUpdate = true;
-        controller.simpanOrUpdateEmployee(txtEmployeeId.getText(), txtFirstName.getText(), 
-                txtLastName.getText(), txtEmail.getText(), txtPhoneNumber.getText(), formatDate(), 
-                cmbJobId.getSelectedItem().toString(), txtSalary.getText(),txtCommissionPct.getText(),
+        if (!txtEmployeeId.isEnabled()) {
+            isUpdate = true;
+        }
+        controller.simpanOrUpdateEmployee(txtEmployeeId.getText(), txtFirstName.getText(),
+                txtLastName.getText(), txtEmail.getText(), txtPhoneNumber.getText(), formatDate(),
+                cmbJobId.getSelectedItem().toString(), txtSalary.getText(), txtCommissionPct.getText(),
                 cmbManager.getSelectedItem().toString(), cmbDepartment.getSelectedItem().toString(), isUpdate);
-        
+        txtEmployeeId.setEditable(true);
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnDropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDropActionPerformed
-         // TODO add your handling code here:
-         String pesan = controller.hapusEmployee(txtEmployeeId.getText());
-        this.serbaGunaView.tampilPesan(this, pesan, "Pesan Delete" );
+        // TODO add your handling code here:
+        String pesan = controller.hapusEmployee(txtEmployeeId.getText());
+        this.serbaGunaView.tampilPesan(this, pesan, "Pesan Delete");
         bindingEmployee(controller.viewEmployee());
+        txtEmployeeId.setEnabled(true);
     }//GEN-LAST:event_btnDropActionPerformed
 
     private void tblEmployeeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmployeeMouseClicked
-         // TODO add your handling code here:
-         int row = tblEmployee.getSelectedRow();
+        // TODO add your handling code here:
+        int row = tblEmployee.getSelectedRow();
         String sdate = tblEmployee.getValueAt(row, 6).toString();
         txtEmployeeId.setText(tblEmployee.getValueAt(row, 1).toString());
         txtFirstName.setText(tblEmployee.getValueAt(row, 2).toString());
@@ -396,26 +407,32 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
         txtCommissionPct.setText(tblEmployee.getValueAt(row, 9).toString());
         cmbManager.setSelectedItem(tblEmployee.getValueAt(row, 10).toString());
         cmbDepartment.setSelectedItem(tblEmployee.getValueAt(row, 11).toString());
+        txtEmployeeId.setEnabled(false);
     }//GEN-LAST:event_tblEmployeeMouseClicked
 
     private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
-         // TODO add your handling code here:
-         List<Employee> employees = controller.searchEmployee(listCmb.get(this.getIndex(cmbCategory.getSelectedItem().toString())).getKey(), txtCari.getText());
-         bindingEmployee(employees);
+        // TODO add your handling code here:
+        List<Employee> employees = controller.searchEmployee(listCmb.get(this.getIndex(cmbCategory.getSelectedItem().toString())).getKey(), txtCari.getText());
+        bindingEmployee(employees);
     }//GEN-LAST:event_btnFindActionPerformed
 
     private void txtCariKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCariKeyReleased
-         // TODO add your handling code here:
-         if(txtCari.getText().equals("")) bindingEmployee(controller.viewEmployee());
-         if(evt.getKeyCode() == KeyEvent.VK_ENTER) bindingEmployee(controller.searchEmployee(listCmb.get(this.getIndex(cmbCategory.getSelectedItem().toString())).getKey(), txtCari.getText()));
+        // TODO add your handling code here:
+        if (txtCari.getText().equals("")) {
+            bindingEmployee(controller.viewEmployee());
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            bindingEmployee(controller.searchEmployee(listCmb.get(this.getIndex(cmbCategory.getSelectedItem().toString())).getKey(), txtCari.getText()));
+        }
     }//GEN-LAST:event_txtCariKeyReleased
-    private String formatDate(){
+    private String formatDate() {
         String hasil = "";
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
         hasil = sdf.format(dcHireDate.getDate());
         return hasil;
     }
-    private void bindingEmployee(List<Employee> employees){
+
+    private void bindingEmployee(List<Employee> employees) {
         String[] header = {"No", "Employee ID", "First Name", "Last Name", "Email", "Phone Number", "Hire Date", "Job",
             "Salary", "Commission PCT", "Manager", "Department"};
         String[][] data = new String[employees.size()][header.length];
@@ -425,13 +442,13 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
             data[i][2] = employees.get(i).getFirstName();
             data[i][3] = employees.get(i).getLastName();
             data[i][4] = employees.get(i).getEmail();
-            data[i][5] = employees.get(i).getPhoneNumber()+ "";
+            data[i][5] = employees.get(i).getPhoneNumber() + "";
             data[i][6] = employees.get(i).getHireDate();
-            data[i][7] = employees.get(i).getJob().getJobId()+ " - " + employees.get(i).getJob().getJobTitle();
-            data[i][8] = employees.get(i).getSalary()+ "";
-            data[i][9] = employees.get(i).getCommissionPct()+ "";
-            data[i][10] = employees.get(i).getManager().getEmployeeId()+ " - " + employees.get(i).getManager().getLastName();
-            data[i][11] = employees.get(i).getDepartment().getDepartmentId()+ " - " + employees.get(i).getDepartment().getDepartmentName();
+            data[i][7] = employees.get(i).getJob().getJobTitle();
+            data[i][8] = employees.get(i).getSalary() + "";
+            data[i][9] = employees.get(i).getCommissionPct() + "";
+            data[i][10] = employees.get(i).getManager().getLastName();
+            data[i][11] = employees.get(i).getDepartment().getDepartmentName();
         }
         tblEmployee.setModel(new DefaultTableModel(data, header));
         tblEmployee.getColumnModel().getColumn(0).setPreferredWidth(30);
@@ -448,7 +465,8 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
         tblEmployee.getColumnModel().getColumn(11).setPreferredWidth(120);
         tblEmployee.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
     }
-    private void setCmbCategory(){
+
+    private void setCmbCategory() {
         listCmb.add(0, new Pair<>("employee_id", "Employee ID"));
         listCmb.add(1, new Pair<>("first_name", "First Name"));
         listCmb.add(2, new Pair<>("last_name", "Last Name"));
@@ -466,10 +484,10 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
         final DefaultComboBoxModel model = new DefaultComboBoxModel(cmbItems);
         cmbCategory.setModel(model);
     }
-    
-    private int getIndex(String value){
+
+    private int getIndex(String value) {
         int hasil = 0;
-        switch(value){
+        switch (value) {
             case "Employee ID":
                 hasil = 0;
                 break;
@@ -505,6 +523,17 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
                 break;
         }
         return hasil;
+    }
+
+    private void getCmbJob() {
+        listJob = new Vector();
+        for (int i = 0; i < jobController.viewJob().size(); i++) {
+            listJob.add(jobController.viewJob().get(i).getJobTitle());
+        }
+    }
+    private void setCmbJob(){
+        final DefaultComboBoxModel model = new DefaultComboBoxModel(listJob);
+        cmbJobId.setModel(model);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDrop;

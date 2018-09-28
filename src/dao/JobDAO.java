@@ -103,4 +103,19 @@ public class JobDAO {
                 + "', min_salary = " + job.getMinSalary() + ", max_salary = "
                 + job.getMaxSalary() + " where job_id='" + job.getJobId() + "'");
     }
+    public Job getByJobTitle(String jobTitle){
+        Job job = new Job();
+        String query = "SELECT job_id FROM JOBS where job_title ='" + jobTitle +"'";
+        try{
+            PreparedStatement statment = koneksi.prepareStatement(query);
+            ResultSet resultSet = statment.executeQuery();
+            while(resultSet.next()){
+                job.setJobId(resultSet.getString(jobTitle));
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return job;
+    }
 }
