@@ -2,6 +2,9 @@
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
   <Properties>
+    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+      <Color blue="da" green="d9" red="e0" type="rgb"/>
+    </Property>
     <Property name="closable" type="boolean" value="true"/>
     <Property name="iconifiable" type="boolean" value="true"/>
     <Property name="maximizable" type="boolean" value="true"/>
@@ -98,9 +101,9 @@
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="3">
-            <StringItem index="0" value="Country_Id"/>
-            <StringItem index="1" value="Country_Name"/>
-            <StringItem index="2" value="Region_ID"/>
+            <StringItem index="0" value="Country Id"/>
+            <StringItem index="1" value="Country Name"/>
+            <StringItem index="2" value="Region Name"/>
           </StringArray>
         </Property>
       </Properties>
@@ -140,6 +143,11 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="btnDeleteCountry" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="164" pref="164" max="-2" attributes="0"/>
+              </Group>
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
@@ -150,28 +158,22 @@
                               <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                          <Component id="txtRegionId" min="-2" pref="234" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="186" max="-2" attributes="0"/>
-                          <Component id="btnSimpanCountry" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="txtCountryId" alignment="0" min="-2" pref="233" max="-2" attributes="0"/>
+                              <Component id="txtCountryName" alignment="0" min="-2" pref="591" max="-2" attributes="0"/>
+                              <Component id="txtRegionId" alignment="0" min="-2" pref="234" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="btnUpdateCountry" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnDeleteCountry" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="btnSimpanCountry" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <EmptySpace min="554" pref="554" max="-2" attributes="0"/>
                           <Component id="cmbRegionId" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="134" pref="134" max="-2" attributes="0"/>
-                          <Component id="txtCountryName" min="-2" pref="591" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="134" pref="134" max="-2" attributes="0"/>
-                          <Component id="txtCountryId" min="-2" pref="233" max="-2" attributes="0"/>
-                      </Group>
                   </Group>
-                  <EmptySpace min="26" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -256,7 +258,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnSimpanCountry">
           <Properties>
-            <Property name="text" type="java.lang.String" value="SIMPAN"/>
+            <Property name="text" type="java.lang.String" value="SAVE"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSimpanCountryActionPerformed"/>
@@ -272,7 +274,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnDeleteCountry">
           <Properties>
-            <Property name="text" type="java.lang.String" value="DELETE"/>
+            <Property name="text" type="java.lang.String" value="DROP"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeleteCountryActionPerformed"/>
