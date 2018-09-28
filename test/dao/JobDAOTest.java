@@ -91,15 +91,15 @@ public class JobDAOTest {
         assertTrue(jdao.eksekusi(sql));
     }
 
-    @Test
-    public void simpanJob() {
-        System.out.println("Insert New Data to Jobs Table");
-        Connection koneksi = new Koneksi().getKoneksi();
-        JobDAO jdao = new JobDAO(koneksi);
-        String jobId = "AOS", jobTitle = "Agent on Site";
-        int maxSalary = 13000, minSalary = 15000;
-        assertTrue(jdao.simpanJob(jobId, jobTitle, maxSalary, minSalary));
-    }
+//    @Test
+//    public void simpanJob() {
+//        System.out.println("Insert New Data to Jobs Table");
+//        Connection koneksi = new Koneksi().getKoneksi();
+//        JobDAO jdao = new JobDAO(koneksi);
+//        String jobId = "AOS", jobTitle = "Agent on Site";
+//        int maxSalary = 13000, minSalary = 15000;
+//        assertTrue(jdao.simpanJob(jobId, jobTitle, maxSalary, minSalary));
+//    }
 
     @Test
     public void deleteJob() {
