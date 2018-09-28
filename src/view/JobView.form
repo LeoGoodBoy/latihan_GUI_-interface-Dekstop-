@@ -48,7 +48,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="295" max="-2" attributes="0"/>
                       <Component id="cmbKategori" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                      <Component id="txtKategori" min="-2" pref="2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="txtSearch" min="-2" pref="129" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnSearch" min="-2" max="-2" attributes="0"/>
@@ -57,11 +59,14 @@
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jScrollPane1" max="32767" attributes="0"/>
-                          <Component id="jPanel1" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="jPanel1" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="22" max="32767" attributes="0"/>
+              <EmptySpace pref="14" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -73,8 +78,9 @@
                   <Component id="cmbKategori" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtSearch" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnSearch" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtKategori" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="10" max="32767" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="157" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
@@ -127,10 +133,10 @@
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="4">
-            <StringItem index="0" value="JOB_ID"/>
-            <StringItem index="1" value="JOB_TITLE"/>
-            <StringItem index="2" value="MIN_SALARY"/>
-            <StringItem index="3" value="MAX_SALARY"/>
+            <StringItem index="0" value="JOB ID"/>
+            <StringItem index="1" value="JOB TITLE"/>
+            <StringItem index="2" value="MIN SALARY"/>
+            <StringItem index="3" value="MAX SALARY"/>
           </StringArray>
         </Property>
       </Properties>
@@ -273,5 +279,11 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JTextField" name="txtKategori">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+    </Component>
   </SubComponents>
 </Form>
