@@ -66,7 +66,6 @@ public class LocationView extends javax.swing.JInternalFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         btnSimpan = new javax.swing.JButton();
-        btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         cmbCountryId = new javax.swing.JComboBox<>();
         txtKategori = new javax.swing.JTextField();
@@ -84,6 +83,7 @@ public class LocationView extends javax.swing.JInternalFrame {
             }
         });
 
+        txtSearch.setToolTipText("PILIH KATEGORI PENCARIAN TERLEBIH DAHULU");
         txtSearch.addInputMethodListener(new java.awt.event.InputMethodListener() {
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 txtSearchInputMethodTextChanged(evt);
@@ -123,7 +123,7 @@ public class LocationView extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tblLocation);
 
-        cmbKategori1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Location Id", "Street Address", "Postal Code", "City", "State Province" }));
+        cmbKategori1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-PILIH-", "Location Id", "Street Address", "Postal Code", "Cityy", "State Province", "Country Name" }));
         cmbKategori1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbKategori1ActionPerformed(evt);
@@ -151,9 +151,9 @@ public class LocationView extends javax.swing.JInternalFrame {
 
         jLabel11.setText("State Province :");
 
-        jLabel12.setText("Country Name");
+        jLabel12.setText("Country Name :");
 
-        btnSimpan.setText("SIMPAN");
+        btnSimpan.setText("SAVE");
         btnSimpan.setToolTipText("ini but simpan");
         btnSimpan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -161,15 +161,7 @@ public class LocationView extends javax.swing.JInternalFrame {
             }
         });
 
-        btnUpdate.setText("UPDATE");
-        btnUpdate.setToolTipText("ini but update");
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
-            }
-        });
-
-        btnDelete.setText("DELETE");
+        btnDelete.setText("DROP");
         btnDelete.setToolTipText("ini but hapus");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -189,10 +181,9 @@ public class LocationView extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtStreetAddress, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
@@ -205,19 +196,22 @@ public class LocationView extends javax.swing.JInternalFrame {
                     .addComponent(jLabel12))
                 .addGap(12, 12, 12)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtStateProvince, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
-                    .addComponent(txtCountryId)
-                    .addComponent(txtCity))
-                .addComponent(cmbCountryId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61))
-            .addGroup(javax.swing.GroupLayout.Alignment.CENTER, jPanel2Layout.createSequentialGroup()
-                .addGap(402, 402, 402)
-                .addComponent(btnSimpan)
-                .addGap(6, 6, 6)
-                .addComponent(btnUpdate)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDelete)
-                .addGap(92, 92, 92))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtStateProvince, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+                            .addComponent(txtCountryId)
+                            .addComponent(txtCity))
+                        .addComponent(cmbCountryId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(61, 61, 61))))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(jLabel9)
+                .addContainerGap(721, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -251,10 +245,9 @@ public class LocationView extends javax.swing.JInternalFrame {
                                 .addComponent(cmbCountryId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtCountryId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(btnSimpan)
-                            .addComponent(btnUpdate)
-                            .addComponent(btnDelete))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnDelete)
+                            .addComponent(btnSimpan))
                         .addGap(0, 36, Short.MAX_VALUE))))
         );
 
@@ -270,8 +263,8 @@ public class LocationView extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cmbKategori1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(cmbKategori1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtKategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -328,14 +321,6 @@ public class LocationView extends javax.swing.JInternalFrame {
         }
         bindingLocation(controller.viewLocation());
     }//GEN-LAST:event_btnSimpanActionPerformed
-
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        // TODO add your handling code here:
-//        String pesan = controller.updateLocation(txtLocationId.getText(), txtStreetAddress.getText(),
-//                txtCity.getText(), txtPostalCode.getText(), txtStateProvince.getText(), cmbCountryId.getSelectedItem().toString());
-//        serbaGuna.tampilPesan(this, pesan, "Pesan Update");
-//        bindingLocation(controller.viewLocation());
-    }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
@@ -395,16 +380,19 @@ public class LocationView extends javax.swing.JInternalFrame {
 
     private void cmbKategori1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbKategori1ActionPerformed
         // TODO add your handling code here:
+        
         if (cmbKategori1.getSelectedItem().equals("Location Id")) {
             txtKategori.setText("location_id");
         } else if (cmbKategori1.getSelectedItem().equals("Street Address")) {
             txtKategori.setText("street_address");
         } else if (cmbKategori1.getSelectedItem().equals("Postal Code")) {
             txtKategori.setText("postal_code");
-        } else if (cmbKategori1.getSelectedItem().equals("Cityy")) {
+        } else if (cmbKategori1.getSelectedItem().equals("City")) {
             txtKategori.setText("city");
         } else if (cmbKategori1.getSelectedItem().equals("State Province")) {
             txtKategori.setText("state_province");
+        } else if (cmbKategori1.getSelectedItem().equals("Country Name")) {
+            txtKategori.setText("country_id");
         }
     }//GEN-LAST:event_cmbKategori1ActionPerformed
 
@@ -422,7 +410,6 @@ public class LocationView extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnSimpan;
-    private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cmbCountryId;
     private javax.swing.JComboBox<String> cmbKategori1;
     private javax.swing.JLabel jLabel10;
@@ -464,11 +451,10 @@ public class LocationView extends javax.swing.JInternalFrame {
     private void edit() {
         txtLocationId.setEnabled(false);
         btnSimpan.setEnabled(true);
-        btnUpdate.setEnabled(true);
         btnDelete.setEnabled(true);
         txtCountryId.setEnabled(false);
         txtKategori.setVisible(false);
-
+        cmbKategori1.addItem("-PILIH-");
     }
 
     private void reset() {
@@ -479,7 +465,6 @@ public class LocationView extends javax.swing.JInternalFrame {
         txtCity.setText("");
         txtStateProvince.setText("");
         txtCountryId.setEnabled(true);
-        btnUpdate.setEnabled(false);
         btnDelete.setEnabled(false);
         btnSimpan.setEnabled(true);
     }
