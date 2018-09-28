@@ -172,4 +172,19 @@ public class EmployeeDAO {
     public List<Employee> search(String category, String cari) {
         return this.getData("select * from employees where regexp_like(" + category + ",'" + cari + "','i') order by 1");
     }
+    public Employee getByLastName(String lastName){
+        Employee employee = new Employee();
+        String query = "SELECT employee_id FROM employees where last_name ='" + lastName +"'";
+        try{
+            PreparedStatement statment = koneksi.prepareStatement(query);
+            ResultSet resultSet = statment.executeQuery();
+            while(resultSet.next()){
+                employee.setEmployeeId(resultSet.getInt(lastName));
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return employee;
+    }
 }
