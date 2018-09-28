@@ -86,7 +86,7 @@ public class DepartmentDAO {
     }
 
     public List<Department> getById(int id) {
-        return this.getData("select department_id from departments where department_id = '" + id + "'");
+        return this.getData("select * from departments where department_id = '" + id + "'");
     }
 
     public boolean simpanDepartment(Department department) {
