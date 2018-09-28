@@ -35,6 +35,7 @@ public class LocationView extends javax.swing.JInternalFrame {
         controller.loadCmb(cmbCountryId);
         controller.loadMaxId(txtLocationId);
         edit();
+        
     }
 
     /**
@@ -454,7 +455,7 @@ public class LocationView extends javax.swing.JInternalFrame {
         btnDelete.setEnabled(true);
         txtCountryId.setEnabled(false);
         txtKategori.setVisible(false);
-        cmbKategori1.addItem("-PILIH-");
+        
     }
 
     private void reset() {
