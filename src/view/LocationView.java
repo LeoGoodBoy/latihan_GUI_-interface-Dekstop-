@@ -20,20 +20,21 @@ import tools.Koneksi;
 public class LocationView extends javax.swing.JInternalFrame {
 
     private final SerbaGunaView serbaGuna;
-
     private final LocationController controller;
+    private final LocationDAO ldao;
 
     /**
      * Creates new form LocationView
      */
     public LocationView() {
         initComponents();
+        this.ldao = new LocationDAO(new Koneksi().getKoneksi());
         controller = new LocationController(new Koneksi().getKoneksi());
         serbaGuna = new SerbaGunaView();
         bindingLocation(controller.viewLocation());
         controller.loadCmb(cmbCountryId);
         controller.loadMaxId(txtLocationId);
-        
+        edit();
     }
 
     /**
@@ -68,6 +69,7 @@ public class LocationView extends javax.swing.JInternalFrame {
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         cmbCountryId = new javax.swing.JComboBox<>();
+        txtKategori = new javax.swing.JTextField();
 
         setClosable(true);
         setMaximizable(true);
@@ -83,10 +85,10 @@ public class LocationView extends javax.swing.JInternalFrame {
         });
 
         txtSearch.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 txtSearchInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         txtSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -121,7 +123,7 @@ public class LocationView extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tblLocation);
 
-        cmbKategori1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Location_Id", "Street_Address", "Postal_Code", "City", "State_Province" }));
+        cmbKategori1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Location Id", "Street Address", "Postal Code", "City", "State Province" }));
         cmbKategori1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbKategori1ActionPerformed(evt);
@@ -256,6 +258,9 @@ public class LocationView extends javax.swing.JInternalFrame {
                         .addGap(0, 36, Short.MAX_VALUE))))
         );
 
+        txtKategori.setEditable(false);
+        txtKategori.setEnabled(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -265,9 +270,11 @@ public class LocationView extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cmbKategori1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtKategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -279,10 +286,11 @@ public class LocationView extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtSearch, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cmbKategori1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnSearch)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtSearch)
+                        .addComponent(txtKategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbKategori1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSearch))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -308,21 +316,25 @@ public class LocationView extends javax.swing.JInternalFrame {
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
         // TODO add your handling code here:
-        String pesan = controller.simpanLocation(txtStreetAddress.getText(),
-                txtCity.getText(), txtPostalCode.getText(), txtStateProvince.getText(), txtCountryId.getText());
-        serbaGuna.tampilPesan(this, pesan, "Pesan Simpan");
+        Location location = new Location();
+        if (txtLocationId.getText().equals(ldao.autoId() + "")) {
+            String pesan = controller.simpanLocation(txtStreetAddress.getText(),
+                    txtCity.getText(), txtPostalCode.getText(), txtStateProvince.getText(), cmbCountryId.getSelectedItem().toString());
+            serbaGuna.tampilPesan(this, pesan, "Pesan Simpan");
+        } else {
+            String pesan = controller.updateLocation(txtLocationId.getText(), txtStreetAddress.getText(),
+                    txtCity.getText(), txtPostalCode.getText(), txtStateProvince.getText(), cmbCountryId.getSelectedItem().toString());
+            serbaGuna.tampilPesan(this, pesan, "Pesan Update");
+        }
         bindingLocation(controller.viewLocation());
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
-        String a = txtCountryId.getText();
-        String b = cmbCountryId.getSelectedItem().toString();
-        a = b;
-        String pesan = controller.updateLocation(txtLocationId.getText(), txtStreetAddress.getText(),
-                txtCity.getText(), txtPostalCode.getText(), txtStateProvince.getText(), a);
-        serbaGuna.tampilPesan(this, pesan, "Pesan Update");
-        bindingLocation(controller.viewLocation());
+//        String pesan = controller.updateLocation(txtLocationId.getText(), txtStreetAddress.getText(),
+//                txtCity.getText(), txtPostalCode.getText(), txtStateProvince.getText(), cmbCountryId.getSelectedItem().toString());
+//        serbaGuna.tampilPesan(this, pesan, "Pesan Update");
+//        bindingLocation(controller.viewLocation());
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -334,7 +346,7 @@ public class LocationView extends javax.swing.JInternalFrame {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
-        List<Location> location = controller.searchLocation(cmbKategori1.getSelectedItem().toString(), txtSearch.getText());
+        List<Location> location = controller.searchLocation(txtKategori.getText(), txtSearch.getText());
         bindingLocation(location);
     }//GEN-LAST:event_btnSearchActionPerformed
 
@@ -356,7 +368,7 @@ public class LocationView extends javax.swing.JInternalFrame {
             bindingLocation(controller.viewLocation());
         }
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            bindingLocation(controller.searchLocation(cmbKategori1.getSelectedItem().toString(),
+            bindingLocation(controller.searchLocation(txtKategori.getText(),
                     txtSearch.getText()));
         }
     }//GEN-LAST:event_txtSearchKeyReleased
@@ -377,12 +389,23 @@ public class LocationView extends javax.swing.JInternalFrame {
         edit();
     }//GEN-LAST:event_tblLocationMouseClicked
 
-    private void cmbKategoriActionPerformed(java.awt.event.ActionEvent evt) {                                            
+    private void cmbKategoriActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-    }                                           
+    }
 
     private void cmbKategori1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbKategori1ActionPerformed
         // TODO add your handling code here:
+        if (cmbKategori1.getSelectedItem().equals("Location Id")) {
+            txtKategori.setText("location_id");
+        } else if (cmbKategori1.getSelectedItem().equals("Street Address")) {
+            txtKategori.setText("street_address");
+        } else if (cmbKategori1.getSelectedItem().equals("Postal Code")) {
+            txtKategori.setText("postal_code");
+        } else if (cmbKategori1.getSelectedItem().equals("Cityy")) {
+            txtKategori.setText("city");
+        } else if (cmbKategori1.getSelectedItem().equals("State Province")) {
+            txtKategori.setText("state_province");
+        }
     }//GEN-LAST:event_cmbKategori1ActionPerformed
 
     private void cmbCountryIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCountryIdActionPerformed
@@ -391,7 +414,7 @@ public class LocationView extends javax.swing.JInternalFrame {
 
     private void txtLocationIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLocationIdActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_txtLocationIdActionPerformed
 
 
@@ -414,6 +437,7 @@ public class LocationView extends javax.swing.JInternalFrame {
     private javax.swing.JTable tblLocation;
     private javax.swing.JTextField txtCity;
     private javax.swing.JTextField txtCountryId;
+    private javax.swing.JTextField txtKategori;
     private javax.swing.JTextField txtLocationId;
     private javax.swing.JTextField txtPostalCode;
     private javax.swing.JTextField txtSearch;
@@ -439,10 +463,12 @@ public class LocationView extends javax.swing.JInternalFrame {
 
     private void edit() {
         txtLocationId.setEnabled(false);
-        btnSimpan.setEnabled(false);
+        btnSimpan.setEnabled(true);
         btnUpdate.setEnabled(true);
         btnDelete.setEnabled(true);
         txtCountryId.setEnabled(false);
+        txtKategori.setVisible(false);
+
     }
 
     private void reset() {
