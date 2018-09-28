@@ -48,7 +48,7 @@ public class HrForm extends javax.swing.JFrame {
         );
         dpHrLayout.setVerticalGroup(
             dpHrLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 535, Short.MAX_VALUE)
+            .addGap(0, 590, Short.MAX_VALUE)
         );
 
         jMenu1.setText("File");
