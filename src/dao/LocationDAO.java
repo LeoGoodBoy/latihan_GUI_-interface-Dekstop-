@@ -20,9 +20,14 @@ import model.Location;
  */
 public class LocationDAO {
     private Connection koneksi;
+    private CountryDAO cdao;
 
+    public LocationDAO() {
+    }
+    
     public LocationDAO(Connection koneksi) {
         this.koneksi = koneksi;
+        this.cdao = new CountryDAO(koneksi);
     }
     
     public boolean eksekusi(String sql) {
@@ -36,14 +41,14 @@ public class LocationDAO {
             e.printStackTrace();
         }
         return hasil;
-    }
+    } 
     
     public int autoId() {
         return this.getData("select max(LOCATION_ID)+100 LOCATION_ID, max(STREET_ADDRESS) STREET_ADDRESS, "
                 + "max(POSTAL_CODE) POSTAL_CODE, max(CITY) CITY, max(STATE_PROVINCE) STATE_PROVINCE, "
                 + "max(COUNTRY_ID) COUNTRY_ID from locations").get(0).getLocation_id();
     }
-
+ 
     public List<Location> getData(String sql) {
         List<Location> locations = new ArrayList<>();
         try {
@@ -56,7 +61,8 @@ public class LocationDAO {
                 location.setPostal_code(resultSet.getString("POSTAL_CODE"));
                 location.setCity(resultSet.getString("CITY"));
                 location.setState_province(resultSet.getString("STATE_PROVINCE"));
-                location.setCountry_id(new Country(resultSet.getString("COUNTRY_ID")));
+                Country country = cdao.getById(resultSet.getString("COUNTRY_ID")).get(0);
+                location.setCountry_id(country);
                 locations.add(location);
             }
         } catch (Exception e) {

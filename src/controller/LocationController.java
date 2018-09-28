@@ -5,9 +5,15 @@
  */
 package controller;
 
+import dao.CountryDAO;
 import dao.LocationDAO;
+import java.awt.TextArea;
 import java.sql.Connection;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
 import model.Country;
 import model.Location;
 
@@ -18,11 +24,13 @@ import model.Location;
 public class LocationController {
 
     private LocationDAO ldao;
+    private CountryDAO cdao;
     private SerbaGunaController serbaGunaController;
 
     public LocationController(Connection koneksi) {
         this.ldao = new LocationDAO(koneksi);
         this.serbaGunaController = new SerbaGunaController();
+        this.cdao = new CountryDAO(koneksi);
     }
 
     public String simpanLocation(String street_address, String postal_code,
@@ -39,7 +47,7 @@ public class LocationController {
         return serbaGunaController.getMessage(ldao.updateLocation(location));
     }
 
-//   
+ 
     public String hapusLocation(String locationId) {
         int location = Integer.parseInt(locationId);
         return serbaGunaController.getMessage(ldao.hapusLocation(location));
@@ -51,6 +59,19 @@ public class LocationController {
 
     public List<Location> searchLocation(String category, String cari) {
         return ldao.searchLocation(category, cari);
+    }
+    
+    public void loadCmb(JComboBox cmb){
+        List<Country> countrys = cdao.getAllData();
+        for (Country country : countrys) {
+            cmb.addItem(country.getCountryId()+"-"+country.getCountryName());
+        }
+    }
+    
+    public void loadMaxId(JTextField txt){
+        ldao.autoId();
+        String t = "hmmmmmm";
+        txt.setText(t);
     }
 
 }

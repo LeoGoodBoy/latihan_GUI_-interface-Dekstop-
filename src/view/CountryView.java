@@ -31,7 +31,7 @@ public class CountryView extends javax.swing.JInternalFrame {
         controller = new CountryController(new Koneksi().getKoneksi());
         serbaGuna = new SerbaGunaView();
         bindingCountries(controller.viewCountry());
-        controller.loadCmb(cmbRegionId); 
+        controller.loadCmb(cmbRegionId);
     }
 
     /**
@@ -88,6 +88,11 @@ public class CountryView extends javax.swing.JInternalFrame {
         });
 
         cmbKategoriCountry.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Country_Id", "Country_Name", "Region_ID" }));
+        cmbKategoriCountry.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbKategoriCountryActionPerformed(evt);
+            }
+        });
 
         btnSearchCountry.setText("FIND");
         btnSearchCountry.addActionListener(new java.awt.event.ActionListener() {
@@ -122,6 +127,12 @@ public class CountryView extends javax.swing.JInternalFrame {
         });
 
         jLabel3.setText("ID REGION");
+
+        cmbRegionId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbRegionIdActionPerformed(evt);
+            }
+        });
 
         btnSimpanCountry.setText("SIMPAN");
         btnSimpanCountry.addActionListener(new java.awt.event.ActionListener() {
@@ -299,6 +310,14 @@ public class CountryView extends javax.swing.JInternalFrame {
     private void txtRegionIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRegionIdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtRegionIdActionPerformed
+
+    private void cmbRegionIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRegionIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbRegionIdActionPerformed
+
+    private void cmbKategoriCountryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbKategoriCountryActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbKategoriCountryActionPerformed
 
     private void bindingCountries(List<Country> countrys){
         String [] header = {"No","Country Id","Country Name","Region Name"};
