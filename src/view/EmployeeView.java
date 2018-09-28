@@ -277,11 +277,11 @@ public class EmployeeView extends javax.swing.JInternalFrame {
         txtLastName.setText(tblEmployee.getValueAt(row, 3).toString());
         txtEmail.setText(tblEmployee.getValueAt(row, 4).toString());
         txtPhoneNumber.setText(tblEmployee.getValueAt(row, 5).toString());
-        try {
-            dcHireDate.setDate( new SimpleDateFormat("dd/MM/yyyy").parse(sdate));
-        } catch (ParseException ex) {
-            Logger.getLogger(EmployeeView.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            dcHireDate.setDate( new SimpleDateFormat("dd/MM/yyyy").parse(sdate));
+//        } catch (ParseException ex) {
+//            Logger.getLogger(EmployeeView.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         txtJobId.setText(tblEmployee.getValueAt(row, 7).toString());
         txtSalary.setText(tblEmployee.getValueAt(row, 8).toString());
         txtCommissionPct.setText(tblEmployee.getValueAt(row, 9).toString());
@@ -332,7 +332,7 @@ public class EmployeeView extends javax.swing.JInternalFrame {
     
     private void formatDate(){
         SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
-        this.date = sdf.format(dcHireDate.getDate());
+//        this.date = sdf.format(dcHireDate.getDate());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
