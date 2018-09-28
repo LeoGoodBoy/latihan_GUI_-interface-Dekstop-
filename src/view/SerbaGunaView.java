@@ -6,6 +6,8 @@
 package view;
 
 import java.awt.Component;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,8 +15,10 @@ import javax.swing.JOptionPane;
  * @author chochong
  */
 public class SerbaGunaView {
-    public void tampilPesan(Component component, String pesan, String judul){
+
+    private Connection koneksi;
+
+    public void tampilPesan(Component component, String pesan, String judul) {
         JOptionPane.showMessageDialog(component, pesan, judul, JOptionPane.INFORMATION_MESSAGE);
-        
     }
 }
