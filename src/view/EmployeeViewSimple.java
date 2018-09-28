@@ -6,9 +6,18 @@
 package view;
 
 import controller.EmployeeController;
-import java.sql.SQLException;
+import controller.JobController;
+import java.awt.event.KeyEvent;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.util.Pair;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import model.Employee;
 import tools.Koneksi;
@@ -23,12 +32,22 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
      * Creates new form EmployeeViewSimple
      */
     EmployeeController controller;
+    JobController jobController;
     SerbaGunaView serbaGunaView;
+    Vector cmbItems;
+    List<Pair<String, String>> listCmb;
+    Vector listJob;
     public EmployeeViewSimple() {
         initComponents();
         this.controller = new EmployeeController(new Koneksi().getKoneksi());
-        this.serbaGunaView =  new SerbaGunaView();
+        this.serbaGunaView = new SerbaGunaView();
+        this.cmbItems = new Vector();
         bindingEmployee(controller.viewEmployee());
+        listCmb = new ArrayList<>();
+        setCmbCategory();
+        this.jobController = new JobController(new Koneksi().getKoneksi());
+        this.getCmbJob();
+        this.setCmbJob();
 //        pnlDetails.setBorder(BorderFactory.createTitledBorder("Region Details"));
     }
 
@@ -76,16 +95,30 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
         jPanel4 = new javax.swing.JPanel();
         btnSave = new javax.swing.JButton();
         btnDrop = new javax.swing.JButton();
-        txtJobId = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setPreferredSize(new java.awt.Dimension(700, 650));
 
-        cmbCategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbCategory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbCategoryActionPerformed(evt);
+            }
+        });
+
+        txtCari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCariKeyReleased(evt);
+            }
+        });
 
         btnFind.setText("Find");
+        btnFind.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFindActionPerformed(evt);
+            }
+        });
 
         tblEmployee.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -95,6 +128,11 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
 
             }
         ));
+        tblEmployee.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblEmployeeMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblEmployee);
 
         pnlDetails.setBorder(javax.swing.BorderFactory.createTitledBorder("Employee Details"));
@@ -178,12 +216,6 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
 
         jLabel11.setText("Department");
 
-        cmbJobId.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        cmbManager.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        cmbDepartment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -197,13 +229,16 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
                     .addComponent(jLabel10)
                     .addComponent(jLabel11))
                 .addGap(28, 28, 28)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtSalary)
-                    .addComponent(txtCommissionPct, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbJobId, 0, 100, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cmbJobId, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cmbManager, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cmbDepartment, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(81, Short.MAX_VALUE))
+                    .addComponent(cmbDepartment, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCommissionPct, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 55, Short.MAX_VALUE)))
+                .addGap(26, 26, 26))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -270,13 +305,13 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
         pnlDetailsLayout.setHorizontalGroup(
             pnlDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlDetailsLayout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlDetailsLayout.setVerticalGroup(
             pnlDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -296,7 +331,7 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(cmbCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cmbCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -306,11 +341,6 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnlDetails, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1)))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(243, 243, 243)
-                    .addComponent(txtJobId, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(244, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -324,11 +354,6 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnlDetails, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(298, 298, 298)
-                    .addComponent(txtJobId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(266, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -353,27 +378,73 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         boolean isUpdate = false;
-        if(txtEmployeeId.isEnabled()) isUpdate = true;
-        controller.simpanOrUpdateEmployee(txtEmployeeId.getText(), txtFirstName.getText(), 
-                txtLastName.getText(), txtEmail.getText(), txtPhoneNumber.getText(), formatDate(), 
-                cmbJobId.getSelectedItem().toString(), txtSalary.getText(),txtCommissionPct.getText(),
+        if (!txtEmployeeId.isEnabled()) {
+            isUpdate = true;
+        }
+        controller.simpanOrUpdateEmployee(txtEmployeeId.getText(), txtFirstName.getText(),
+                txtLastName.getText(), txtEmail.getText(), txtPhoneNumber.getText(), formatDate(),
+                cmbJobId.getSelectedItem().toString(), txtSalary.getText(), txtCommissionPct.getText(),
                 cmbManager.getSelectedItem().toString(), cmbDepartment.getSelectedItem().toString(), isUpdate);
-        
+        txtEmployeeId.setEditable(true);
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnDropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDropActionPerformed
-         // TODO add your handling code here:
-         String pesan = controller.hapusEmployee(txtEmployeeId.getText());
-        this.serbaGunaView.tampilPesan(this, pesan, "Pesan Delete" );
+        // TODO add your handling code here:
+        String pesan = controller.hapusEmployee(txtEmployeeId.getText());
+        this.serbaGunaView.tampilPesan(this, pesan, "Pesan Delete");
         bindingEmployee(controller.viewEmployee());
+        txtEmployeeId.setEnabled(true);
     }//GEN-LAST:event_btnDropActionPerformed
-    private String formatDate(){
+
+    private void tblEmployeeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmployeeMouseClicked
+        // TODO add your handling code here:
+        int row = tblEmployee.getSelectedRow();
+        String sdate = tblEmployee.getValueAt(row, 6).toString();
+        txtEmployeeId.setText(tblEmployee.getValueAt(row, 1).toString());
+        txtFirstName.setText(tblEmployee.getValueAt(row, 2).toString());
+        txtLastName.setText(tblEmployee.getValueAt(row, 3).toString());
+        txtEmail.setText(tblEmployee.getValueAt(row, 4).toString());
+        txtPhoneNumber.setText(tblEmployee.getValueAt(row, 5).toString());
+        try {
+            dcHireDate.setDate(new SimpleDateFormat("yyyy-mm-dd").parse(sdate));
+        } catch (ParseException ex) {
+            Logger.getLogger(EmployeeViewSimple.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        cmbJobId.setSelectedItem(tblEmployee.getValueAt(row, 7).toString());
+        txtSalary.setText(tblEmployee.getValueAt(row, 8).toString());
+        txtCommissionPct.setText(tblEmployee.getValueAt(row, 9).toString());
+        cmbManager.setSelectedItem(tblEmployee.getValueAt(row, 10).toString());
+        cmbDepartment.setSelectedItem(tblEmployee.getValueAt(row, 11).toString());
+        txtEmployeeId.setEnabled(false);
+    }//GEN-LAST:event_tblEmployeeMouseClicked
+
+    private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
+        // TODO add your handling code here:
+        List<Employee> employees = controller.searchEmployee(listCmb.get(this.getIndex(cmbCategory.getSelectedItem().toString())).getKey(), txtCari.getText());
+        bindingEmployee(employees);
+    }//GEN-LAST:event_btnFindActionPerformed
+
+    private void txtCariKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCariKeyReleased
+        // TODO add your handling code here:
+        if (txtCari.getText().equals("")) {
+            bindingEmployee(controller.viewEmployee());
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            bindingEmployee(controller.searchEmployee(listCmb.get(this.getIndex(cmbCategory.getSelectedItem().toString())).getKey(), txtCari.getText()));
+        }
+    }//GEN-LAST:event_txtCariKeyReleased
+
+    private void cmbCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCategoryActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbCategoryActionPerformed
+    private String formatDate() {
         String hasil = "";
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 //        hasil = sdf.format(dcHireDate.getDate());
         return hasil;
     }
-    private void bindingEmployee(List<Employee> employees){
+
+    private void bindingEmployee(List<Employee> employees) {
         String[] header = {"No", "Employee ID", "First Name", "Last Name", "Email", "Phone Number", "Hire Date", "Job",
             "Salary", "Commission PCT", "Manager", "Department"};
         String[][] data = new String[employees.size()][header.length];
@@ -383,17 +454,99 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
             data[i][2] = employees.get(i).getFirstName();
             data[i][3] = employees.get(i).getLastName();
             data[i][4] = employees.get(i).getEmail();
-            data[i][5] = employees.get(i).getPhoneNumber()+ "";
+            data[i][5] = employees.get(i).getPhoneNumber() + "";
             data[i][6] = employees.get(i).getHireDate();
-            data[i][7] = employees.get(i).getJob().getJobId()+ " - " + employees.get(i).getJob().getJobTitle();
-            data[i][8] = employees.get(i).getSalary()+ "";
-            data[i][9] = employees.get(i).getCommissionPct()+ "";
-            data[i][10] = employees.get(i).getManager().getEmployeeId()+ " - " + employees.get(i).getManager().getLastName();
-            data[i][11] = employees.get(i).getDepartment().getDepartmentId()+ " - " + employees.get(i).getDepartment().getDepartmentName();
+            data[i][7] = employees.get(i).getJob().getJobTitle();
+            data[i][8] = employees.get(i).getSalary() + "";
+            data[i][9] = employees.get(i).getCommissionPct() + "";
+            data[i][10] = employees.get(i).getManager().getLastName();
+            data[i][11] = employees.get(i).getDepartment().getDepartmentName();
         }
         tblEmployee.setModel(new DefaultTableModel(data, header));
+        tblEmployee.getColumnModel().getColumn(0).setPreferredWidth(30);
+        tblEmployee.getColumnModel().getColumn(1).setPreferredWidth(70);
+        tblEmployee.getColumnModel().getColumn(2).setPreferredWidth(70);
+        tblEmployee.getColumnModel().getColumn(3).setPreferredWidth(70);
+        tblEmployee.getColumnModel().getColumn(4).setPreferredWidth(70);
+        tblEmployee.getColumnModel().getColumn(5).setPreferredWidth(120);
+        tblEmployee.getColumnModel().getColumn(6).setPreferredWidth(70);
+        tblEmployee.getColumnModel().getColumn(7).setPreferredWidth(200);
+        tblEmployee.getColumnModel().getColumn(8).setPreferredWidth(80);
+        tblEmployee.getColumnModel().getColumn(9).setPreferredWidth(100);
+        tblEmployee.getColumnModel().getColumn(10).setPreferredWidth(80);
+        tblEmployee.getColumnModel().getColumn(11).setPreferredWidth(120);
+        tblEmployee.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
     }
 
+    private void setCmbCategory() {
+        listCmb.add(0, new Pair<>("employee_id", "Employee ID"));
+        listCmb.add(1, new Pair<>("first_name", "First Name"));
+        listCmb.add(2, new Pair<>("last_name", "Last Name"));
+        listCmb.add(3, new Pair<>("email", "Email"));
+        listCmb.add(4, new Pair<>("phone_number", "Phone Number"));
+        listCmb.add(5, new Pair<>("hire_date", "Hire Date"));
+        listCmb.add(6, new Pair<>("job_id", "Job ID"));
+        listCmb.add(7, new Pair<>("salary", "Salary"));
+        listCmb.add(8, new Pair<>("commission_pct", "Commission"));
+        listCmb.add(9, new Pair<>("manager_id", "Manager ID"));
+        listCmb.add(10, new Pair<>("department_id", "Department ID"));
+        for (Pair<String, String> pair : listCmb) {
+            cmbItems.add(pair.getValue());
+        }
+        final DefaultComboBoxModel model = new DefaultComboBoxModel(cmbItems);
+        cmbCategory.setModel(model);
+    }
+
+    private int getIndex(String value) {
+        int hasil = 0;
+        switch (value) {
+            case "Employee ID":
+                hasil = 0;
+                break;
+            case "First Name":
+                hasil = 1;
+                break;
+            case "Last Name":
+                hasil = 2;
+                break;
+            case "Email":
+                hasil = 3;
+                break;
+            case "Phone Number":
+                hasil = 4;
+                break;
+            case "Hire Date":
+                hasil = 5;
+                break;
+            case "Job ID":
+                hasil = 6;
+                break;
+            case "Salary":
+                hasil = 7;
+                break;
+            case "Commission":
+                hasil = 8;
+                break;
+            case "Manager ID":
+                hasil = 9;
+                break;
+            case "Department ID":
+                hasil = 10;
+                break;
+        }
+        return hasil;
+    }
+
+    private void getCmbJob() {
+        listJob = new Vector();
+        for (int i = 0; i < jobController.viewJob().size(); i++) {
+            listJob.add(jobController.viewJob().get(i).getJobTitle());
+        }
+    }
+    private void setCmbJob(){
+        final DefaultComboBoxModel model = new DefaultComboBoxModel(listJob);
+        cmbJobId.setModel(model);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDrop;
     private javax.swing.JButton btnFind;
@@ -427,7 +580,6 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtEmployeeId;
     private javax.swing.JTextField txtFirstName;
-    private javax.swing.JTextField txtJobId;
     private javax.swing.JTextField txtLastName;
     private javax.swing.JTextField txtPhoneNumber;
     private javax.swing.JTextField txtSalary;

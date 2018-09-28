@@ -24,7 +24,8 @@ public class Koneksi {
             ods.setPortNumber(1521);
             ods.setServiceName("XE");
             ods.setUser("system");
-            ods.setPassword("admin");  
+            ods.setPassword("admin");
+            
             koneksi = ods.getConnection();
             koneksi.createStatement().executeQuery("alter session set current_schema=hr");
         } catch (SQLException e) {

@@ -45,7 +45,7 @@ public class DepartmentDAO {
                 department.setDepartmentId(resultSet.getInt("department_id"));
                 department.setDepartmentName(resultSet.getString("department_name"));
                 int managerId = resultSet.getInt("MANAGER_ID");
-                if(managerId != 0){
+                if (managerId != 0) {
                     Employee employee = edao.getById(managerId).get(0);
                     department.setEmployee(employee);
                 }
@@ -59,7 +59,7 @@ public class DepartmentDAO {
         }
         return departments;
     }
-    
+
     public List<Department> getDataById(String sql) {
         List<Department> departments = new ArrayList<>();
         try {
@@ -71,6 +71,8 @@ public class DepartmentDAO {
                 department.setDepartmentName(resultSet.getString("department_name"));
                 departments.add(department);
             }
+            resultSet.close();
+            statment.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
@@ -106,7 +108,8 @@ public class DepartmentDAO {
     public List<Department> getById(int id) {
         return this.getData("select * from departments where department_id = " + id + "");
     }
-    public List<Department> getIdNameById(int id){
+
+    public List<Department> getIdNameById(int id) {
         return this.getDataById("SELECT department_id, department_name from departments where department_id = " + id);
     }
 
@@ -129,5 +132,20 @@ public class DepartmentDAO {
 
     public List<Department> search(String category, String cari) {
         return this.getData("SELECT * FROM DEPARTMENTS WHERE REGEXP_LIKE(" + category + ",'" + cari + "','i') order by 1");
+    }
+    public Department getByDepartmentName(String departmentName){
+        Department department = new Department();
+        String query = "SELECT department_id FROM departments where department_name ='" + departmentName +"'";
+        try{
+            PreparedStatement statment = koneksi.prepareStatement(query);
+            ResultSet resultSet = statment.executeQuery();
+            while(resultSet.next()){
+                department.setDepartmentId(resultSet.getInt(departmentName));
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return department;
     }
 }

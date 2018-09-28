@@ -89,9 +89,13 @@ public class JobDAO {
         return hasil;
     }
 
-    public boolean simpanJob(String jobId, String jobTitle, int minSalary, int maxSalary) {
-        return this.eksekusi("INSERT INTO jobs VALUES ('" + jobId + "', '" + jobTitle
-                + "', " + minSalary + ", " + maxSalary + ")");
+//    public boolean simpanJob(String jobId, String jobTitle, int minSalary, int maxSalary) {
+//        return this.eksekusi("INSERT INTO jobs VALUES ('" + jobId + "', '" + jobTitle
+//                + "', " + minSalary + ", " + maxSalary + ")");
+//    }
+    public boolean simpanJob(Job job) {
+        return this.eksekusi("INSERT INTO jobs VALUES ('" + job.getJobId() + "', '" + job.getJobTitle()
+                + "', " + job.getMinSalary() + ", " + job.getMaxSalary()+ ")");
     }
 
     public boolean deleteJob(String jobId) {
@@ -102,5 +106,20 @@ public class JobDAO {
         return this.eksekusi("UPDATE jobs set job_title = '" + job.getJobTitle()
                 + "', min_salary = " + job.getMinSalary() + ", max_salary = "
                 + job.getMaxSalary() + " where job_id='" + job.getJobId() + "'");
+    }
+    public Job getByJobTitle(String jobTitle){
+        Job job = new Job();
+        String query = "SELECT job_id FROM JOBS where job_title ='" + jobTitle +"'";
+        try{
+            PreparedStatement statment = koneksi.prepareStatement(query);
+            ResultSet resultSet = statment.executeQuery();
+            while(resultSet.next()){
+                job.setJobId(resultSet.getString(jobTitle));
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return job;
     }
 }
