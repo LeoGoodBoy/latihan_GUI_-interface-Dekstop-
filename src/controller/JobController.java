@@ -26,6 +26,19 @@ public class JobController {
         this.jdao = new JobDAO(Koneksi);
         this.serbaGunaController = new SerbaGunaController();
     }
+//    public String saveOrUpdateJob(String job_id, String job_title, String min_salary, String max_salary, boolean isEdit){
+//        Job job = new Job(job_id, job_title,Integer.parseInt(min_salary),Integer.parseInt(max_salary));
+//        if (isEdit) return serbaGunaController.getMessage(jdao.simpanJob(job.getJobId(),job.getJobTitle(),
+//                job.getMinSalary(),job.getMaxSalary()));
+//        else return serbaGunaController.getMessage(jdao.updateJob(job));
+//            
+//    }
+    public String saveOrUpdateJob(String job_id, String job_title, String min_salary, String max_salary, boolean isEdit){
+        Job job = new Job(job_id, job_title,Integer.parseInt(min_salary),Integer.parseInt(max_salary));
+        if (isEdit) return serbaGunaController.getMessage(jdao.updateJob(job));
+        else return serbaGunaController.getMessage(jdao.simpanJob(job));
+            
+    }
     /**
      * Sebagai method controller untuk menyimpan masukan dari user 
      * @param jobId
@@ -34,21 +47,21 @@ public class JobController {
      * @param maxSalary
      * @return pesan
      */
-    public String simpanJob(String jobId, String jobTitle, int minSalary, int maxSalary){
-        return this.serbaGunaController.getMessage(jdao.simpanJob(jobId, jobTitle, minSalary, maxSalary));
-    }
-    /**
-     * Sebagai method controller untuk mengubah data Job yg ada pada database
-     * @param jobId
-     * @param jobTitle
-     * @param minSalary
-     * @param maxSalary
-     * @return pesan
-     */
-    public String updateJob(String jobId, String jobTitle, int minSalary, int maxSalary){
-        Job job = new Job(jobId, jobTitle, minSalary, maxSalary);
-        return this.serbaGunaController.getMessage(jdao.updateJob(job));
-    }
+//    public String simpanJob(String jobId, String jobTitle, int minSalary, int maxSalary){
+//        return this.serbaGunaController.getMessage(jdao.simpanJob(jobId, jobTitle, minSalary, maxSalary));
+//    }
+//    /**
+//     * Sebagai method controller untuk mengubah data Job yg ada pada database
+//     * @param jobId
+//     * @param jobTitle
+//     * @param minSalary
+//     * @param maxSalary
+//     * @return pesan
+//     */
+//    public String updateJob(String jobId, String jobTitle, int minSalary, int maxSalary){
+//        Job job = new Job(jobId, jobTitle, minSalary, maxSalary);
+//        return this.serbaGunaController.getMessage(jdao.updateJob(job));
+//    }
     /**
      * Sebagai method controller untuk menghapus data dari tabel Job
      * @param jobId
