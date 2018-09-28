@@ -5,6 +5,7 @@
  */
 package view;
 
+import controller.DepartmentController;
 import controller.EmployeeController;
 import controller.JobController;
 import java.awt.event.KeyEvent;
@@ -33,21 +34,35 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
      */
     EmployeeController controller;
     JobController jobController;
+    DepartmentController departmentController;
     SerbaGunaView serbaGunaView;
     Vector cmbItems;
     List<Pair<String, String>> listCmb;
     Vector listJob;
+    private Vector listDepartment;
+    private Vector listmanager;
+    private List<List<String>> listManagerId;
+    String idManager;
+    
     public EmployeeViewSimple() {
         initComponents();
         this.controller = new EmployeeController(new Koneksi().getKoneksi());
         this.serbaGunaView = new SerbaGunaView();
         this.cmbItems = new Vector();
+        listManagerId = new ArrayList<>();
         bindingEmployee(controller.viewEmployee());
+        setNewEmployeeId();
         listCmb = new ArrayList<>();
         setCmbCategory();
         this.jobController = new JobController(new Koneksi().getKoneksi());
         this.getCmbJob();
         this.setCmbJob();
+        this.departmentController = new DepartmentController(new Koneksi().getKoneksi());
+        this.getCmbDepartment();
+        this.setCmbDepartment();
+        this.getCmbManager();
+        this.setCmbManager();
+        
 //        pnlDetails.setBorder(BorderFactory.createTitledBorder("Region Details"));
     }
 
@@ -373,11 +388,13 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
         if (!txtEmployeeId.isEnabled()) {
             isUpdate = true;
         }
-        controller.simpanOrUpdateEmployee(txtEmployeeId.getText(), txtFirstName.getText(),
+        serbaGunaView.tampilPesan(this, controller.simpanOrUpdateEmployee(txtEmployeeId.getText(), txtFirstName.getText(),
                 txtLastName.getText(), txtEmail.getText(), txtPhoneNumber.getText(), formatDate(),
                 cmbJobId.getSelectedItem().toString(), txtSalary.getText(), txtCommissionPct.getText(),
-                cmbManager.getSelectedItem().toString(), cmbDepartment.getSelectedItem().toString(), isUpdate);
+                this.idManager, cmbDepartment.getSelectedItem().toString(), isUpdate), "Pesan");
+        
         txtEmployeeId.setEditable(true);
+        setNewEmployeeId();
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnDropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDropActionPerformed
@@ -386,6 +403,7 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
         this.serbaGunaView.tampilPesan(this, pesan, "Pesan Delete");
         bindingEmployee(controller.viewEmployee());
         txtEmployeeId.setEnabled(true);
+        setNewEmployeeId();
     }//GEN-LAST:event_btnDropActionPerformed
 
     private void tblEmployeeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmployeeMouseClicked
@@ -408,6 +426,8 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
         cmbManager.setSelectedItem(tblEmployee.getValueAt(row, 10).toString());
         cmbDepartment.setSelectedItem(tblEmployee.getValueAt(row, 11).toString());
         txtEmployeeId.setEnabled(false);
+        controller.setTemp(txtLastName.getText());
+        this.idManager = getIdManager(tblEmployee.getValueAt(row, 0).toString());
     }//GEN-LAST:event_tblEmployeeMouseClicked
 
     private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
@@ -436,6 +456,8 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
         String[] header = {"No", "Employee ID", "First Name", "Last Name", "Email", "Phone Number", "Hire Date", "Job",
             "Salary", "Commission PCT", "Manager", "Department"};
         String[][] data = new String[employees.size()][header.length];
+        listManagerId = new ArrayList<>();
+
         for (int i = 0; i < employees.size(); i++) {
             data[i][0] = (i + 1) + "";
             data[i][1] = employees.get(i).getEmployeeId() + "";
@@ -448,7 +470,16 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
             data[i][8] = employees.get(i).getSalary() + "";
             data[i][9] = employees.get(i).getCommissionPct() + "";
             data[i][10] = employees.get(i).getManager().getLastName();
+//            String id = employees.get(i).getEmployeeId()+"";
+//            String name = employees.get(i).getLastName();
+//            String email = employees.get(i).getEmail();
+            List<String> idName  = new ArrayList<>();
+            idName.add((i + 1) + "");
+            idName.add(employees.get(i).getManager().getEmployeeId() + "");
+            listManagerId.add(idName);
             data[i][11] = employees.get(i).getDepartment().getDepartmentName();
+            
+            
         }
         tblEmployee.setModel(new DefaultTableModel(data, header));
         tblEmployee.getColumnModel().getColumn(0).setPreferredWidth(30);
@@ -484,7 +515,13 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
         final DefaultComboBoxModel model = new DefaultComboBoxModel(cmbItems);
         cmbCategory.setModel(model);
     }
-
+    private String getIdManager(String no){
+        String hasil = "";
+        for (List<String> name : listManagerId) {
+            if(name.get(0).equals(no)) hasil = name.get(1);
+        }
+        return hasil;
+    }
     private int getIndex(String value) {
         int hasil = 0;
         switch (value) {
@@ -534,6 +571,31 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
     private void setCmbJob(){
         final DefaultComboBoxModel model = new DefaultComboBoxModel(listJob);
         cmbJobId.setModel(model);
+    }
+    
+    private void getCmbDepartment(){
+        listDepartment = new Vector();
+        for (int i = 0; i < departmentController.viewDepartmentNames().size(); i++) {
+            listDepartment.add(departmentController.viewDepartmentNames().get(i).getDepartmentName());
+        }
+    }
+    
+    private void setCmbDepartment(){
+        final DefaultComboBoxModel model = new DefaultComboBoxModel(listDepartment);
+        cmbDepartment.setModel(model);
+    }
+    private void getCmbManager(){
+        listmanager = new Vector();
+        for (int i = 0; i < controller.viewManager().size(); i++) {
+            listmanager.add(controller.viewManager().get(i).getLastName());
+        }
+    }
+    private void setCmbManager(){
+        final DefaultComboBoxModel model = new DefaultComboBoxModel(listmanager);
+        cmbManager.setModel(model);
+    }
+    private void setNewEmployeeId(){
+        txtEmployeeId.setText(controller.getNextId() + "");
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDrop;

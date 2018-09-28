@@ -302,10 +302,10 @@ public class EmployeeView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        String pesan = controller.updateEmployee(txtEmployeeId.getText(), txtFirstName.getText(), txtLastName.getText(), txtEmail.getText(), txtPhoneNumber.getText(), txtHireDate.getText(), txtJobId.getText()
-            , txtSalary.getText(), txtCommissionPct.getText(), txtDepartmentId.getText(), txtManagerId.getText());
-        this.serbaGunaView.tampilPesan(this, pesan, "Pesan Simpan");
-        bindingEmployee(controller.viewEmployee());
+//        String pesan = controller.updateEmployee(txtEmployeeId.getText(), txtFirstName.getText(), txtLastName.getText(), txtEmail.getText(), txtPhoneNumber.getText(), txtHireDate.getText(), txtJobId.getText()
+//            , txtSalary.getText(), txtCommissionPct.getText(), txtDepartmentId.getText(), txtManagerId.getText());
+//        this.serbaGunaView.tampilPesan(this, pesan, "Pesan Simpan");
+//        bindingEmployee(controller.viewEmployee());
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed

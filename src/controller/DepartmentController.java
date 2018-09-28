@@ -62,4 +62,8 @@ public class DepartmentController {
         return ddao.search(category, cari);
     }
     
+    public List<Department> viewDepartmentNames(){
+        return ddao.getIdName();
+    }
+    
 }

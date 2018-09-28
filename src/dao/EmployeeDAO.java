@@ -129,7 +129,7 @@ public class EmployeeDAO {
         return hasil;
     }
 
-    public int getNextId() throws SQLException {
+    public int getNextId(){
         int id = this.getData("SELECT * FROM employees where rownum = 1 order by 1 desc").get(0).getEmployeeId();
         id++;
         return id;
@@ -172,19 +172,38 @@ public class EmployeeDAO {
     public List<Employee> search(String category, String cari) {
         return this.getData("select * from employees where regexp_like(" + category + ",'" + cari + "','i') order by 1");
     }
-    public Employee getByLastName(String lastName){
+    public Employee getByLastName(String employeeId, String lastName){
         Employee employee = new Employee();
-        String query = "SELECT employee_id FROM employees where last_name ='" + lastName +"'";
+        String query = "SELECT employee_id FROM employees where employee_id = "+ employeeId +" and last_name ='" + lastName +"'";
         try{
             PreparedStatement statment = koneksi.prepareStatement(query);
             ResultSet resultSet = statment.executeQuery();
             while(resultSet.next()){
-                employee.setEmployeeId(resultSet.getInt(lastName));
+                employee.setEmployeeId(resultSet.getInt("employee_id"));
             }
         }catch(Exception e){
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
         return employee;
+    }
+    public List<Employee> getIdManagerName(){
+        List<Employee> employees = new ArrayList<>();
+        try{
+            try (PreparedStatement statement = koneksi.prepareStatement("SELECT employee_id, last_name FROM employees"); ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Employee employee = new Employee();
+                    employee.setEmployeeId(resultSet.getInt("employee_id"));
+                    employee.setLastName(resultSet.getString("last_name"));
+                    employees.add(employee);
+                }
+                resultSet.close();
+//                statement.close();
+            }
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return employees;
     }
 }

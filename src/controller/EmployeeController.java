@@ -28,6 +28,7 @@ public class EmployeeController {
     JobController jobController;
     DepartmentController departmentController;
     private DepartmentDAO ddao;
+    private String temp;
 
     public EmployeeController() {
     }
@@ -36,6 +37,8 @@ public class EmployeeController {
         this.koneksi = koneksi;
         this.edao = new EmployeeDAO(koneksi);
         this.serbaGunaController = new SerbaGunaController();
+        this.jdao = new JobDAO(koneksi);
+        this.ddao = new DepartmentDAO(koneksi);
     }
 
     public List<Employee> viewEmployee() {
@@ -46,10 +49,10 @@ public class EmployeeController {
         return edao.search(category, cari);
     }
 
-    public String simpanOrUpdateEmployee(String employeeId, String firstName, String lastName, String email, String phoneNumber, String hireDate, String jobId, String salary, String commission, String departmentId, String managerId, boolean isUpdate) {
-        Job job = new Job(jobId);
-        Department department = new Department(Integer.parseInt(departmentId));
+    public String simpanOrUpdateEmployee(String employeeId, String firstName, String lastName, String email, String phoneNumber, String hireDate, String jobId, String salary, String commission, String managerId, String departmentId,  boolean isUpdate) {
+        Job job = jdao.getByJobTitle(jobId);
         Employee manager = new Employee(Integer.parseInt(managerId));
+        Department department = ddao.getByDepartmentName(departmentId);
 
         Employee employee = new Employee(Integer.parseInt(employeeId), firstName, lastName, email, phoneNumber, hireDate, job, Integer.parseInt(salary), Float.parseFloat(commission), department, manager);
         if (isUpdate) {
@@ -59,14 +62,14 @@ public class EmployeeController {
         }
     }
 
-    public String updateEmployee(String employeeId, String firstName, String lastName, String email, String phoneNumber, String hireDate, String jobId, String salary, String commission, String departmentId, String managerId) {
-        
-        Job job = jdao.getByJobTitle(jobId);
-        Employee manager = edao.getByLastName(lastName);
-        Department department = ddao.getByDepartmentName(departmentId);
-        Employee employee = new Employee(Integer.parseInt(employeeId), firstName, lastName, email, phoneNumber, hireDate, job, Integer.parseInt(salary), Float.parseFloat(commission), department, manager);
-        return this.serbaGunaController.getMessage(edao.updateEmployee(employee));
-    }
+//    public String updateEmployee(String employeeId, String firstName, String lastName, String email, String phoneNumber, String hireDate, String jobId, String salary, String commission, String departmentId, String managerId) {
+//        
+//        Job job = jdao.getByJobTitle(jobId);
+//        Employee manager = edao.getByLastName(lastName);
+//        Department department = ddao.getByDepartmentName(departmentId);
+//        Employee employee = new Employee(Integer.parseInt(employeeId), firstName, lastName, email, phoneNumber, hireDate, job, Integer.parseInt(salary), Float.parseFloat(commission), department, manager);
+//        return this.serbaGunaController.getMessage(edao.updateEmployee(employee));
+//    }
 
     public String hapusEmployee(String employeeId) {
         return this.serbaGunaController.getMessage(edao.deleteEmployee(Integer.parseInt(employeeId)));
@@ -94,5 +97,25 @@ public class EmployeeController {
             cmb.addItem(department.getDepartmentId() + " - " + department.getDepartmentName());
         }
     }
+    public int getNextId(){
+        return edao.getNextId();
+    }
+    
+    public List<Employee> viewManager(){
+        return edao.getIdManagerName();
+    }
+    
+    public int getIdManager(String employeeId, String lastName){
+        return edao.getByLastName(employeeId, lastName).getEmployeeId();
+    }
 
+    public String getTemp() {
+        return temp;
+    }
+
+    public void setTemp(String temp) {
+        this.temp = temp;
+    }
+    
+    
 }
