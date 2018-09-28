@@ -149,7 +149,7 @@ public class LocationView extends javax.swing.JInternalFrame {
 
         jLabel11.setText("State Province :");
 
-        jLabel12.setText("Country ID :");
+        jLabel12.setText("Country Name");
 
         btnSimpan.setText("SIMPAN");
         btnSimpan.setToolTipText("ini but simpan");
@@ -316,8 +316,11 @@ public class LocationView extends javax.swing.JInternalFrame {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
+        String a = txtCountryId.getText();
+        String b = cmbCountryId.getSelectedItem().toString();
+        a = b;
         String pesan = controller.updateLocation(txtLocationId.getText(), txtStreetAddress.getText(),
-                txtCity.getText(), txtPostalCode.getText(), txtStateProvince.getText(), txtCountryId.getText());
+                txtCity.getText(), txtPostalCode.getText(), txtStateProvince.getText(), a);
         serbaGuna.tampilPesan(this, pesan, "Pesan Update");
         bindingLocation(controller.viewLocation());
     }//GEN-LAST:event_btnUpdateActionPerformed
@@ -439,6 +442,7 @@ public class LocationView extends javax.swing.JInternalFrame {
         btnSimpan.setEnabled(false);
         btnUpdate.setEnabled(true);
         btnDelete.setEnabled(true);
+        txtCountryId.setEnabled(false);
     }
 
     private void reset() {
@@ -448,7 +452,7 @@ public class LocationView extends javax.swing.JInternalFrame {
         txtPostalCode.setText("");
         txtCity.setText("");
         txtStateProvince.setText("");
-        txtCountryId.setText("");
+        txtCountryId.setEnabled(true);
         btnUpdate.setEnabled(false);
         btnDelete.setEnabled(false);
         btnSimpan.setEnabled(true);
