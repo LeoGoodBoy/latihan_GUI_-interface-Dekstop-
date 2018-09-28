@@ -9,6 +9,7 @@ import controller.LocationController;
 import dao.LocationDAO;
 import java.awt.event.KeyEvent;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Location;
 import tools.Koneksi;
@@ -35,7 +36,6 @@ public class LocationView extends javax.swing.JInternalFrame {
         controller.loadCmb(cmbCountryId);
         controller.loadMaxId(txtLocationId);
         edit();
-        
     }
 
     /**
@@ -86,10 +86,10 @@ public class LocationView extends javax.swing.JInternalFrame {
 
         txtSearch.setToolTipText("PILIH KATEGORI PENCARIAN TERLEBIH DAHULU");
         txtSearch.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 txtSearchInputMethodTextChanged(evt);
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         txtSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -246,7 +246,7 @@ public class LocationView extends javax.swing.JInternalFrame {
                                 .addComponent(cmbCountryId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtCountryId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnDelete)
                             .addComponent(btnSimpan))
                         .addGap(0, 36, Short.MAX_VALUE))))
@@ -313,20 +313,24 @@ public class LocationView extends javax.swing.JInternalFrame {
         Location location = new Location();
         if (txtLocationId.getText().equals(ldao.autoId() + "")) {
             String pesan = controller.simpanLocation(txtStreetAddress.getText(),
-                    txtCity.getText(), txtPostalCode.getText(), txtStateProvince.getText(), cmbCountryId.getSelectedItem().toString());
+                    txtPostalCode.getText(), txtCity.getText(),  txtStateProvince.getText(), cmbCountryId.getSelectedItem().toString());
             serbaGuna.tampilPesan(this, pesan, "Pesan Simpan");
         } else {
             String pesan = controller.updateLocation(txtLocationId.getText(), txtStreetAddress.getText(),
-                    txtCity.getText(), txtPostalCode.getText(), txtStateProvince.getText(), cmbCountryId.getSelectedItem().toString());
+                    txtPostalCode.getText(), txtCity.getText(),  txtStateProvince.getText(), cmbCountryId.getSelectedItem().toString());
             serbaGuna.tampilPesan(this, pesan, "Pesan Update");
         }
         bindingLocation(controller.viewLocation());
+        
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-        String pesan = controller.hapusLocation(txtLocationId.getText());
-        serbaGuna.tampilPesan(this, pesan, "Pesan Delete");
+        int ok = JOptionPane.showConfirmDialog(null, "hapus pesan?");
+        if(ok==0){
+            String pesan = controller.hapusLocation(txtLocationId.getText());
+            serbaGuna.tampilPesan(this, pesan, "Pesan Delete");
+        }
         bindingLocation(controller.viewLocation());
     }//GEN-LAST:event_btnDeleteActionPerformed
 
@@ -459,13 +463,14 @@ public class LocationView extends javax.swing.JInternalFrame {
     }
 
     private void reset() {
-        txtLocationId.setText("");
-        txtLocationId.setEnabled(true);
+        controller.loadMaxId(txtLocationId);
+        txtLocationId.setEnabled(false);
         txtStreetAddress.setText("");
         txtPostalCode.setText("");
         txtCity.setText("");
         txtStateProvince.setText("");
-        txtCountryId.setEnabled(true);
+        txtCountryId.setText("");
+        txtCountryId.setEnabled(false);
         btnDelete.setEnabled(false);
         btnSimpan.setEnabled(true);
     }
