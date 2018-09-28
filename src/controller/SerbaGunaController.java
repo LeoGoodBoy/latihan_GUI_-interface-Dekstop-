@@ -9,13 +9,11 @@ package controller;
  *
  * @author chochong
  */
-public class SerbaGunaController {
+public class SerbaGunaController { 
     public String getMessage(boolean cek){
         String pesan = "Gagal";
         if (cek)pesan = "Berhasil";
         
         return pesan;
     }
-    
-    
 }

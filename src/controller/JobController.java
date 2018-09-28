@@ -8,7 +8,7 @@ package controller;
 import dao.JobDAO;
 import java.sql.Connection;
 import java.util.List;
-import model.Job;
+import model.Job; 
 
 /**
  * Deklarasi kelas JobController yang berguna sebagai penghubung antara kelas dao dan view

@@ -45,7 +45,7 @@ public class DepartmentDAO {
                 department.setDepartmentId(resultSet.getInt("department_id"));
                 department.setDepartmentName(resultSet.getString("department_name"));
                 int managerId = resultSet.getInt("MANAGER_ID");
-                if(managerId != 0){
+                if (managerId != 0) {
                     Employee employee = edao.getById(managerId).get(0);
                     department.setEmployee(employee);
                 }
@@ -53,6 +53,26 @@ public class DepartmentDAO {
                 department.setLocation(location);
                 departments.add(department);
             }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return departments;
+    }
+
+    public List<Department> getDataById(String sql) {
+        List<Department> departments = new ArrayList<>();
+        try {
+            PreparedStatement statment = koneksi.prepareStatement(sql);
+            ResultSet resultSet = statment.executeQuery();
+            while (resultSet.next()) {
+                Department department = new Department();
+                department.setDepartmentId(resultSet.getInt("department_id"));
+                department.setDepartmentName(resultSet.getString("department_name"));
+                departments.add(department);
+            }
+            resultSet.close();
+            statment.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
@@ -86,7 +106,11 @@ public class DepartmentDAO {
     }
 
     public List<Department> getById(int id) {
-        return this.getData("select * from departments where department_id = '" + id + "'");
+        return this.getData("select * from departments where department_id = " + id + "");
+    }
+
+    public List<Department> getIdNameById(int id) {
+        return this.getDataById("SELECT department_id, department_name from departments where department_id = " + id);
     }
 
     public boolean simpanDepartment(Department department) {
