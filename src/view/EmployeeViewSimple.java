@@ -6,6 +6,7 @@
 package view;
 
 import controller.EmployeeController;
+import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,12 +33,14 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
     EmployeeController controller;
     SerbaGunaView serbaGunaView;
     Vector cmbItems;
+    List<Pair<String, String>> listCmb;
     public EmployeeViewSimple() {
         initComponents();
         this.controller = new EmployeeController(new Koneksi().getKoneksi());
         this.serbaGunaView =  new SerbaGunaView();
         this.cmbItems  = new Vector();
         bindingEmployee(controller.viewEmployee());
+        listCmb = new ArrayList<>();
         setCmbCategory();
 //        pnlDetails.setBorder(BorderFactory.createTitledBorder("Region Details"));
     }
@@ -92,7 +95,18 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
         setMaximizable(true);
         setPreferredSize(new java.awt.Dimension(700, 650));
 
+        txtCari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCariKeyReleased(evt);
+            }
+        });
+
         btnFind.setText("Find");
+        btnFind.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFindActionPerformed(evt);
+            }
+        });
 
         tblEmployee.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -382,6 +396,18 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
         cmbManager.setSelectedItem(tblEmployee.getValueAt(row, 10).toString());
         cmbDepartment.setSelectedItem(tblEmployee.getValueAt(row, 11).toString());
     }//GEN-LAST:event_tblEmployeeMouseClicked
+
+    private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
+         // TODO add your handling code here:
+         List<Employee> employees = controller.searchEmployee(listCmb.get(this.getIndex(cmbCategory.getSelectedItem().toString())).getKey(), txtCari.getText());
+         bindingEmployee(employees);
+    }//GEN-LAST:event_btnFindActionPerformed
+
+    private void txtCariKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCariKeyReleased
+         // TODO add your handling code here:
+         if(txtCari.getText().equals("")) bindingEmployee(controller.viewEmployee());
+         if(evt.getKeyCode() == KeyEvent.VK_ENTER) bindingEmployee(controller.searchEmployee(listCmb.get(this.getIndex(cmbCategory.getSelectedItem().toString())).getKey(), txtCari.getText()));
+    }//GEN-LAST:event_txtCariKeyReleased
     private String formatDate(){
         String hasil = "";
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
@@ -421,8 +447,7 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
         tblEmployee.getColumnModel().getColumn(11).setPreferredWidth(120);
         tblEmployee.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
     }
-    public void setCmbCategory(){
-        List<Pair<String, String>> listCmb = new ArrayList<>();
+    private void setCmbCategory(){
         listCmb.add(0, new Pair<>("employee_id", "Employee ID"));
         listCmb.add(1, new Pair<>("first_name", "First Name"));
         listCmb.add(2, new Pair<>("last_name", "Last Name"));
@@ -439,6 +464,46 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
         }
         final DefaultComboBoxModel model = new DefaultComboBoxModel(cmbItems);
         cmbCategory.setModel(model);
+    }
+    
+    private int getIndex(String value){
+        int hasil = 0;
+        switch(value){
+            case "Employee ID":
+                hasil = 0;
+                break;
+            case "First Name":
+                hasil = 1;
+                break;
+            case "Last Name":
+                hasil = 2;
+                break;
+            case "Email":
+                hasil = 3;
+                break;
+            case "Phone Number":
+                hasil = 4;
+                break;
+            case "Hire Date":
+                hasil = 5;
+                break;
+            case "Job ID":
+                hasil = 6;
+                break;
+            case "Salary":
+                hasil = 7;
+                break;
+            case "Commission":
+                hasil = 8;
+                break;
+            case "Manager ID":
+                hasil = 9;
+                break;
+            case "Department ID":
+                hasil = 10;
+                break;
+        }
+        return hasil;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDrop;

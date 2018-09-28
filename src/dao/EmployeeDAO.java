@@ -40,6 +40,8 @@ public class EmployeeDAO {
                     employee.setEmployeeId(resultSet.getInt("employee_id"));
                     employee.setLastName(resultSet.getString("last_name"));
                 }
+                resultSet.close();
+                statement.close();
             }
         }catch(SQLException e){
             System.out.println(e.getMessage());
