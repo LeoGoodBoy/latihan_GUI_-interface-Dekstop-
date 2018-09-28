@@ -248,10 +248,10 @@ public class JobView1 extends javax.swing.JInternalFrame {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
-        String pesan = controller.updateJob(txtJobId.getText(), txtJobName.getText(), Integer.parseInt(txtMinSalary.getText()),
-                Integer.parseInt(txtMaxSalary.getText()));
-        serbaGuna.tampilPesan(this, pesan, "Pesan Update");
-        bindingJobs(controller.viewJob());
+//        String pesan = controller.updateJob(txtJobId.getText(), txtJobName.getText(), Integer.parseInt(txtMinSalary.getText()),
+//                Integer.parseInt(txtMaxSalary.getText()));
+//        serbaGuna.tampilPesan(this, pesan, "Pesan Update");
+//        bindingJobs(controller.viewJob());
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void txtJobIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtJobIdActionPerformed
