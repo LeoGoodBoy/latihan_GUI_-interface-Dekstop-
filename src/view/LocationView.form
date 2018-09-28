@@ -299,7 +299,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel12">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Country ID :"/>
+                <Property name="text" type="java.lang.String" value="Country Name"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="btnSimpan">

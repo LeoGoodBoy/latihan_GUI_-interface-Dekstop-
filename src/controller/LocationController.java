@@ -64,13 +64,12 @@ public class LocationController {
     public void loadCmb(JComboBox cmb){
         List<Country> countrys = cdao.getAllData();
         for (Country country : countrys) {
-            cmb.addItem(country.getCountryId()+"-"+country.getCountryName());
+            cmb.addItem(country.getCountryId());
         }
     }
     
     public void loadMaxId(JTextField txt){
-        ldao.autoId();
-        String t = "hmmmmmm";
+        String t = ldao.autoId()+"";
         txt.setText(t);
     }
 
