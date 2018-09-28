@@ -89,9 +89,13 @@ public class JobDAO {
         return hasil;
     }
 
-    public boolean simpanJob(String jobId, String jobTitle, int minSalary, int maxSalary) {
-        return this.eksekusi("INSERT INTO jobs VALUES ('" + jobId + "', '" + jobTitle
-                + "', " + minSalary + ", " + maxSalary + ")");
+//    public boolean simpanJob(String jobId, String jobTitle, int minSalary, int maxSalary) {
+//        return this.eksekusi("INSERT INTO jobs VALUES ('" + jobId + "', '" + jobTitle
+//                + "', " + minSalary + ", " + maxSalary + ")");
+//    }
+    public boolean simpanJob(Job job) {
+        return this.eksekusi("INSERT INTO jobs VALUES ('" + job.getJobId() + "', '" + job.getJobTitle()
+                + "', " + job.getMinSalary() + ", " + job.getMaxSalary()+ ")");
     }
 
     public boolean deleteJob(String jobId) {

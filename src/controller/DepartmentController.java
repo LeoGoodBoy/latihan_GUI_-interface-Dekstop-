@@ -6,8 +6,11 @@
 package controller;
 
 import dao.DepartmentDAO;
+import dao.EmployeeDAO;
+import dao.LocationDAO;
 import java.sql.Connection;
 import java.util.List;
+import javax.swing.JComboBox;
 import model.Department;
 import model.Employee;
 import model.Location;
@@ -18,10 +21,14 @@ import model.Location;
  */
 public class DepartmentController {
     private DepartmentDAO ddao;
+    private EmployeeDAO edao;
+    private LocationDAO ldao;
     private SerbaGunaController serbaGunaController;
 
     public DepartmentController(Connection koneksi) {
         this.ddao = new DepartmentDAO(koneksi);
+        this.edao = new EmployeeDAO(koneksi);
+        this.ldao = new LocationDAO(koneksi);
         this.serbaGunaController = new SerbaGunaController();
     }
     
@@ -64,6 +71,26 @@ public class DepartmentController {
     
     public List<Department> viewDepartmentNames(){
         return ddao.getIdName();
+    }
+    public  void loadCmbDepartmentName(JComboBox cmb){
+        List<Department> departments = ddao.getAllData();
+        for (Department department : departments) {
+            cmb.addItem(department.getDepartmentName());
+        }
+    }
+    
+    public  void loadCmbManagerId(JComboBox cmb){
+        List<Department> departments = ddao.getAllData();
+        for (Department department : departments) {
+            cmb.addItem(department.getEmployee().getEmployeeId());
+        }
+    }
+    
+    public  void loadCmbLocationId(JComboBox cmb){
+        List<Location> locations = ldao.getAllDataLocation();
+        for (Location location : locations) {
+            cmb.addItem(location.getLocation_id());
+        }
     }
     
 }

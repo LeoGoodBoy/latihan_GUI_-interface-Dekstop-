@@ -46,15 +46,15 @@ public class CountryDAO {
         try {
             PreparedStatement statment = koneksi.prepareStatement(sql);
             ResultSet resultSet = statment.executeQuery();
+            
             while (resultSet.next()) {
                 Country country = new Country();
-                country.setCountryId(resultSet.getString("COUNTRY_ID"));
-                country.setCountryName(resultSet.getString("COUNTRY_NAME"));
-                
+                country.setCountryId(resultSet.getNString(1));
+                country.setCountryName(resultSet.getNString(2));               
                // country.setRegion(new Region(resultSet.getInt("REGION_ID")));
-                Region region = rdao.getById(resultSet.getInt("REGION_ID")).get(0);
+                Region region = rdao.getById(resultSet.getInt(3)).get(0);
+                //System.out.println(region.);
                 country.setRegion(region);
-                countrys.add(country);
                 countrys.add(country);
             }
         } catch (SQLException e) {
@@ -85,7 +85,9 @@ public class CountryDAO {
      * @return mengirimkan nilai kedalam method getData menggunakan query yang dijadikan parameter
      */
     public List<Country> searchCountry(String category, String cari){
-        return this.getData("select * from countries where regexp_like(" + category + ",'" + cari + "','i') order by 1");                
+      return this.getData("select * from countries where regexp_like(" + category + ",'" + cari + "','i') order by "+category+""); 
+       //return this.getData("select c.country_id, c.country_name, r.region_name from countries c join regions r on c.region_id = r.region_id where regexp_like(" + category + ",'" + cari + "','i') order by "+category+""); 
+       // return this.getData("select c.country_id, c.country_name, r.region_name from countries c join regions r on c.region_id = r.region_id where "+category+" like '"+cari+"%' order by "+category+"");
     }
 
     

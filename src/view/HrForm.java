@@ -48,7 +48,7 @@ public class HrForm extends javax.swing.JFrame {
         );
         dpHrLayout.setVerticalGroup(
             dpHrLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 535, Short.MAX_VALUE)
+            .addGap(0, 511, Short.MAX_VALUE)
         );
 
         jMenu1.setText("File");
@@ -123,7 +123,10 @@ public class HrForm extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(dpHr)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(dpHr)
+                .addContainerGap())
         );
 
         pack();
@@ -171,9 +174,9 @@ public class HrForm extends javax.swing.JFrame {
 //        employeeView.show();
 //        dpHr.add(employeeView);
 
-        EmployeeViewSimple employeeView = new EmployeeViewSimple();
-        employeeView.show();
-        dpHr.add(employeeView);
+//        EmployeeViewSimple employeeView = new EmployeeViewSimple();
+//        employeeView.show();
+//        dpHr.add(employeeView);
     }//GEN-LAST:event_mniEmployeeActionPerformed
 
     /**

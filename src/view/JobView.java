@@ -8,7 +8,10 @@ package view;
 import controller.JobController;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
+import javafx.util.Pair;
 import javax.swing.table.DefaultTableModel;
 import model.Job;
 import tools.Koneksi;
@@ -20,12 +23,14 @@ import tools.Koneksi;
 public class JobView extends javax.swing.JInternalFrame {
     private final SerbaGunaView serbaGuna;
     private final JobController controller;
+//    Vector cmbItem;
     
     public JobView() {
         initComponents();
         Connection Koneksi;
         controller = new JobController(Koneksi=new Koneksi().getKoneksi());
         serbaGuna = new SerbaGunaView();
+//        cmbItem = new Vector();
         bindingJobs(controller.viewJob());
         
     }
@@ -56,6 +61,7 @@ public class JobView extends javax.swing.JInternalFrame {
         txtMaxSalary = new javax.swing.JTextField();
         btnDelete = new javax.swing.JButton();
         btnSimpan = new javax.swing.JButton();
+        txtKategori = new javax.swing.JTextField();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -107,7 +113,12 @@ public class JobView extends javax.swing.JInternalFrame {
             }
         });
 
-        cmbKategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "JOB_ID", "JOB_TITLE", "MIN_SALARY", "MAX_SALARY" }));
+        cmbKategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "JOB ID", "JOB TITLE", "MIN SALARY", "MAX SALARY" }));
+        cmbKategori.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbKategoriActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("JOB DETAILS"));
         jPanel1.setToolTipText("JOB DETAILS");
@@ -210,6 +221,9 @@ public class JobView extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
+        txtKategori.setEditable(false);
+        txtKategori.setEnabled(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -219,7 +233,9 @@ public class JobView extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(295, 295, 295)
                         .addComponent(cmbKategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(2, 2, 2)
+                        .addComponent(txtKategori, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnSearch))
@@ -227,8 +243,10 @@ public class JobView extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane1)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(22, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(8, 8, 8)))))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -237,8 +255,9 @@ public class JobView extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbKategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearch))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSearch)
+                    .addComponent(txtKategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -250,7 +269,7 @@ public class JobView extends javax.swing.JInternalFrame {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
-        List<Job> jobs = controller.searchJob(cmbKategori.getSelectedItem().toString(), txtSearch.getText());
+        List<Job> jobs = controller.searchJob(txtKategori.getText(), txtSearch.getText());
         bindingJobs(jobs);
     }//GEN-LAST:event_btnSearchActionPerformed
 
@@ -293,7 +312,7 @@ public class JobView extends javax.swing.JInternalFrame {
             bindingJobs(controller.viewJob());
         }
         if (evt.getKeyCode()==KeyEvent.VK_ENTER) {
-            bindingJobs(controller.searchJob(cmbKategori.getSelectedItem().toString(),
+            bindingJobs(controller.searchJob(txtKategori.getText(),
                 txtSearch.getText()));
         }
     }//GEN-LAST:event_txtSearchKeyReleased
@@ -305,10 +324,47 @@ public class JobView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtSearchActionPerformed
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-        // TODO add your handling code here:
+//         TODO add your handling code here:
+//        String pesan="r";
+        boolean isEdit = false;
+        if(!txtJobId.isEnabled()) isEdit = true;
+        String pesan=controller.saveOrUpdateJob(txtJobId.getText(), txtJobName.getText(), txtMinSalary.getText().toString(), 
+                txtMaxSalary.getText().toString(), isEdit);
+        serbaGuna.tampilPesan(this, pesan, "Pesan Simpan");
+        txtJobId.setEditable(true);
+        bindingJobs(controller.viewJob());
         
+//        String pesan = controller.saveOrUpdateJob(txtJobId.getText(),
+//                txtJobName.getText(), txtMinSalary.getText() , txtMaxSalary.getText(), true);
+//        serbaGuna.tampilPesan(this, pesan, "Pesan Simpan");
+//        bindingJobs(controller.viewJob());
     }//GEN-LAST:event_btnSimpanActionPerformed
 
+    private void cmbKategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbKategoriActionPerformed
+            // TODO add your handling code here:
+//            if(job_id.getSelectedItem().equals("Job ID")){
+        if (cmbKategori.getSelectedItem().equals("JOB ID")) {
+            txtKategori.setText("job_id");
+        } else if (cmbKategori.getSelectedItem().equals("JOB TITLE")) {
+            txtKategori.setText("job_title");
+        } else if (cmbKategori.getSelectedItem().equals("MIN SALARY")) {
+            txtKategori.setText("min_salary");
+        } else if (cmbKategori.getSelectedItem().equals("MAX SALARY")) {
+            txtKategori.setText("max_salary");
+        } 
+        
+    }//GEN-LAST:event_cmbKategoriActionPerformed
+//    private void setCmbKategori(){
+//        List<Pair<String, String>> listCmb = new ArrayList<>();
+//        listCmb.add(0, new Pair<>("job_id", "Job ID"));
+//        listCmb.add(1, new Pair<>("job_title", "Job Title"));
+//        listCmb.add(2, new Pair<>("min_salary", "Min Salary"));
+//        listCmb.add(3, new Pair<>("max_salary", "Max Salary"));
+//        for (Pair<String, String>pair: listCmb){
+//        cmbItem.add(pair.getValue());
+//        
+//    }
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
@@ -325,6 +381,7 @@ public class JobView extends javax.swing.JInternalFrame {
     private javax.swing.JTable tblJob;
     private javax.swing.JTextField txtJobId;
     private javax.swing.JTextField txtJobName;
+    private javax.swing.JTextField txtKategori;
     private javax.swing.JTextField txtMaxSalary;
     private javax.swing.JTextField txtMinSalary;
     private javax.swing.JTextField txtSearch;
@@ -354,9 +411,9 @@ public class JobView extends javax.swing.JInternalFrame {
     }
      
     
-    private void edit (){
+    private void edit(){
         txtJobId.setEnabled(false);
-        btnSimpan.setEnabled(false);
+//        btnSimpan.setEnabled(false);
 //        btnUpdate.setEnabled(true);
         btnDelete.setEnabled(true);
     }
