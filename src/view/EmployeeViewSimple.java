@@ -43,7 +43,6 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
     private Vector listmanager;
     private List<List<String>> listManagerId;
     String idManager;
-    
     public EmployeeViewSimple() {
         initComponents();
         this.controller = new EmployeeController(new Koneksi().getKoneksi());
@@ -392,7 +391,6 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
                 txtLastName.getText(), txtEmail.getText(), txtPhoneNumber.getText(), formatDate(),
                 cmbJobId.getSelectedItem().toString(), txtSalary.getText(), txtCommissionPct.getText(),
                 this.idManager, cmbDepartment.getSelectedItem().toString(), isUpdate), "Pesan");
-        
         txtEmployeeId.setEditable(true);
         setNewEmployeeId();
     }//GEN-LAST:event_btnSaveActionPerformed
