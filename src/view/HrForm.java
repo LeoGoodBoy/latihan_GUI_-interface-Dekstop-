@@ -174,9 +174,9 @@ public class HrForm extends javax.swing.JFrame {
 //        employeeView.show();
 //        dpHr.add(employeeView);
 
-//        EmployeeViewSimple employeeView = new EmployeeViewSimple();
-//        employeeView.show();
-//        dpHr.add(employeeView);
+        EmployeeViewSimple employeeView = new EmployeeViewSimple();
+        employeeView.show();
+        dpHr.add(employeeView);
     }//GEN-LAST:event_mniEmployeeActionPerformed
 
     /**

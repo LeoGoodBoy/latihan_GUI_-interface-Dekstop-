@@ -390,9 +390,10 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
         serbaGunaView.tampilPesan(this, controller.simpanOrUpdateEmployee(txtEmployeeId.getText(), txtFirstName.getText(),
                 txtLastName.getText(), txtEmail.getText(), txtPhoneNumber.getText(), formatDate(),
                 cmbJobId.getSelectedItem().toString(), txtSalary.getText(), txtCommissionPct.getText(),
-                this.idManager, cmbDepartment.getSelectedItem().toString(), isUpdate), "Pesan");
+                this.getIdManager(), cmbDepartment.getSelectedItem().toString(), isUpdate), "Pesan");
         txtEmployeeId.setEditable(true);
         setNewEmployeeId();
+        reset();
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnDropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDropActionPerformed
@@ -425,7 +426,6 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
         cmbDepartment.setSelectedItem(tblEmployee.getValueAt(row, 11).toString());
         txtEmployeeId.setEnabled(false);
         controller.setTemp(txtLastName.getText());
-        this.idManager = getIdManager(tblEmployee.getValueAt(row, 0).toString());
     }//GEN-LAST:event_tblEmployeeMouseClicked
 
     private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
@@ -467,7 +467,7 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
             data[i][7] = employees.get(i).getJob().getJobTitle();
             data[i][8] = employees.get(i).getSalary() + "";
             data[i][9] = employees.get(i).getCommissionPct() + "";
-            data[i][10] = employees.get(i).getManager().getLastName();
+            data[i][10] = employees.get(i).getManager().getEmployeeId() + "-" + employees.get(i).getManager().getLastName();
 //            String id = employees.get(i).getEmployeeId()+"";
 //            String name = employees.get(i).getLastName();
 //            String email = employees.get(i).getEmail();
@@ -513,11 +513,13 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
         final DefaultComboBoxModel model = new DefaultComboBoxModel(cmbItems);
         cmbCategory.setModel(model);
     }
-    private String getIdManager(String no){
+    private String getIdManager(){
         String hasil = "";
-        for (List<String> name : listManagerId) {
-            if(name.get(0).equals(no)) hasil = name.get(1);
-        }
+//        for (List<String> name : listManagerId) {
+//            if(name.get(0).equals(no)) hasil = name.get(1);
+//        }
+        String[] detail = cmbManager.getSelectedItem().toString().split("-");
+        hasil = detail[0];
         return hasil;
     }
     private int getIndex(String value) {
@@ -585,7 +587,7 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
     private void getCmbManager(){
         listmanager = new Vector();
         for (int i = 0; i < controller.viewManager().size(); i++) {
-            listmanager.add(controller.viewManager().get(i).getLastName());
+            listmanager.add(controller.viewManager().get(i).getEmployeeId() + "-" + controller.viewManager().get(i).getLastName());
         }
     }
     private void setCmbManager(){
@@ -594,6 +596,21 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
     }
     private void setNewEmployeeId(){
         txtEmployeeId.setText(controller.getNextId() + "");
+    }
+    private void reset(){
+        txtEmployeeId.setEnabled(true);
+        setNewEmployeeId();
+        txtFirstName.setText("");
+        txtLastName.setText("");
+        txtEmail.setText("");
+        txtPhoneNumber.setText("");
+        dcHireDate.setDate(null);
+        cmbJobId.setSelectedItem(null);
+        txtSalary.setText("");
+        txtCommissionPct.setText("");
+        cmbManager.setSelectedItem(null);
+        cmbDepartment.setSelectedItem(null);
+        bindingEmployee(controller.viewEmployee());
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDrop;
