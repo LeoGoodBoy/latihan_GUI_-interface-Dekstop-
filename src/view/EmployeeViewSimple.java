@@ -599,6 +599,7 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
     }
     private void reset(){
         txtEmployeeId.setEnabled(true);
+        txtEmployeeId.setEditable(false);
         setNewEmployeeId();
         txtFirstName.setText("");
         txtLastName.setText("");
