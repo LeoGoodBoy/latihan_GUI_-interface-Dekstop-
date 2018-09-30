@@ -262,15 +262,19 @@ public class CountryView extends javax.swing.JInternalFrame {
 
     private void btnSaveCountryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveCountryActionPerformed
         // TODO add your handling code here:
+        String abcd = cmbRegionId.getSelectedItem()+"";
+        String subRegionId = abcd.substring(0,1);
+        txtRegionId.setText(subRegionId);
+        
         boolean isUpdate = false;
         if(!txtCountryId.isEnabled()){
             isUpdate = true;
         }
         if (isUpdate) {   
-            String pesan = controller.saveOrUpdateCountry(txtCountryId.getText(),txtCountryName.getText(),  cmbRegionId.getSelectedItem().toString(), false);
+            String pesan = controller.saveOrUpdateCountry(txtCountryId.getText(),txtCountryName.getText(),  subRegionId, false);
             serbaGuna.tampilPesan(this, pesan, "Pesan Update");
             bindingCountries(controller.viewCountry());}
-        else {String pesan = controller.saveOrUpdateCountry(txtCountryId.getText(),txtCountryName.getText(),txtRegionId.getText(), true);
+        else {String pesan = controller.saveOrUpdateCountry(txtCountryId.getText(),txtCountryName.getText(), subRegionId, true);
             serbaGuna.tampilPesan(this, pesan, "Pesan Simpan");
             bindingCountries(controller.viewCountry());
             txtCountryId.setEditable(true);                       
