@@ -263,15 +263,33 @@ public class CountryView extends javax.swing.JInternalFrame {
 
     private void btnSaveCountryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveCountryActionPerformed
         // TODO add your handling code here:
-        boolean isUpdate = false;
-        if (isUpdate) {   
+//        boolean isUpdate = false;
+//        if (!txtCountryId.isEnabled()){
+//            isUpdate = true;
+//        }
+         boolean cari = controller.idCountry(txtCountryId.getText());
+         if (cari == false){
+             System.out.println("update");
             String pesan = controller.saveOrUpdateCountry(txtCountryId.getText(),txtCountryName.getText(), txtRegionId.getText(), false);
             serbaGuna.tampilPesan(this, pesan, "Pesan Update");
-            bindingCountries(controller.viewCountry());}
-        else {String pesan = controller.saveOrUpdateCountry(txtCountryId.getText(),txtCountryName.getText(), txtRegionId.getText(), true);
+            bindingCountries(controller.viewCountry());
+            txtCountryId.setEditable(true);
+         } else{
+             System.out.println("simpan");
+            String pesan = controller.saveOrUpdateCountry(txtCountryId.getText(),txtCountryName.getText(), txtRegionId.getText(), true);
             serbaGuna.tampilPesan(this, pesan, "Pesan Simpan");
-            bindingCountries(controller.viewCountry());}
-              
+            bindingCountries(controller.viewCountry());
+            txtCountryId.setEditable(true);                       
+         }   
+//        if (txtCountryId.isEditable()) {
+//               txtCountryId.setEnabled(false); 
+//            String pesan = controller.saveOrUpdateCountry(txtCountryId.getText(),txtCountryName.getText(), txtRegionId.getText(), false);
+//            serbaGuna.tampilPesan(this, pesan, "Pesan Update");
+//            bindingCountries(controller.viewCountry());}
+//         String pesan = controller.saveOrUpdateCountry(txtCountryId.getText(),txtCountryName.getText(), txtRegionId.getText(), true);
+//            serbaGuna.tampilPesan(this, pesan, "Pesan Simpan");
+//            bindingCountries(controller.viewCountry());
+//        txtCountryId.setEditable(true);
     }//GEN-LAST:event_btnSaveCountryActionPerformed
 
     private void btnDeleteCountryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCountryActionPerformed
