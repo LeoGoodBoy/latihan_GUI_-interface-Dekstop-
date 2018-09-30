@@ -19,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.util.Pair;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
@@ -48,6 +49,7 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
     private List<List<String>> listManagerId;
     String idManager;
     private TableRowSorter<TableModel> rowSorter;
+    private int dialogButton;
 
     public EmployeeViewSimple() {
         initComponents();
@@ -433,16 +435,19 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
 
     private void btnDropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDropActionPerformed
         // TODO add your handling code here:
-        String pesan = controller.hapusEmployee(txtEmployeeId.getText());
-        this.serbaGunaView.tampilPesan(this, pesan, "Pesan Delete");
-        bindingEmployee(controller.viewEmployee());
-        txtEmployeeId.setEnabled(true);
-        setNewEmployeeId();
-        reset();
+        dialogButton = JOptionPane.showConfirmDialog(this, "Are you sure to delete this?", "Delete Data", JOptionPane.YES_NO_OPTION);
+        if (dialogButton == JOptionPane.YES_OPTION) {
+            String pesan = controller.hapusEmployee(txtEmployeeId.getText());
+            this.serbaGunaView.tampilPesan(this, pesan, "Pesan Delete");
+            bindingEmployee(controller.viewEmployee());
+            txtEmployeeId.setEnabled(true);
+            setNewEmployeeId();
+            reset();
+        }
     }//GEN-LAST:event_btnDropActionPerformed
 
     private void tblEmployeeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmployeeMouseClicked
-         // TODO add your handling code here:
+        // TODO add your handling code here:
         int row = tblEmployee.getSelectedRow();
         String sdate = tblEmployee.getValueAt(row, 6).toString();
         txtEmployeeId.setText(tblEmployee.getValueAt(row, 1).toString());
@@ -458,7 +463,9 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
         cmbJobId.setSelectedItem(tblEmployee.getValueAt(row, 7).toString());
         txtSalary.setText(tblEmployee.getValueAt(row, 8).toString());
         txtCommissionPct.setText(tblEmployee.getValueAt(row, 9).toString());
-        cmbManager.setSelectedItem(tblEmployee.getValueAt(row, 10).toString());
+        String hasil = tblEmployee.getValueAt(row, 10).toString();
+        if(hasil.contains("0-null")) cmbManager.setSelectedItem(null);
+        else cmbManager.setSelectedItem(hasil);
         cmbDepartment.setSelectedItem(tblEmployee.getValueAt(row, 11).toString());
         txtEmployeeId.setEnabled(false);
         controller.setTemp(txtLastName.getText());
@@ -469,12 +476,12 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
 //        List<Employee> employees = controller.searchEmployee(listCmb.get(this.getIndex(cmbCategory.getSelectedItem().toString())).getKey(), txtCari.getText());
 //        bindingEmployee(employees);
-                String text = txtCari.getText();
-                if (text.trim().length() == 0) {
-                    rowSorter.setRowFilter(null);
-                } else {
-                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text, cmbCategory.getSelectedIndex() + 1));
-                }
+        String text = txtCari.getText();
+        if (text.trim().length() == 0) {
+            rowSorter.setRowFilter(null);
+        } else {
+            rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text, cmbCategory.getSelectedIndex() + 1));
+        }
 
     }//GEN-LAST:event_btnFindActionPerformed
 
@@ -485,11 +492,11 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
 //        }
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             String text = txtCari.getText();
-                if (text.trim().length() == 0) {
-                    rowSorter.setRowFilter(null);
-                } else {
-                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text, cmbCategory.getSelectedIndex() + 1));
-                }
+            if (text.trim().length() == 0) {
+                rowSorter.setRowFilter(null);
+            } else {
+                rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text, cmbCategory.getSelectedIndex() + 1));
+            }
         }
     }//GEN-LAST:event_txtCariKeyReleased
     private String formatDate() {
