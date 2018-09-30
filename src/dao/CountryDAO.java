@@ -101,7 +101,6 @@ public class CountryDAO {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
-        System.out.println("cdo"+hasil);
         return hasil;
     }
     
@@ -122,8 +121,8 @@ public class CountryDAO {
                 + " where country_id='" + country.getCountryId() +"'");
     }
     
-    public boolean getById(String id) {
-        return this.eksekusi("select * from countries where country_id = '" + id + "'");
+    public List<Country> getById(String id) {
+        return this.getData("select * from countries where country_id = '" + id + "'");
     }
-              
+    
 }
