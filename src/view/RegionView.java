@@ -8,6 +8,7 @@ package view;
 import controller.RegionController;
 import java.awt.event.KeyEvent;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Region;
 import tools.Koneksi;
@@ -48,7 +49,6 @@ public class RegionView extends javax.swing.JInternalFrame {
         txtRegionId = new javax.swing.JTextField();
         btnSimpan = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
-        btnUpdate = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblRegion = new javax.swing.JTable();
         btnSearch = new javax.swing.JButton();
@@ -71,7 +71,7 @@ public class RegionView extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel2.setText("Region ID :");
+        jLabel2.setText("Region ID      :");
 
         txtRegionId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,7 +79,7 @@ public class RegionView extends javax.swing.JInternalFrame {
             }
         });
 
-        btnSimpan.setText("SIMPAN");
+        btnSimpan.setText("SAVE");
         btnSimpan.setToolTipText("ini but simpan");
         btnSimpan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,19 +87,11 @@ public class RegionView extends javax.swing.JInternalFrame {
             }
         });
 
-        btnDelete.setText("DELETE");
+        btnDelete.setText("DROP");
         btnDelete.setToolTipText("ini but hapus");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteActionPerformed(evt);
-            }
-        });
-
-        btnUpdate.setText("UPDATE");
-        btnUpdate.setToolTipText("ini but update");
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
             }
         });
 
@@ -119,13 +111,10 @@ public class RegionView extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtRegionId, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnSimpan)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnUpdate))
-                    .addComponent(btnDelete))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSimpan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(97, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,8 +123,7 @@ public class RegionView extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtRegionId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSimpan)
-                    .addComponent(btnUpdate))
+                    .addComponent(btnSimpan))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -175,10 +163,10 @@ public class RegionView extends javax.swing.JInternalFrame {
         });
 
         txtSearch.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 txtSearchInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         txtSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -210,7 +198,7 @@ public class RegionView extends javax.swing.JInternalFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cmbKategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbKategori, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -229,7 +217,7 @@ public class RegionView extends javax.swing.JInternalFrame {
                     .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSearch))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19))
@@ -244,22 +232,31 @@ public class RegionView extends javax.swing.JInternalFrame {
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
         // TODO add your handling code here:
-        String pesan = controller.simpanRegion(txtRegionName.getText());
-        serbaGuna.tampilPesan(this, pesan, "Pesan Simpan");
-        bindingRegions(controller.viewRegion());
-    }//GEN-LAST:event_btnSimpanActionPerformed
-
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        // TODO add your handling code here:
+        boolean isUpdate = false;
+        if(!txtRegionId.isEnabled()){
+            isUpdate = true;
+        }
+        if (isUpdate) { 
         String pesan = controller.updateRegion(txtRegionId.getText(), txtRegionName.getText());
         serbaGuna.tampilPesan(this, pesan, "Pesan Update");
         bindingRegions(controller.viewRegion());
-    }//GEN-LAST:event_btnUpdateActionPerformed
+        } else {
+        String pesan = controller.simpanRegion(txtRegionName.getText());
+        serbaGuna.tampilPesan(this, pesan, "Pesan Simpan");
+        bindingRegions(controller.viewRegion());}
+    }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
+        int response = JOptionPane.showConfirmDialog(null, "Do you really want to delete?","Pertanyaan",JOptionPane.YES_NO_OPTION);
+        if (response == JOptionPane.YES_OPTION) {
         String pesan = controller.hapusRegion(txtRegionId.getText());
         serbaGuna.tampilPesan(this, pesan, "Pesan Delete");
+        bindingRegions(controller.viewRegion());
+        }else if (response == JOptionPane.NO_OPTION) {
+            serbaGuna.tampilPesan(this, "Tidak Jadi", "Pesan Batal Delete");
+            bindingRegions(controller.viewRegion());
+        }
         bindingRegions(controller.viewRegion());
     }//GEN-LAST:event_btnDeleteActionPerformed
 
@@ -321,7 +318,6 @@ public class RegionView extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnSimpan;
-    private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cmbKategori;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -348,8 +344,8 @@ public class RegionView extends javax.swing.JInternalFrame {
     
     private void edit (){
         txtRegionId.setEnabled(false);
-        btnSimpan.setEnabled(false);
-        btnUpdate.setEnabled(true);
+        btnSimpan.setEnabled(true);
+        //btnUpdate.setEnabled(true);
         btnDelete.setEnabled(true);
     }
     
@@ -357,7 +353,7 @@ public class RegionView extends javax.swing.JInternalFrame {
         txtRegionId.setText("");
         txtRegionId.setEnabled(true);
         txtRegionName.setText("");
-        btnUpdate.setEnabled(false);
+        //btnUpdate.setEnabled(false);
         btnDelete.setEnabled(false);
         btnSimpan.setEnabled(true);
     }

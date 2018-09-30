@@ -35,7 +35,7 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="cmbKategori" min="-2" max="-2" attributes="0"/>
+                      <Component id="cmbKategori" min="-2" pref="111" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="txtSearch" min="-2" pref="120" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -60,7 +60,7 @@
                   <Component id="btnSearch" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="185" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="189" max="32767" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
@@ -101,15 +101,11 @@
                       </Group>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="btnSimpan" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnUpdate" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Component id="btnDelete" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="btnDelete" max="32767" attributes="0"/>
+                      <Component id="btnSimpan" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="97" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -121,7 +117,6 @@
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtRegionId" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnSimpan" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnUpdate" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -147,7 +142,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Region ID :"/>
+            <Property name="text" type="java.lang.String" value="Region ID      :"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtRegionId">
@@ -157,7 +152,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnSimpan">
           <Properties>
-            <Property name="text" type="java.lang.String" value="SIMPAN"/>
+            <Property name="text" type="java.lang.String" value="SAVE"/>
             <Property name="toolTipText" type="java.lang.String" value="ini but simpan"/>
           </Properties>
           <Events>
@@ -166,20 +161,11 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnDelete">
           <Properties>
-            <Property name="text" type="java.lang.String" value="DELETE"/>
+            <Property name="text" type="java.lang.String" value="DROP"/>
             <Property name="toolTipText" type="java.lang.String" value="ini but hapus"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeleteActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnUpdate">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="UPDATE"/>
-            <Property name="toolTipText" type="java.lang.String" value="ini but update"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUpdateActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
