@@ -124,4 +124,27 @@ public class LocationDAO {
     public List<Location> getById(int id) {
         return this.getData("select * from locations where location_id = " + id);
     }
+    
+    public List<Location> getIdAndCity(String sql) {
+        List<Location> locations = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = koneksi.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Location location = new Location();
+                location.setLocation_id(resultSet.getInt("LOCATION_ID"));
+                location.setCity(resultSet.getString("CITY"));
+                locations.add(location);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return locations;
+    }
+    
+    public List<Location> getLocationIdAndCity(int id) {
+        return this.getIdAndCity("select location_id, city from locations");
+    }
+    
 }

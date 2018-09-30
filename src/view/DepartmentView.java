@@ -11,6 +11,7 @@ import dao.EmployeeDAO;
 import dao.LocationDAO;
 import java.awt.event.KeyEvent;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Department;
 import model.Employee;
@@ -42,7 +43,7 @@ public class DepartmentView extends javax.swing.JInternalFrame {
         edao = new EmployeeDAO(new Koneksi().getKoneksi());
         ddao = new DepartmentDAO(new Koneksi().getKoneksi());
         controller.loadCmbDepartmentName(cmbDepartmentName);
-        //controller.loadCmbManagerId(cmbManagerId);
+        controller.loadCmbManagerId(cmbManagerId);
         controller.loadCmbLocationId(cmbLocationId);
         bindingDepartment(controller.viewDepartment());
     }
@@ -65,19 +66,13 @@ public class DepartmentView extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         txtDepartmentId = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtDepartmentName = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtManagerId = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtLocationId = new javax.swing.JTextField();
-        btnSimpan = new javax.swing.JButton();
-        btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         cmbDepartmentName = new javax.swing.JComboBox<>();
         cmbManagerId = new javax.swing.JComboBox<>();
         cmbLocationId = new javax.swing.JComboBox<>();
         btnSimpanCmb = new javax.swing.JButton();
-        btnUpdateCmb = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -135,41 +130,9 @@ public class DepartmentView extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Department Name :");
 
-        txtDepartmentName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDepartmentNameActionPerformed(evt);
-            }
-        });
-
         jLabel3.setText("Manager ID :");
 
-        txtManagerId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtManagerIdActionPerformed(evt);
-            }
-        });
-
         jLabel4.setText("Location ID :");
-
-        txtLocationId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtLocationIdActionPerformed(evt);
-            }
-        });
-
-        btnSimpan.setText("Simpan");
-        btnSimpan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSimpanActionPerformed(evt);
-            }
-        });
-
-        btnUpdate.setText("Update");
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
-            }
-        });
 
         btnDelete.setText("Delete");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -178,17 +141,16 @@ public class DepartmentView extends javax.swing.JInternalFrame {
             }
         });
 
-        btnSimpanCmb.setText("SimpanCmb");
-        btnSimpanCmb.addActionListener(new java.awt.event.ActionListener() {
+        cmbDepartmentName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSimpanCmbActionPerformed(evt);
+                cmbDepartmentNameActionPerformed(evt);
             }
         });
 
-        btnUpdateCmb.setText("UpdateCmb");
-        btnUpdateCmb.addActionListener(new java.awt.event.ActionListener() {
+        btnSimpanCmb.setText("Save");
+        btnSimpanCmb.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateCmbActionPerformed(evt);
+                btnSimpanCmbActionPerformed(evt);
             }
         });
 
@@ -199,38 +161,23 @@ public class DepartmentView extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtDepartmentId, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDepartmentName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtLocationId, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtManagerId, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmbDepartmentName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbManagerId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbLocationId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(339, 339, 339))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnSimpan)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(75, 75, 75)
-                                .addComponent(btnUpdate)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnDelete)))
-                        .addGap(96, 96, 96)
-                        .addComponent(btnSimpanCmb)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnUpdateCmb)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtDepartmentId, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbDepartmentName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbManagerId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbLocationId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(377, 377, 377))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(82, 82, 82)
+                .addComponent(btnSimpanCmb)
+                .addGap(18, 18, 18)
+                .addComponent(btnDelete)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,26 +187,20 @@ public class DepartmentView extends javax.swing.JInternalFrame {
                     .addComponent(txtDepartmentId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDepartmentName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(cmbDepartmentName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbDepartmentName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtManagerId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbManagerId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(cmbManagerId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtLocationId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbLocationId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(cmbLocationId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(11, 11, 11)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSimpan)
-                    .addComponent(btnUpdate)
-                    .addComponent(btnDelete)
                     .addComponent(btnSimpanCmb)
-                    .addComponent(btnUpdateCmb)))
+                    .addComponent(btnDelete)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -302,48 +243,25 @@ public class DepartmentView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDepartmentIdActionPerformed
 
-    private void txtDepartmentNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDepartmentNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDepartmentNameActionPerformed
-
-    private void txtManagerIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtManagerIdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtManagerIdActionPerformed
-
-    private void txtLocationIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLocationIdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtLocationIdActionPerformed
-
-    private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-        // TODO add your handling code here:
-        String pesan = controller.simpanUpdateDepartment(txtDepartmentId.getText(), txtDepartmentName.getText(),
-                txtManagerId.getText(), txtLocationId.getText(), true);
-        serbaGuna.tampilPesan(this, pesan, "Pesan Simpan");
-        bindingDepartment(controller.viewDepartment());
-    }//GEN-LAST:event_btnSimpanActionPerformed
-
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        // TODO add your handling code here:
-        String pesan = controller.simpanUpdateDepartment(txtDepartmentId.getText(), txtDepartmentName.getText(),
-                txtManagerId.getText(), txtLocationId.getText(), false);
-        serbaGuna.tampilPesan(this, pesan, "Pesan Update");
-        bindingDepartment(controller.viewDepartment());
-    }//GEN-LAST:event_btnUpdateActionPerformed
-
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-        String pesan = controller.hapusDepartment(txtDepartmentId.getText());
+    int messageBox = JOptionPane.showConfirmDialog(this, "Are You Sure ?", "Delete", JOptionPane.YES_NO_OPTION ,JOptionPane.WARNING_MESSAGE);
+        if(messageBox == JOptionPane.YES_OPTION){
+            String pesan = controller.hapusDepartment(txtDepartmentId.getText());
         serbaGuna.tampilPesan(this, pesan, "Pesan Delete");
         bindingDepartment(controller.viewDepartment());
+        reset();
+        }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void tblDepartmentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDepartmentMouseClicked
         // TODO add your handling code here:
         int row = tblDepartment.getSelectedRow();
         txtDepartmentId.setText(tblDepartment.getValueAt(row, 1).toString());
-        txtDepartmentName.setText(tblDepartment.getValueAt(row, 2).toString());
-        txtManagerId.setText(tblDepartment.getValueAt(row, 3).toString());
-        txtLocationId.setText(tblDepartment.getValueAt(row, 4).toString());
+        cmbDepartmentName.setSelectedItem(tblDepartment.getValueAt(row, 2).toString());
+        if(tblDepartment.getValueAt(row, 3) == null) cmbManagerId.setSelectedItem(null);
+        else cmbManagerId.setSelectedItem(tblDepartment.getValueAt(row, 3).toString());
+        cmbLocationId.setSelectedItem(tblDepartment.getValueAt(row, 4).toString());
         edit();
     }//GEN-LAST:event_tblDepartmentMouseClicked
 
@@ -379,27 +297,29 @@ public class DepartmentView extends javax.swing.JInternalFrame {
 
     private void btnSimpanCmbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanCmbActionPerformed
         // TODO add your handling code here:
-        String pesan = controller.simpanUpdateDepartment(txtDepartmentId.getText(), cmbDepartmentName.getSelectedItem().toString(),
-                txtManagerId.getText(), cmbLocationId.getSelectedItem().toString(), true);
-        serbaGuna.tampilPesan(this, pesan, "Pesan Simpan");
+        if(!txtDepartmentId.isEnabled()){
+            String pesanUpdate = controller.simpanUpdateDepartment(txtDepartmentId.getText(), cmbDepartmentName.getSelectedItem().toString(),
+                cmbManagerId.getSelectedItem().toString(), cmbLocationId.getSelectedItem().toString(), false);
+        serbaGuna.tampilPesan(this, pesanUpdate, "Pesan Update");
         bindingDepartment(controller.viewDepartment());
+        reset();
+        }
+        else{
+            String pesanSimpan = controller.simpanUpdateDepartment(txtDepartmentId.getText(), cmbDepartmentName.getSelectedItem().toString(),
+                cmbManagerId.getSelectedItem().toString(), cmbLocationId.getSelectedItem().toString(), true);
+        serbaGuna.tampilPesan(this, pesanSimpan, "Pesan Simpan");
+        bindingDepartment(controller.viewDepartment());
+        }
     }//GEN-LAST:event_btnSimpanCmbActionPerformed
 
-    private void btnUpdateCmbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateCmbActionPerformed
-        // TODO add your handling code here:
-        String pesan = controller.simpanUpdateDepartment(txtDepartmentId.getText(), cmbDepartmentName.getSelectedItem().toString(),
-                txtManagerId.getText(), cmbLocationId.getSelectedItem().toString(), false);
-        serbaGuna.tampilPesan(this, pesan, "Pesan Update");
-        bindingDepartment(controller.viewDepartment());
-    }//GEN-LAST:event_btnUpdateCmbActionPerformed
+    private void cmbDepartmentNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDepartmentNameActionPerformed
+         // TODO add your handling code here:
+    }//GEN-LAST:event_cmbDepartmentNameActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnSimpan;
     private javax.swing.JButton btnSimpanCmb;
-    private javax.swing.JButton btnUpdate;
-    private javax.swing.JButton btnUpdateCmb;
     private javax.swing.JComboBox<String> cmbDepartmentName;
     private javax.swing.JComboBox<String> cmbKategori;
     private javax.swing.JComboBox<String> cmbLocationId;
@@ -413,9 +333,6 @@ public class DepartmentView extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblDepartment;
     private javax.swing.JTextField txtDepartmentId;
-    private javax.swing.JTextField txtDepartmentName;
-    private javax.swing.JTextField txtLocationId;
-    private javax.swing.JTextField txtManagerId;
     private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
     
@@ -427,8 +344,8 @@ public class DepartmentView extends javax.swing.JInternalFrame {
             data[i][0] = (i + 1) + "";
             data[i][1] = department.get(i).getDepartmentId() + "";
             data[i][2] = department.get(i).getDepartmentName() + "";
-            if(employee!=null)data[i][3] = department.get(i).getEmployee().getLastName() + "";
-            data[i][4] = department.get(i).getLocation().getCity() + "";
+            if(employee!=null) data[i][3] = department.get(i).getEmployee().getEmployeeId() + " - " + department.get(i).getEmployee().getLastName()+ "";
+            data[i][4] = department.get(i).getLocation().getLocation_id()+ " - " + department.get(i).getLocation().getCity() + "";
         }
         tblDepartment.setModel(new DefaultTableModel(data, header));
         reset();
@@ -436,20 +353,14 @@ public class DepartmentView extends javax.swing.JInternalFrame {
 
     private void edit() {
         txtDepartmentId.setEnabled(false);
-        btnSimpan.setEnabled(true);
-        btnUpdate.setEnabled(true);
         btnDelete.setEnabled(true);
     }
 
     private void reset() {
         txtDepartmentId.setText(ddao.autoId()+"");
-        txtDepartmentId.setEnabled(false);
-        txtDepartmentName.setText("");
-        txtManagerId.setText("");
-        txtLocationId.setText("");
-        btnUpdate.setEnabled(false);
+        txtDepartmentId.setEnabled(true);
         btnDelete.setEnabled(false);
-        btnSimpan.setEnabled(true);
+        txtDepartmentId.setEditable(false);
     }
     
 }
