@@ -77,16 +77,16 @@ public class DepartmentController {
     }
     
     public  void loadCmbManagerId(JComboBox cmb){
-        List<Department> departments = ddao.getAllData();
-        for (Department department : departments) {
-            cmb.addItem(department.getEmployee().getEmployeeId());
+        List<Employee> employees = edao.getAllData();
+        for (Employee employee : employees) {
+            cmb.addItem(employee.getEmployeeId());
         }
     }
     
     public  void loadCmbLocationId(JComboBox cmb){
-        List<Location> locations = ldao.getAllDataLocation();
+        List<Location> locations = ldao.getLocationIdAndCity(0);
         for (Location location : locations) {
-            cmb.addItem(location.getLocation_id());
+            cmb.addItem(location.getLocation_id() + " - " + location.getCity());
         }
     }
     

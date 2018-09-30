@@ -42,7 +42,7 @@ public class DepartmentView extends javax.swing.JInternalFrame {
         edao = new EmployeeDAO(new Koneksi().getKoneksi());
         ddao = new DepartmentDAO(new Koneksi().getKoneksi());
         controller.loadCmbDepartmentName(cmbDepartmentName);
-        //controller.loadCmbManagerId(cmbManagerId);
+        controller.loadCmbManagerId(cmbManagerId);
         controller.loadCmbLocationId(cmbLocationId);
         bindingDepartment(controller.viewDepartment());
     }

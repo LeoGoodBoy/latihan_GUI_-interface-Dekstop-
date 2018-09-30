@@ -133,6 +133,7 @@ public class DepartmentDAO {
     public List<Department> search(String category, String cari) {
         return this.getData("SELECT * FROM DEPARTMENTS WHERE REGEXP_LIKE(" + category + ",'" + cari + "','i') order by 1");
     }
+    
     public Department getByDepartmentName(String departmentName){
         Department department = new Department();
         String query = "SELECT department_id FROM departments where department_name ='" + departmentName +"'";
