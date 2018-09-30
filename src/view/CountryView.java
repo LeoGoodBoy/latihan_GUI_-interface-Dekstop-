@@ -61,11 +61,10 @@ public class CountryView extends javax.swing.JInternalFrame {
         btnSaveCountry = new javax.swing.JButton();
         btnDeleteCountry = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(224, 217, 218));
-        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
+        setResizable(true);
         setTitle("Master Country");
         setToolTipText("ini master country");
 
@@ -104,7 +103,7 @@ public class CountryView extends javax.swing.JInternalFrame {
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(239, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(247, 253, 253));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), "Country Details", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Copperplate Gothic Bold", 1, 12), new java.awt.Color(0, 0, 204))); // NOI18N
 
         jLabel1.setText("ID COUNTRY");
@@ -188,7 +187,7 @@ public class CountryView extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(554, 554, 554)
                         .addComponent(cmbRegionId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(168, Short.MAX_VALUE))
+                .addContainerGap(154, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,7 +246,7 @@ public class CountryView extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
@@ -316,7 +315,7 @@ public class CountryView extends javax.swing.JInternalFrame {
             }
         if (evt.getKeyCode()==KeyEvent.VK_ENTER) {
             if (cmbKategoriCountry.getSelectedItem()=="Region Name"){
-                bindingCountries(controller.searchCountry("Region_Name", txtSearchCountry.getText()));
+                bindingCountries(controller.searchCountry("Region_id", txtSearchCountry.getText()));
             }
             else if (cmbKategoriCountry.getSelectedItem()=="Country Name"){
                 bindingCountries(controller.searchCountry("Country_Name", txtSearchCountry.getText()));
@@ -330,7 +329,7 @@ public class CountryView extends javax.swing.JInternalFrame {
     private void btnSearchCountryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchCountryActionPerformed
         // TODO add your handling code here:
         if (cmbKategoriCountry.getSelectedItem()=="Region Name"){
-                bindingCountries(controller.searchCountry("Region_Id", txtSearchCountry.getText()));
+                bindingCountries(controller.searchCountry("Region_id", txtSearchCountry.getText()));
             }
             else if (cmbKategoriCountry.getSelectedItem()=="Country Name"){
                 bindingCountries(controller.searchCountry("Country_Name", txtSearchCountry.getText()));
@@ -375,7 +374,7 @@ public class CountryView extends javax.swing.JInternalFrame {
             data [i][0] = (i+1)+"";
             data [i][1] = countrys.get(i).getCountryId();
             data [i][2] = countrys.get(i).getCountryName();
-            data [i][3] = countrys.get(i).getRegion().getRegionName()+"";       
+            data [i][3] = countrys.get(i).getRegion().getRegionId()+" - "+countrys.get(i).getRegion().getRegionName();       
         }
         tblCountry.setModel(new DefaultTableModel(data, header));
         reset();
