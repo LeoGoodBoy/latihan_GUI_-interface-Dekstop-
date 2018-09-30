@@ -125,7 +125,7 @@ public class LocationDAO {
         return this.getData("select * from locations where location_id = " + id);
     }
     
-    public List<Location> getIdAndName(String sql) {
+    public List<Location> getIdAndCity(String sql) {
         List<Location> locations = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = koneksi.prepareStatement(sql);
@@ -144,6 +144,7 @@ public class LocationDAO {
     }
     
     public List<Location> getLocationIdAndCity(int id) {
-        return this.getIdAndName("select location_id, city from locations");
+        return this.getIdAndCity("select location_id, city from locations");
     }
+    
 }

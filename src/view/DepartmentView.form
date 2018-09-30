@@ -136,46 +136,26 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtDepartmentId" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                              <Component id="txtDepartmentName" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                              <Component id="txtLocationId" min="-2" pref="200" max="-2" attributes="0"/>
-                              <Component id="txtManagerId" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="cmbDepartmentName" min="-2" max="-2" attributes="0"/>
-                              <Component id="cmbManagerId" min="-2" max="-2" attributes="0"/>
-                              <Component id="cmbLocationId" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="339" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="btnSimpan" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
-                                  <Component id="btnUpdate" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="btnDelete" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
-                          <Component id="btnSimpanCmb" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="btnUpdateCmb" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="txtDepartmentId" min="-2" pref="200" max="-2" attributes="0"/>
+                      <Component id="cmbDepartmentName" min="-2" max="-2" attributes="0"/>
+                      <Component id="cmbManagerId" min="-2" max="-2" attributes="0"/>
+                      <Component id="cmbLocationId" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="377" max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
+                  <Component id="btnSimpanCmb" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="btnDelete" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -188,29 +168,23 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtDepartmentName" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="cmbDepartmentName" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtManagerId" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="cmbManagerId" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtLocationId" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="cmbLocationId" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btnSimpan" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnUpdate" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnDelete" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnSimpanCmb" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnUpdateCmb" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnDelete" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -232,46 +206,15 @@
             <Property name="text" type="java.lang.String" value="Department Name :"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtDepartmentName">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDepartmentNameActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
             <Property name="text" type="java.lang.String" value="Manager ID :"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtManagerId">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtManagerIdActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
             <Property name="text" type="java.lang.String" value="Location ID :"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtLocationId">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtLocationIdActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnSimpan">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Simpan"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSimpanActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnUpdate">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Update"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUpdateActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnDelete">
           <Properties>
@@ -287,6 +230,9 @@
               <StringArray count="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbDepartmentNameActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -313,18 +259,10 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnSimpanCmb">
           <Properties>
-            <Property name="text" type="java.lang.String" value="SimpanCmb"/>
+            <Property name="text" type="java.lang.String" value="Save"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSimpanCmbActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnUpdateCmb">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="UpdateCmb"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUpdateCmbActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

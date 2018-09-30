@@ -134,6 +134,8 @@ public class DepartmentDAO {
         return this.getData("SELECT * FROM DEPARTMENTS WHERE REGEXP_LIKE(" + category + ",'" + cari + "','i') order by 1");
     }
     
+    
+    
     public Department getByDepartmentName(String departmentName){
         Department department = new Department();
         String query = "SELECT department_id FROM departments where department_name ='" + departmentName +"'";
@@ -149,7 +151,9 @@ public class DepartmentDAO {
         }
         return department;
     }
+    
     public List<Department> getIdName(){
         return this.getDataById("SELECT department_id, department_name FROM departments");
     }
+   
 }

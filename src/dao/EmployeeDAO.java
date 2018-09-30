@@ -190,7 +190,7 @@ public class EmployeeDAO {
     public List<Employee> getIdManagerName(){
         List<Employee> employees = new ArrayList<>();
         try{
-            try (PreparedStatement statement = koneksi.prepareStatement("SELECT employee_id, last_name FROM employees"); ResultSet resultSet = statement.executeQuery()) {
+            try (PreparedStatement statement = koneksi.prepareStatement("SELECT employee_id, last_name FROM employees ORDER BY 1"); ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     Employee employee = new Employee();
                     employee.setEmployeeId(resultSet.getInt("employee_id"));
@@ -206,4 +206,5 @@ public class EmployeeDAO {
         }
         return employees;
     }
+        
 }
