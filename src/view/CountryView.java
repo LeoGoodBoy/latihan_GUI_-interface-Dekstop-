@@ -10,7 +10,11 @@ import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.print.DocFlavor;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.RowSorter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import model.Country;
 import tools.Koneksi;
 
@@ -22,7 +26,7 @@ public class CountryView extends javax.swing.JInternalFrame {
     
     private SerbaGunaView serbaGuna;    
     private CountryController controller;
-    
+    private TableRowSorter<TableModel> rowSorter;
 
     /**
      * Creates new form CountryView
@@ -34,6 +38,7 @@ public class CountryView extends javax.swing.JInternalFrame {
         bindingCountries(controller.viewCountry());
         controller.loadCmb(cmbRegionId);
         //controller.getLoadCmb(cmbRegionId);
+        tblCountry.setRowSorter(rowSorter);
     }
 
     /**
@@ -328,6 +333,13 @@ public class CountryView extends javax.swing.JInternalFrame {
                 bindingCountries(controller.searchCountry("Country_Id", txtSearchCountry.getText()));
             }
         }
+//        String text = txtSearchCountry.getText();
+//        if (text.trim().length() == 0) {
+//            rowSorter.setRowFilter(null);
+//        } else {
+//            rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text, cmbKategoriCountry.getSelectedIndex() + 1));
+//        }
+        
     }//GEN-LAST:event_txtSearchCountryKeyReleased
 
     private void btnSearchCountryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchCountryActionPerformed

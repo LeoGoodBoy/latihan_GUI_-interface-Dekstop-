@@ -52,8 +52,19 @@ public class CountryDAO {
                 country.setCountryId(resultSet.getNString(1));
                 country.setCountryName(resultSet.getNString(2));               
                // country.setRegion(new Region(resultSet.getInt("REGION_ID")));
-                Region region = rdao.getById(resultSet.getInt(3)).get(0);
-                //System.out.println(region.);
+               int rId = 0;
+               String rName = "";
+               int lenght = rdao.getById(resultSet.getInt("Region_id")).size();
+               if (lenght > 0 ){
+                   rId = rdao.getById(resultSet.getInt("region_id")).get(0).getRegionId();
+                   rName = rdao.getById(resultSet.getInt("region_id")).get(0).getRegionName();
+               }
+               Region region;
+               if(rId == 0) region = new Region();
+               else region = new Region(rId, rName);
+                       
+                //Region region = rdao.getById(resultSet.getInt(3)).get(0);
+                //System.out.println(region.getRegionId());
                 country.setRegion(region);
                 countrys.add(country);
             }
