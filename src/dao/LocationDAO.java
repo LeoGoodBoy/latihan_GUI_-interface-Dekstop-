@@ -23,6 +23,11 @@ public class LocationDAO {
     private CountryDAO cdao;
 
     public LocationDAO() {
+        
+    }
+    
+    public Connection getKoneksi() {
+        return koneksi;
     }
 
     public LocationDAO(Connection koneksi) {
