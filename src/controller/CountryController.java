@@ -72,7 +72,13 @@ private SerbaGunaController serbaGunaController;
     public  void loadCmb(JComboBox cmb){
         List<Region> regions = rdao.getAllData();
         for (Region region : regions) {
-            cmb.addItem(region.getRegionId()+ " - "+region.getRegionName());
+            cmb.addItem(region.getRegionId());
+        }
+    }
+    public void getLoadCmb(JComboBox cmbx){
+        List<Region> regions = rdao.getAllData();
+        for (Region region : regions) {
+            cmbx.addItem(region.getRegionId());
         }
     }
     

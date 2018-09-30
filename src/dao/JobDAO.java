@@ -114,7 +114,7 @@ public class JobDAO {
             PreparedStatement statment = koneksi.prepareStatement(query);
             ResultSet resultSet = statment.executeQuery();
             while(resultSet.next()){
-                job.setJobId(resultSet.getString(jobTitle));
+                job.setJobId(resultSet.getString("job_id"));
             }
         }catch(Exception e){
             System.out.println(e.getMessage());

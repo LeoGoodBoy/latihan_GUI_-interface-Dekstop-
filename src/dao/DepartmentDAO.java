@@ -141,12 +141,15 @@ public class DepartmentDAO {
             PreparedStatement statment = koneksi.prepareStatement(query);
             ResultSet resultSet = statment.executeQuery();
             while(resultSet.next()){
-                department.setDepartmentId(resultSet.getInt(departmentName));
+                department.setDepartmentId(resultSet.getInt("department_id"));
             }
         }catch(Exception e){
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
         return department;
+    }
+    public List<Department> getIdName(){
+        return this.getDataById("SELECT department_id, department_name FROM departments");
     }
 }

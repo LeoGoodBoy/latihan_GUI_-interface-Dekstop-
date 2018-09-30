@@ -69,6 +69,9 @@ public class DepartmentController {
         return ddao.search(category, cari);
     }
     
+    public List<Department> viewDepartmentNames(){
+        return ddao.getIdName();
+    }
     public  void loadCmbDepartmentName(JComboBox cmb){
         List<Department> departments = ddao.getAllData();
         for (Department department : departments) {
