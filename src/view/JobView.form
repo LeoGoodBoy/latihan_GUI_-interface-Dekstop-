@@ -48,9 +48,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="295" max="-2" attributes="0"/>
                       <Component id="cmbKategori" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                      <Component id="txtKategori" min="-2" pref="2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       <Component id="txtSearch" min="-2" pref="129" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnSearch" min="-2" max="-2" attributes="0"/>
@@ -78,9 +76,8 @@
                   <Component id="cmbKategori" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtSearch" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnSearch" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtKategori" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="10" max="32767" attributes="0"/>
+              <EmptySpace pref="14" max="32767" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="157" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
@@ -170,7 +167,7 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="txtJobId" alignment="0" min="-2" pref="84" max="-2" attributes="0"/>
-                      <Component id="txtJobName" alignment="0" min="-2" pref="125" max="-2" attributes="0"/>
+                      <Component id="txtJobTitle" alignment="0" min="-2" pref="125" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -206,7 +203,7 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtJobName" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtJobTitle" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtMaxSalary" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -231,9 +228,9 @@
             <Property name="text" type="java.lang.String" value="JOB TITLE"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtJobName">
+        <Component class="javax.swing.JTextField" name="txtJobTitle">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtJobNameActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtJobTitleActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtJobId">
@@ -279,11 +276,5 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JTextField" name="txtKategori">
-      <Properties>
-        <Property name="editable" type="boolean" value="false"/>
-        <Property name="enabled" type="boolean" value="false"/>
-      </Properties>
-    </Component>
   </SubComponents>
 </Form>
