@@ -64,7 +64,7 @@ public class LocationController {
     public void loadCmb(JComboBox cmb){
         List<Country> countrys = cdao.getAllData();
         for (Country country : countrys) {
-            cmb.addItem(country.getCountryId());
+            cmb.addItem(country.getCountryId()+" - "+country.getCountryName());
         }
     }
     
