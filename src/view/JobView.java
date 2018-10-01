@@ -12,28 +12,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 import javafx.util.Pair;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Job;
 import tools.Koneksi;
 
 /**
- *
+ * Kelas untuk tampilan Job
  * @author 680183
  */
 public class JobView extends javax.swing.JInternalFrame {
     private final SerbaGunaView serbaGuna;
     private final JobController controller;
-//    Vector cmbItem;
-    
+    private int dialogDrop;
+    /**
+     * Method konstruktor
+     */
     public JobView() {
         initComponents();
         Connection Koneksi;
         controller = new JobController(Koneksi=new Koneksi().getKoneksi());
         serbaGuna = new SerbaGunaView();;
         bindingJobs(controller.viewJob());
-        
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -258,7 +259,10 @@ public class JobView extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Method untuk melakukan pencarian dari database di tabel Jobs dengan media Button Action Performed
+     * @param evt 
+     */
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
         if (cmbKategori.getSelectedItem()=="JOB ID"){
@@ -290,14 +294,22 @@ public class JobView extends javax.swing.JInternalFrame {
     private void txtMaxSalaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaxSalaryActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMaxSalaryActionPerformed
-
+    /**
+     * Method untuk memproses tombol delete/drop ketika ditekan
+     * @param evt 
+     */
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-        String pesan = controller.hapusJob(txtJobId.getText());
-        serbaGuna.tampilPesan(this, pesan, "Pesan Delete" );
-        bindingJobs(controller.viewJob());
+        dialogDrop=JOptionPane.showConfirmDialog(this, "Are you sure to delete this?","Delete Data", JOptionPane.YES_NO_OPTION);
+        if(dialogDrop==JOptionPane.YES_OPTION){
+            String pesan = controller.hapusJob(txtJobId.getText());
+            serbaGuna.tampilPesan(this, pesan, "Pesan Delete" );
+            bindingJobs(controller.viewJob());}
     }//GEN-LAST:event_btnDeleteActionPerformed
-
+    /**
+     * Method yang berguna untuk dapat melakukan select row
+     * @param evt 
+     */
     private void tblJobMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblJobMouseClicked
         // TODO add your handling code here:
         int row = tblJob.getSelectedRow();
@@ -307,7 +319,10 @@ public class JobView extends javax.swing.JInternalFrame {
         txtMaxSalary.setText(tblJob.getValueAt(row, 4).toString());
         edit();
     }//GEN-LAST:event_tblJobMouseClicked
-
+    /**
+     * Method untuk melakukan pencarian dari database di tabel Jobs dengan media Key Released
+     * @param evt 
+     */
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
         // TODO add your handling code here:
 
@@ -332,13 +347,13 @@ public class JobView extends javax.swing.JInternalFrame {
 
     private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
         // TODO add your handling code here:
-        
-        
     }//GEN-LAST:event_txtSearchActionPerformed
-
+    /**
+     * Method untuk memproses tombol simpan ketika ditekan
+     * @param evt 
+     */
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
 //         TODO add your handling code here:
-//        String pesan="r";
         boolean isEdit = false;
         if(!txtJobId.isEnabled()) isEdit = true;
         String pesan=controller.saveOrUpdateJob(txtJobId.getText(), txtJobTitle.getText(), txtMinSalary.getText().toString(), 
@@ -355,17 +370,6 @@ public class JobView extends javax.swing.JInternalFrame {
 
     private void cmbKategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbKategoriActionPerformed
             // TODO add your handling code here:
-//            if(job_id.getSelectedItem().equals("Job ID")){
-//        if (cmbKategori.getSelectedItem().equals("JOB ID")) {
-//            txtKategori.setText("job_id");
-//        } else if (cmbKategori.getSelectedItem().equals("JOB TITLE")) {
-//            txtKategori.setText("job_title");
-//        } else if (cmbKategori.getSelectedItem().equals("MIN SALARY")) {
-//            txtKategori.setText("min_salary");
-//        } else if (cmbKategori.getSelectedItem().equals("MAX SALARY")) {
-//            txtKategori.setText("max_salary");
-//        } 
-        
     }//GEN-LAST:event_cmbKategoriActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
@@ -386,6 +390,10 @@ public class JobView extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtMinSalary;
     private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
+    /**
+     * Method untuk menampilkan data Jobs ke tabel Job
+     * @param jobs 
+     */
     private void bindingJobs(List<Job> jobs){
         String[] header = {"No", "Job ID", "Job Title", "Min Salary", "Max Salary"};
         String[][] data = new String[jobs.size()][header.length];
@@ -399,6 +407,9 @@ public class JobView extends javax.swing.JInternalFrame {
         tblJob.setModel(new DefaultTableModel(data, header));
         reset();
     }
+    /**
+     * Method untuk mengembalikan field ke keadaan semula
+     */
     private void reset(){
         txtJobId.setText("");
         txtJobId.setEnabled(true);
@@ -409,12 +420,12 @@ public class JobView extends javax.swing.JInternalFrame {
         btnSimpan.setEnabled(true);
         btnSearch.setEnabled(true);
     }
-     
-    
+    /**
+     * Method untuk memunculkan button ketika dibutuhkan
+     */    
     private void edit(){
         txtJobId.setEnabled(false);
-//        btnSimpan.setEnabled(false);
-//        btnUpdate.setEnabled(true);
         btnDelete.setEnabled(true);
+//        btnSimpan.setEnabled(true);
     }
 }
