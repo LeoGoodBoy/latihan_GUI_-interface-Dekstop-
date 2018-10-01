@@ -76,4 +76,7 @@ public class RegionController {
         return rdao.search(category, cari);
     }
     
+    public String getIdMax(){
+        return rdao.autoId()+"";
+    }
 }

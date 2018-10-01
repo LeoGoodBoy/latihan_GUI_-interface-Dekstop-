@@ -20,7 +20,6 @@ import tools.Koneksi;
 public class RegionView extends javax.swing.JInternalFrame {
 
     private final SerbaGunaView serbaGuna;
-
     private final RegionController controller;
 
     /**
@@ -68,6 +67,11 @@ public class RegionView extends javax.swing.JInternalFrame {
         txtRegionName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtRegionNameActionPerformed(evt);
+            }
+        });
+        txtRegionName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtRegionNameKeyReleased(evt);
             }
         });
 
@@ -307,11 +311,23 @@ public class RegionView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cmbKategoriActionPerformed
 
     private void tblRegionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblRegionMouseClicked
-        int row = tblRegion.getSelectedRow();
-        txtRegionId.setText(tblRegion.getValueAt(row, 1).toString());
-        txtRegionName.setText(tblRegion.getValueAt(row, 2).toString());
+        int row = tblRegion.getSelectedRow();     
+        if(txtRegionName.getText().equals("")){
+            txtRegionId.setText(tblRegion.getValueAt(row, 1).toString());
+            txtRegionName.setText(tblRegion.getValueAt(row, 2).toString());
+        }
+        else {
+            txtRegionId.setText(tblRegion.getValueAt(row, 1).toString());
+            txtRegionName.setText("");
+        }
         edit();
     }//GEN-LAST:event_tblRegionMouseClicked
+
+    private void txtRegionNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRegionNameKeyReleased
+        // TODO add your handling code here:
+        if (!txtRegionName.getText().equals("")) btnSimpan.setEnabled(true);
+        else btnSimpan.setEnabled(false);
+    }//GEN-LAST:event_txtRegionNameKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -345,17 +361,15 @@ public class RegionView extends javax.swing.JInternalFrame {
     private void edit (){
         txtRegionId.setEnabled(false);
         btnSimpan.setEnabled(true);
-        //btnUpdate.setEnabled(true);
         btnDelete.setEnabled(true);
     }
     
     private void reset(){
-        txtRegionId.setText("");
-        txtRegionId.setEnabled(true);
+        txtRegionId.setText(controller.getIdMax());
+        txtRegionId.setEnabled(false);
         txtRegionName.setText("");
-        //btnUpdate.setEnabled(false);
         btnDelete.setEnabled(false);
-        btnSimpan.setEnabled(true);
+        btnSimpan.setEnabled(false);
     }
     
     

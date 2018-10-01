@@ -61,15 +61,15 @@ public class EmployeeController {
 
     /**
      * Digunakan untuk menyimpan data Employee baru
-     * @param employeeId
-     * @param firstName
-     * @param lastName
-     * @param email
-     * @param phoneNumber
-     * @param hireDate
+     * @param employeeId employeeId 
+     * @param firstName firstName
+     * @param lastName lastName
+     * @param email email
+     * @param phoneNumber phoneNumber
+     * @param hireDate  hireDate
      * @param jobId nama job
-     * @param salary
-     * @param commission
+     * @param salary salary
+     * @param commission commission
      * @param managerId id manager
      * @param departmentId nama department
      * @param isUpdate checker is update
@@ -99,7 +99,7 @@ public class EmployeeController {
 
     /**
      * Digunakan untuk menghapus sebuah data employee
-     * @param employeeId
+     * @param employeeId employeeId
      * @return Sukses atau Gagal
      */
     public String hapusEmployee(String employeeId) {
@@ -159,9 +159,9 @@ public class EmployeeController {
     
     /**
      * Digunakan untuk mendapatkan employee_id dari manager
-     * @param employeeId
-     * @param lastName
-     * @return 
+     * @param employeeId employeeId
+     * @param lastName lastname
+     * @return untuk get last name
      */
     public int getIdManager(String employeeId, String lastName){
         return edao.getByLastName(employeeId, lastName).getEmployeeId();

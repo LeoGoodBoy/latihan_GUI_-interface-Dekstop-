@@ -28,11 +28,11 @@ public class JobController {
     }
     /**
      * Sebagai method controller untuk menyimpan data baru ataupun melakukan update data.
-     * @param job_id
-     * @param job_title
-     * @param min_salary
-     * @param max_salary
-     * @param isEdit
+     * @param job_id get job id
+     * @param job_title get job title
+     * @param min_salary get min salary
+     * @param max_salary get max salary
+     * @param isEdit kondisi true or false
      * @return pesan
      */
     public String saveOrUpdateJob(String job_id, String job_title, String min_salary, String max_salary, boolean isEdit){
@@ -49,7 +49,7 @@ public class JobController {
 //    }
     /**
      * Sebagai method controller untuk menghapus data dari tabel Job
-     * @param jobId
+     * @param jobId get jobid
      * @return pesan
      */
     public String hapusJob(String jobId){
@@ -64,8 +64,8 @@ public class JobController {
     }
     /**
      * sebagai method controller untuk mencari data job 
-     * @param category
-     * @param cari
+     * @param category get kategori
+     * @param cari get cari
      * @return data tabel Jobs dari hasil pencarian berdasarkan kategori dan kata kunci
      */
     public List<Job> searchJob(String category, String cari){

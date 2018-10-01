@@ -27,7 +27,11 @@ public class CountryDAO {
      */
     public CountryDAO() {
     }
-
+ 
+    /**
+     * membuat konstraktor country dao
+     * @param koneksi untuk membuat koneksi, yang selanjuntya tinggal di set n get
+     */
     public CountryDAO(Connection koneksi) {
         this.koneksi = koneksi;
         this.rdao = new RegionDAO(koneksi);
@@ -41,6 +45,11 @@ public class CountryDAO {
         this.koneksi = koneksi;
     }
     
+    /**
+     * fungtion untuk melakukan eksekusi query
+     * @param sql
+     * @return 
+     */
     public List<Country> getData(String sql){
         List<Country> countrys = new ArrayList<>();
         try {
@@ -52,19 +61,7 @@ public class CountryDAO {
                 country.setCountryId(resultSet.getNString(1));
                 country.setCountryName(resultSet.getNString(2));               
                // country.setRegion(new Region(resultSet.getInt("REGION_ID")));
-//               int rId = 0;
-//               String rName = "";
-//               int lenght = rdao.getById(resultSet.getInt("Region_id")).size();
-//               if (lenght > 0 ){
-//                   rId = rdao.getById(resultSet.getInt("region_id")).get(0).getRegionId();
-//                   rName = rdao.getById(resultSet.getInt("region_id")).get(0).getRegionName();
-//               }
-//               Region region;
-//               if(rId == 0) region = new Region();
-//               else region = new Region(rId, rName);
-                       
                 Region region = rdao.getById(resultSet.getInt(3)).get(0);
-                //System.out.println(region.getRegionId());
                 country.setRegion(region);
                 countrys.add(country);
             }
@@ -103,7 +100,11 @@ public class CountryDAO {
         //return this.getData("select c.country_id, c.country_name, r.region_name from countries c join regions r on c.region_id = r.region_id where "+category+" like '"+cari+"%' order by "+category+"");
     }
 
-    
+    /**
+     * fungtion eksekusi bertipe boolean 
+     * @param sql
+     * @return 
+     */
     public boolean eksekusi(String sql){
         boolean hasil = false;
         try {
@@ -117,6 +118,11 @@ public class CountryDAO {
         return hasil;
     }
     
+    /**
+     * function simpan untuk melakukan query simpan dari data inputan.
+     * @param country untuk mengambil atribut dari class country
+     * @return 
+     */
     public boolean simpanCountry(Country country){
         String query = "insert into COUNTRIES values ('"
                 +country.getCountryId()+"','"+country.getCountryName()+"',"
@@ -124,16 +130,31 @@ public class CountryDAO {
         return this.eksekusi(query);
     }
     
+    /**
+     * function hapus country untuk query hapus dari data imputan berupa get id bertipe string
+     * @param id karena di tabelnya country_id bertipe varchar2
+     * @return 
+     */
     public boolean hapusCountry(String id){
         return this.eksekusi("delete from COUNTRIES where country_id ='"+id+"'");
     }
     
+    /**
+     * funcytion untuk updatecountry untuk query uppdate dari data inputan berupa get atribut dari country
+     * @param country
+     * @return 
+     */
     public boolean updateCountry(Country country) {
         return this.eksekusi("update countries set country_name='" + country.getCountryName()
                 + "', region_id="+ country.getRegion().getRegionId()
                 + " where country_id='" + country.getCountryId() +"'");
     }
     
+    /**
+     * function getbyid untuk melakukan query select countries berdasarkan get id bertipe string
+     * @param id karena varchar2
+     * @return 
+     */
     public List<Country> getById(String id) {
         return this.getData("select * from countries where country_id = '" + id + "'");
     }

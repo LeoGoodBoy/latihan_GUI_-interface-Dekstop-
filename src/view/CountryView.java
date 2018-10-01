@@ -19,7 +19,7 @@ import model.Country;
 import tools.Koneksi;
 
 /**
- *
+ * turunan dari JInternalFrame dari HrFrame
  * @author chochong
  */
 public class CountryView extends javax.swing.JInternalFrame {
@@ -31,6 +31,7 @@ public class CountryView extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form CountryView
+     * dengan melakukan sejumlah fungsi yang dibutuhkan
      */
     public CountryView() {
         initComponents();
@@ -38,7 +39,6 @@ public class CountryView extends javax.swing.JInternalFrame {
         serbaGuna = new SerbaGunaView();
         bindingCountries(controller.viewCountry());
         controller.loadCmb(cmbRegionId);
-        //controller.getLoadCmb(cmbRegionId);
         tblCountry.setRowSorter(rowSorter);
     }
 
@@ -88,7 +88,15 @@ public class CountryView extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tblCountry);
 
+        txtSearchCountry.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSearchCountryActionPerformed(evt);
+            }
+        });
         txtSearchCountry.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtSearchCountryKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtSearchCountryKeyReleased(evt);
             }
@@ -253,11 +261,15 @@ public class CountryView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCountryNameActionPerformed
 
+    /**
+     * mengambil substring dari cmbRegionId (bertipe number)
+     * dibuat kondisi isUpdate false, ketika kondisi txtCountryId.isEnabled maka fungsi update diajalnankan
+     * @param evt 
+     */
     private void btnSaveCountryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveCountryActionPerformed
         // TODO add your handling code here:
         String abcd = cmbRegionId.getSelectedItem()+"";
         String subRegionId = abcd.substring(0,1);
- //       txtRegionId.setText(subRegionId);
         
         boolean isUpdate = false;
         if(!txtCountryId.isEnabled()){
@@ -283,6 +295,10 @@ public class CountryView extends javax.swing.JInternalFrame {
 //        txtCountryId.setEditable(true);
     }//GEN-LAST:event_btnSaveCountryActionPerformed
 
+    /**
+     * btn delete, dengan joptionpane konfrimasi  yes or no untuk melakukan delete.
+     * @param evt 
+     */
     private void btnDeleteCountryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCountryActionPerformed
         // TODO add your handling code here:
         int response = JOptionPane.showConfirmDialog(null, "Do you really want to delete?","Pertanyaan",JOptionPane.YES_NO_OPTION);
@@ -296,56 +312,50 @@ public class CountryView extends javax.swing.JInternalFrame {
         bindingCountries(controller.viewCountry());
     }//GEN-LAST:event_btnDeleteCountryActionPerformed
 
+    /**
+     * tblCountryMouseCliked, ketika klik salah satu row ->
+     * ditabel maka akan getvalue dari row yang diklik tadi
+     * @param evt 
+     */
     private void tblCountryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCountryMouseClicked
         // TODO add your handling code here:
         int row = tblCountry.getSelectedRow();
         txtCountryId.setText(tblCountry.getValueAt(row, 1).toString());
         txtCountryName.setText(tblCountry.getValueAt(row, 2).toString());
         cmbRegionId.setSelectedItem(tblCountry.getValueAt(row, 3).toString());
-        //txtRegionId.setText(tblCountry.getValueAt(row, 3).toString());
         edit();
     }//GEN-LAST:event_tblCountryMouseClicked
 
+    /**
+     * fungsi keyReleased ketika txtsearchCountry di enter
+     * @param evt 
+     */
     private void txtSearchCountryKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchCountryKeyReleased
         // TODO add your handling code here:
+        btnSearchCountry.setEnabled(true);
         if (txtSearchCountry.getText().equals("")) {
                 bindingCountries(controller.viewCountry());
+                
             }
         if (evt.getKeyCode()==KeyEvent.VK_ENTER) {
             bindingCountries(controller.searchCountry
             (cmbItem[cmbKategoriCountry.getSelectedIndex()], 
                 txtSearchCountry.getText()));
-//            if (cmbKategoriCountry.getSelectedItem()=="Region Name"){
-//                bindingCountries(controller.searchCountry("Region_name", txtSearchCountry.getText()));
-//            }
-//            else if (cmbKategoriCountry.getSelectedItem()=="Country Name"){
-//                bindingCountries(controller.searchCountry("Country_Name", txtSearchCountry.getText()));
-//            } 
-//            else {
-//                bindingCountries(controller.searchCountry("Country_Id", txtSearchCountry.getText()));
-//            }
         }
-//        String text = txtSearchCountry.getText();
-//        if (text.trim().length() == 0) {
-//            rowSorter.setRowFilter(null);
-//        } else {
-//            rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text, cmbKategoriCountry.getSelectedIndex() + 1));
-//        }
         
     }//GEN-LAST:event_txtSearchCountryKeyReleased
 
+    /**
+     * btn search untuk cari data yang diinputkan di txtSearchCountry
+     * @param evt 
+     */
     private void btnSearchCountryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchCountryActionPerformed
         // TODO add your handling code here:
-      
-        if (cmbKategoriCountry.getSelectedItem()=="Region Name"){
-                bindingCountries(controller.searchCountry("Region_name", txtSearchCountry.getText()));
-            }
-            else if (cmbKategoriCountry.getSelectedItem()=="Country Name"){
-                bindingCountries(controller.searchCountry("Country_Name", txtSearchCountry.getText()));
-            } 
-            else {
-                bindingCountries(controller.searchCountry("Country_Id", txtSearchCountry.getText()));
-            }
+      if (!txtSearchCountry.getText().equalsIgnoreCase("")) 
+      {
+          bindingCountries(controller.searchCountry
+            (cmbItem[cmbKategoriCountry.getSelectedIndex()], 
+                txtSearchCountry.getText()));}
     }//GEN-LAST:event_btnSearchCountryActionPerformed
 
     private void cmbRegionIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRegionIdActionPerformed
@@ -364,14 +374,33 @@ public class CountryView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbRegionIdMouseReleased
 
+    /**
+     * get data dari cmbRegionId ketika mouse diarahkan ke cmbRegionId
+     * @param evt 
+     */
     private void cmbRegionIdMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbRegionIdMouseEntered
         // TODO add your handling code here:
         String abd = cmbRegionId.getSelectedItem()+"";
         String subAbd = abd.substring(0,1);
-//        txtRegionId.setText(subAbd);
-        //txtRegionId.setEnabled(false);
     }//GEN-LAST:event_cmbRegionIdMouseEntered
 
+    /**
+     * 
+     * @param evt 
+     */
+    private void txtSearchCountryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchCountryActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_txtSearchCountryActionPerformed
+
+    private void txtSearchCountryKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchCountryKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSearchCountryKeyPressed
+
+    /**
+     * untuk menampilkan sejumlah dari ditabel
+     * @param countrys 
+     */
     private void bindingCountries(List<Country> countrys){
         String [] header = {"No","Country Id","Country Name","Region Name"};
         String [][] data = new String[countrys.size()][header.length];
@@ -385,26 +414,25 @@ public class CountryView extends javax.swing.JInternalFrame {
         reset();
     }
     
-    private void regId(){
-        
-    }
-    
+    /**
+     * kondisi edit maka ada sejumlah btn yang diset
+     */
     private void edit(){
         txtCountryId.setEnabled(false);
-        //txtRegionId.setEnabled(false);
         btnSaveCountry.setEnabled(true);
         btnDeleteCountry.setEnabled(true);
     }
     
+    /**
+     * kondisi kembali kesemula, dengan beberapa atribut yang diset
+     */
     private void reset(){
-        //txtRegionId.setEnabled(false);
         txtCountryId.setText("");
         txtCountryId.setEnabled(true);
         txtCountryName.setText("");
-        
-        //txtRegionId.setText("");
+        //cmbRegionId.setSelectedItem();
         btnDeleteCountry.setEnabled(false);
-        btnSearchCountry.setEnabled(true);
+        btnSearchCountry.setEnabled(false);
         btnSaveCountry.setEnabled(true);
     } 
     
@@ -424,7 +452,5 @@ public class CountryView extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtCountryName;
     private javax.swing.JTextField txtSearchCountry;
     // End of variables declaration//GEN-END:variables
-
-
     
 }
