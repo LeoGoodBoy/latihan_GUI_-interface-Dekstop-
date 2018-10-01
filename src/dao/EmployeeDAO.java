@@ -31,7 +31,12 @@ public class EmployeeDAO {
     public EmployeeDAO(Connection koneksi) {
         this.koneksi = koneksi;
     }
-
+    
+    /**
+     * Digunakan untuk mengambil employee_id dan last_name
+     * @param query 
+     * @return mengembalikan sebuah data Employee
+     */
     private Employee getDataIdName(String query) {
         Employee employee = new Employee(); 
         try{
@@ -50,6 +55,11 @@ public class EmployeeDAO {
         return employee;
     }
 
+    /**
+     * Digunakan untuk mengambil semua data dari Employee
+     * @param query
+     * @return List Employee
+     */
     private List<Employee> getData(String query) {
         List<Employee> employees = new ArrayList<>();
         try {
@@ -112,10 +122,19 @@ public class EmployeeDAO {
         return employees;
     }
 
+    /**
+     * Digunakan untuk mengambil semua data dari Employee
+     * @return List Employee
+     */
     public List<Employee> getAllData(){
         return this.getData("SELECT * FROM employees order by 1");
     }
 
+    /**
+     * Digunakan untuk melkukan simpan, update, dan delete
+     * @param sql query insert, update, or delete
+     * @return true or false
+     */
     private boolean eksekusi(String sql) {
         boolean hasil = false;
         try {
@@ -129,20 +148,39 @@ public class EmployeeDAO {
         return hasil;
     }
 
+    /**
+     * Digunakan untuk mendapatkan employee_id selanjutnya yang akan disimpan
+     * @return employee_id selanjutnya
+     */
     public int getNextId(){
         int id = this.getData("SELECT * FROM employees where rownum = 1 order by 1 desc").get(0).getEmployeeId();
         id++;
         return id;
     }
 
+    /**
+     * Digunakan untuk mendapatkan semua data Employee berdasarkan employee_id
+     * @param id
+     * @return List Employee
+     */
     public List<Employee> getById(int id)  {
         return this.getData("select * from employees where employee_id = " + id);
     }
     
+    /**
+     * Digunakan untuk mendapatkan data employee_id dan last_name berdasarkan employee_id
+     * @param employeeId
+     * @return sebuah data Employee
+     */
     public Employee getIdName(int employeeId){
         return this.getDataIdName("select * from employees where employee_id = " + employeeId);
     }
 
+    /**
+     * Digunakan untuk simpan data employee baru
+     * @param employee object dari class Employee
+     * @return true or false
+     */
     public boolean simpanEmployee(Employee employee) {
         String query = "INSERT INTO employees VALUES(" + employee.getEmployeeId() + ", '"
                 + employee.getFirstName() + "', '" + employee.getLastName() + "', '"
@@ -154,6 +192,11 @@ public class EmployeeDAO {
         return this.eksekusi(query);
     }
 
+    /**
+     * Digunakan untuk update data employee
+     * @param employee object dari class Employee
+     * @return 
+     */
     public boolean updateEmployee(Employee employee) {
         String query = "UPDATE employees SET first_name = '"
                 + employee.getFirstName() + "', last_name = '" + employee.getLastName() + "',"
@@ -165,13 +208,31 @@ public class EmployeeDAO {
         return this.eksekusi(query);
     }
 
+    /**
+     * Digunakan untuk menghapus sebuah data employee
+     * @param id berupa employee_id
+     * @return true or false
+     */
     public boolean deleteEmployee(int id) {
         return this.eksekusi("DELETE FROM employees WHERE employee_id =" + id);
     }
 
+    /**
+     * Digunakan untuk mencari data Employee berdasarkan nama kolom yang dipilih dan kata pencariaannya
+     * @param category nama kolom yang dipilih
+     * @param cari kata pencariannya
+     * @return List Employee
+     */
     public List<Employee> search(String category, String cari) {
         return this.getData("select * from employees where regexp_like(" + category + ",'" + cari + "','i') order by 1");
     }
+    
+    /**
+     * Digunakan untuk mencari id employee sebagai manager
+     * @param employeeId employee_id
+     * @param lastName last_name
+     * @return Employee yang berisi id saja
+     */
     public Employee getByLastName(String employeeId, String lastName){
         Employee employee = new Employee();
         String query = "SELECT employee_id FROM employees where employee_id = "+ employeeId +" and last_name ='" + lastName +"'";
@@ -187,6 +248,11 @@ public class EmployeeDAO {
         }
         return employee;
     }
+    
+    /**
+     * Digunakan untuk mencari semua id manager dan namanya
+     * @return List Employee
+     */
     public List<Employee> getIdManagerName(){
         List<Employee> employees = new ArrayList<>();
         try{

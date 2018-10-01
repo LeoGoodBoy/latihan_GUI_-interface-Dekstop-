@@ -28,11 +28,11 @@ public class EmployeeController {
     JobController jobController;
     DepartmentController departmentController;
     private DepartmentDAO ddao;
-    private String temp;
 
     public EmployeeController() {
     }
 
+    
     public EmployeeController(Connection koneksi) {
         this.koneksi = koneksi;
         this.edao = new EmployeeDAO(koneksi);
@@ -41,14 +41,40 @@ public class EmployeeController {
         this.ddao = new DepartmentDAO(koneksi);
     }
 
+    /**
+     * Digunakan untuk mendapatkan semua data Employee
+     * @return List Employee
+     */
     public List<Employee> viewEmployee() {
         return edao.getAllData();
     }
 
+    /**
+     * Digunakan untuk mencari data Employee berdasarkan kolom yang dipilih dan kata pencariannya
+     * @param category nama kolom yang dipilih
+     * @param cari kata pencariannya
+     * @return List Employee
+     */
     public List<Employee> searchEmployee(String category, String cari) {
         return edao.search(category, cari);
     }
 
+    /**
+     * Digunakan untuk menyimpan data Employee baru
+     * @param employeeId
+     * @param firstName
+     * @param lastName
+     * @param email
+     * @param phoneNumber
+     * @param hireDate
+     * @param jobId nama job
+     * @param salary
+     * @param commission
+     * @param managerId id manager
+     * @param departmentId nama department
+     * @param isUpdate checker is update
+     * @return Sukses atau Gagal
+     */
     public String simpanOrUpdateEmployee(String employeeId, String firstName, String lastName, String email, String phoneNumber, String hireDate, String jobId, String salary, String commission, String managerId, String departmentId,  boolean isUpdate) {
         Job job = jdao.getByJobTitle(jobId);
         Employee manager = new Employee(Integer.parseInt(managerId));
@@ -71,10 +97,19 @@ public class EmployeeController {
 //        return this.serbaGunaController.getMessage(edao.updateEmployee(employee));
 //    }
 
+    /**
+     * Digunakan untuk menghapus sebuah data employee
+     * @param employeeId
+     * @return Sukses atau Gagal
+     */
     public String hapusEmployee(String employeeId) {
         return this.serbaGunaController.getMessage(edao.deleteEmployee(Integer.parseInt(employeeId)));
     }
 
+    /**
+     * Diguanakan untuk mengisi model dari cmbManager
+     * @param cmb combo box manager
+     */
     public void loadCmbManager(JComboBox cmb) {
         List<Employee> employees = edao.getAllData();
         for (Employee employee : employees) {
@@ -82,6 +117,10 @@ public class EmployeeController {
         }
     }
 
+    /**
+     * Digunakan untuk mengisi model dari cmbJob
+     * @param cmb combo box job
+     */
     public void loadCmbJob(JComboBox cmb) {
         jdao = new JobDAO(koneksi);
         List<Job> jobs = jdao.getAllDatas();
@@ -90,6 +129,10 @@ public class EmployeeController {
         }
     }
 
+    /**
+     * Digunakan untuk mengisi model dari cmbDepartment
+     * @param cmb combo box department
+     */
     public void loadCmbDepartment(JComboBox cmb) {
         ddao = new DepartmentDAO(koneksi);
         List<Department> departments = ddao.getAllData();
@@ -97,25 +140,31 @@ public class EmployeeController {
             cmb.addItem(department.getDepartmentId() + " - " + department.getDepartmentName());
         }
     }
+    
+    /**
+     * Digunakan untuk mendapatkan employee_id selanjutnya dari yang sudah ada
+     * @return id baru
+     */
     public int getNextId(){
         return edao.getNextId();
     }
     
+    /**
+     * Digunakan untuk menampilkan semua data Employee
+     * @return List Employee
+     */
     public List<Employee> viewManager(){
         return edao.getIdManagerName();
     }
     
+    /**
+     * Digunakan untuk mendapatkan employee_id dari manager
+     * @param employeeId
+     * @param lastName
+     * @return 
+     */
     public int getIdManager(String employeeId, String lastName){
         return edao.getByLastName(employeeId, lastName).getEmployeeId();
     }
-
-    public String getTemp() {
-        return temp;
-    }
-
-    public void setTemp(String temp) {
-        this.temp = temp;
-    }
-    
     
 }

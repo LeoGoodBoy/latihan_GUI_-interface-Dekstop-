@@ -20,15 +20,38 @@ public class Employee {
     public Employee() {
     }
 
+    /**
+     * Digunakan untuk instansiasi Employee dengan id yang sudah disiapkan
+     * @param employeeId 
+     */
     public Employee(int employeeId) {
         this.employeeId = employeeId;
     }
 
+    /**
+     * Digunakan untuk instansiasi Employee dengan id dan last name yang sudah disiapkan
+     * @param employeeId
+     * @param lastName 
+     */
     public Employee(int employeeId, String lastName) {
         this.employeeId = employeeId;
         this.lastName = lastName;
     }
 
+    /**
+     * Digunakan untuk instansiasi Employee dengan data yang sudah disiapkan
+     * @param employeeId
+     * @param firstName
+     * @param lastName
+     * @param email
+     * @param phoneNumber
+     * @param hireDate
+     * @param job instance dari class Job
+     * @param salary
+     * @param commissionPct
+     * @param department instance dari class Department
+     * @param manager instance dari class Employee
+     */
     public Employee(int employeeId,  String firstName, String lastName, String email, String phoneNumber, String hireDate, Job job, int salary, float commissionPct, Department department, Employee manager) {
         this.employeeId = employeeId;
         this.salary = salary;
@@ -43,18 +66,6 @@ public class Employee {
         this.manager = manager;
     }
 
-    public Employee(int salary, float commissionPct, String firstName, String lastName, String email, String phoneNumber, String hireDate, Job job, Department department, Employee manager) {
-        this.salary = salary;
-        this.commissionPct = commissionPct;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.hireDate = hireDate;
-        this.job = job;
-        this.department = department;
-        this.manager = manager;
-    }
     
     /**
      * @return the employeeId
