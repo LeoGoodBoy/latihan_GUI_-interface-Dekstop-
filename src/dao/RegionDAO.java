@@ -22,14 +22,13 @@ public class RegionDAO {
     private Connection koneksi;
 
     /**
-     * adalah constructor dari kelas RegionDAO
+     * adalah constructor dari kelas RegionDAO yang tidak memiliki parameter
      */
     public RegionDAO() {
     }
 
     /**
-     * adalah constructor daru kelas RegionDAO
-     *
+     * adalah constructor daru kelas RegionDAO yang memiliki parameter bertipe koneksi
      * @param koneksi adalah paramter lokal yang digunakan untuk menampung nilai
      * yang akan dikirim kedalam method, dan akan digunakan untuk mengisi nilai
      * dari varabel lokal dari kelas RegionDAO
@@ -41,7 +40,6 @@ public class RegionDAO {
     /**
      * merupakan method yang dapat digunakan untuk pembanggilan data dari
      * database
-     *
      * @param sql digunakan untuk menampung data sementara yang menjadi petokan
      * konci pencarian data dari dalam database, parameter sql bertipe string
      * dan berisi bahasa query
@@ -69,7 +67,6 @@ public class RegionDAO {
 
     /**
      * getAllData digunakan untuk mengambil semua data dari tabel region
-     *
      * @return mengirimkan nilai kedalam method getData menggunakan query yang
      * dijadikan parameter
      */
@@ -80,7 +77,6 @@ public class RegionDAO {
     /**
      * getById digunakan untuk mengambil data dari tabel region berdasarkan id
      * tertentu
-     *
      * @param id digunakan sebagai kunci utama dalam melakukan pencarian
      * @return mengirimkan nilai kedalam method getData menggunakan query yang
      * dijadikan parameter
@@ -92,7 +88,6 @@ public class RegionDAO {
     /**
      * search digunakan untuk mengambil data dari tabel region berdasarkan id
      * tertentu
-     *
      * @param category digunakan sebagai kunci utama dalam melakukan pencarian
      * @param cari digunakan sebagai kunci utama dalam melakukan pencarian
      * @return mengirimkan nilai kedalam method getData menggunakan query yang
@@ -105,7 +100,6 @@ public class RegionDAO {
     /**
      * method eksekusi yang digunakan untuk melakukan eksekusi query yang
      * disimpan kedalam parameter yang bernama sql bertipe String
-     *
      * @param sql bertipe String yang digunakan untuk menampung query
      * @return boolean
      */
@@ -124,7 +118,6 @@ public class RegionDAO {
      * auto id digunakan hanya untuk tabel regions, berfungsi untuk melakukan
      * pemanggilan id terbesar dari tabel region dan menambahkannya dengan 1
      * "max(region_id)+1"
-     *
      * @return bertipe interger
      */
     public int autoId() {
@@ -133,17 +126,23 @@ public class RegionDAO {
     }
 
     /**
-     * digunakan untuk
-     *
-     * @param regName
-     * @return
+     * digunakan untuk melakukan proses penyimpana data region baru kedalam database 
+     *didalam method ini melakukan pembanggilan method lain yang diantaranya adalah method autoId
+     * @param regName digunakan untuk menampung sementara nilai nama region yang akan disimpan kedalam database
+     * @return mengembalikan nilai dari hasil proses method yang bernama eksekusi yang diisi dengan parameter string yang berisi 
+     * query insert
      */
-
     public boolean simpanRegion(String regName) {
         int id = this.autoId();
         return this.eksekusi("insert into regions values (" + id + ",'" + regName + "')");
     }
 
+    /**
+     * merupakan method yang digunakan untuk melakukan update dan bertipe boolean
+     * @param region merupakan parameter objek yang berisi nilai dari kelas region
+     * @return mengembalikan nilai dari eksekusi proses method eksekusi yang memiliki parameter bertipe string yang 
+     * diisi dengan query
+     */
     public boolean updateRegion(Region region) {
         return this.eksekusi("update regions set region_name='" + region.getRegionName()
                 + "' where region_id=" + region.getRegionId());
@@ -151,9 +150,9 @@ public class RegionDAO {
     }
 
     /**
-     *
-     * @param id
-     * @return
+     *merupakan method yang digunakan untuk menghapus data region dan memiliki parameter yang bernama id dan bertipe interger
+     * @param id digunakan untuk menampung nilai sementara dari id yang akan menjadi kunci utama dalam proses penghapusan
+     * @return mengembalikan nilai dari hasil proses method eksekusi
      */
     public boolean hapusRegion(int id) {
         return this.eksekusi("delete from regions where region_id =" + id + "");
