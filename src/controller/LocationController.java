@@ -58,7 +58,11 @@ public class LocationController {
     }
 
     public List<Location> searchLocation(String category, String cari) {
-        return ldao.searchLocation(category, cari);
+        if ("country_name".equals(category)) {
+            return ldao.searchByName(category, cari);
+        }else{
+            return ldao.searchLocation(category, cari);
+        }
     }
     
     public void loadCmb(JComboBox cmb){

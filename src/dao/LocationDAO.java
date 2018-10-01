@@ -116,11 +116,12 @@ public class LocationDAO {
     }
 
     public List<Location> searchLocation(String category, String cari) {
-        return this.getData("select * from locations where regexp_like(" 
-                + category + ",'" + cari + "','i') order by 1");
+        return this.getData("select * from locations where regexp_like(" + category + ",'" + cari + "','i') order by 1");
     }
-
-
+    
+    public List<Location> searchByName (String category, String cari){
+        return this.getData("select * from locations l left join countries c on l.country_id = c.country_id where regexp_like(c."+category+",'"+cari+"','i')order by 1");
+    }
     
     public List<Location> getAllDataLocation() {
         return this.getData("select * from locations order by 1");
