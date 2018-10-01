@@ -30,7 +30,7 @@ public class DepartmentView extends javax.swing.JInternalFrame {
     private final LocationDAO ldao;
     private final EmployeeDAO edao;
     private final DepartmentDAO ddao;
-    
+    private String[] cmbItem = {"department_id", "department_name", "manager_id", "location_id"};
     
     /**
      * Creates new form DepartmentView
@@ -72,7 +72,7 @@ public class DepartmentView extends javax.swing.JInternalFrame {
         cmbDepartmentName = new javax.swing.JComboBox<>();
         cmbManagerId = new javax.swing.JComboBox<>();
         cmbLocationId = new javax.swing.JComboBox<>();
-        btnSimpanCmb = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -104,10 +104,10 @@ public class DepartmentView extends javax.swing.JInternalFrame {
         jLabel5.setText("Search :");
 
         txtSearch.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 txtSearchInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -147,10 +147,10 @@ public class DepartmentView extends javax.swing.JInternalFrame {
             }
         });
 
-        btnSimpanCmb.setText("Save");
-        btnSimpanCmb.addActionListener(new java.awt.event.ActionListener() {
+        btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSimpanCmbActionPerformed(evt);
+                btnSaveActionPerformed(evt);
             }
         });
 
@@ -174,7 +174,7 @@ public class DepartmentView extends javax.swing.JInternalFrame {
                 .addGap(377, 377, 377))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(82, 82, 82)
-                .addComponent(btnSimpanCmb)
+                .addComponent(btnSave)
                 .addGap(18, 18, 18)
                 .addComponent(btnDelete)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -199,7 +199,7 @@ public class DepartmentView extends javax.swing.JInternalFrame {
                     .addComponent(jLabel4))
                 .addGap(11, 11, 11)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSimpanCmb)
+                    .addComponent(btnSave)
                     .addComponent(btnDelete)))
         );
 
@@ -243,6 +243,10 @@ public class DepartmentView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDepartmentIdActionPerformed
 
+    /**
+     * Menjalankan JOptionPane dan mengluarkan pesan saat tombol delete ditekan
+     * @param evt jenis event
+     */
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
     int messageBox = JOptionPane.showConfirmDialog(this, "Are You Sure ?", "Delete", JOptionPane.YES_NO_OPTION ,JOptionPane.WARNING_MESSAGE);
@@ -254,6 +258,10 @@ public class DepartmentView extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
+    /**
+     * Mengambil isi data pada tabel saat di klik oleh mouse
+     * @param evt jenis event
+     */
     private void tblDepartmentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDepartmentMouseClicked
         // TODO add your handling code here:
         int row = tblDepartment.getSelectedRow();
@@ -265,21 +273,28 @@ public class DepartmentView extends javax.swing.JInternalFrame {
         edit();
     }//GEN-LAST:event_tblDepartmentMouseClicked
 
+    /**
+     * Melakukan pencarian dari input/text yang dimasukan oleh user menggunakan tombol enter
+     * @param evt jenis event
+     */
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            if(cmbKategori.getSelectedItem().toString().equals("Department ID")){
-                bindingDepartment(controller.searchDepartment("department_id",txtSearch.getText()));
+            if(!txtSearch.getText().equalsIgnoreCase("")){
+                bindingDepartment(controller.searchDepartment(cmbItem[cmbKategori.getSelectedIndex()], txtSearch.getText()));
             }
-            if(cmbKategori.getSelectedItem().toString().equals("Department Name")){
-                bindingDepartment(controller.searchDepartment("department_name",txtSearch.getText()));
-            }
-            if(cmbKategori.getSelectedItem().toString().equals("Manager ID")){
-                bindingDepartment(controller.searchDepartment("manager_id",txtSearch.getText()));
-            }
-            if(cmbKategori.getSelectedItem().toString().equals("Location ID")){
-                bindingDepartment(controller.searchDepartment("location_id",txtSearch.getText()));
-            }
+//            if(cmbKategori.getSelectedItem().toString().equals("Department ID")){
+//                bindingDepartment(controller.searchDepartment("department_id",txtSearch.getText()));
+//            }
+//            if(cmbKategori.getSelectedItem().toString().equals("Department Name")){
+//                bindingDepartment(controller.searchDepartment("department_name",txtSearch.getText()));
+//            }
+//            if(cmbKategori.getSelectedItem().toString().equals("Manager ID")){
+//                bindingDepartment(controller.searchDepartment("manager_id",txtSearch.getText()));
+//            }
+//            if(cmbKategori.getSelectedItem().toString().equals("Location ID")){
+//                bindingDepartment(controller.searchDepartment("location_id",txtSearch.getText()));
+//            }
         }
         if (txtSearch.getText().equals("")) {
             bindingDepartment(controller.viewDepartment());
@@ -295,7 +310,11 @@ public class DepartmentView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbKategoriActionPerformed
 
-    private void btnSimpanCmbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanCmbActionPerformed
+    /**
+     * Melakukan simpan atau update saat tombol save di tekan
+     * @param evt jenis event
+     */
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
         if(!txtDepartmentId.isEnabled()){
             String pesanUpdate = controller.simpanUpdateDepartment(txtDepartmentId.getText(), cmbDepartmentName.getSelectedItem().toString(),
@@ -309,8 +328,9 @@ public class DepartmentView extends javax.swing.JInternalFrame {
                 cmbManagerId.getSelectedItem().toString(), cmbLocationId.getSelectedItem().toString(), true);
         serbaGuna.tampilPesan(this, pesanSimpan, "Pesan Simpan");
         bindingDepartment(controller.viewDepartment());
+        reset();
         }
-    }//GEN-LAST:event_btnSimpanCmbActionPerformed
+    }//GEN-LAST:event_btnSaveActionPerformed
 
     private void cmbDepartmentNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDepartmentNameActionPerformed
          // TODO add your handling code here:
@@ -319,7 +339,7 @@ public class DepartmentView extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnSimpanCmb;
+    private javax.swing.JButton btnSave;
     private javax.swing.JComboBox<String> cmbDepartmentName;
     private javax.swing.JComboBox<String> cmbKategori;
     private javax.swing.JComboBox<String> cmbLocationId;
@@ -336,6 +356,10 @@ public class DepartmentView extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
     
+    /**
+     * Menampilkan data department dalam tabel department
+     * @param department list department
+     */
     private void bindingDepartment(List<Department> department) {
         String[] header = {"No", "Department ID", "Department Name", "Manager Name", "City"};
         String[][] data = new String[department.size()][header.length];
@@ -351,16 +375,26 @@ public class DepartmentView extends javax.swing.JInternalFrame {
         reset();
     }
 
+    /**
+     * Menyalakan tombol delete dan mematikan textfield Department Id
+     */
     private void edit() {
         txtDepartmentId.setEnabled(false);
         btnDelete.setEnabled(true);
     }
 
+    /**
+     * Mengeset textfield department Id dengan method autoId, menyalakan textfield dan menghilangkan kemampuan edit dari
+     * Department Id, mematikan tombol delete, mengembalikan seluruh combobox ke pilihan pertama
+     */
     private void reset() {
         txtDepartmentId.setText(ddao.autoId()+"");
         txtDepartmentId.setEnabled(true);
         btnDelete.setEnabled(false);
         txtDepartmentId.setEditable(false);
+        cmbDepartmentName.setSelectedIndex(0);
+        cmbManagerId.setSelectedIndex(0);
+        cmbLocationId.setSelectedIndex(0);
     }
     
 }

@@ -37,17 +37,17 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
     /**
      * Creates new form EmployeeViewSimple
      */
-    EmployeeController controller;
-    JobController jobController;
-    DepartmentController departmentController;
-    SerbaGunaView serbaGunaView;
-    Vector cmbItems;
-    List<Pair<String, String>> listCmb;
-    Vector listJob;
+    private EmployeeController controller;
+    private JobController jobController;
+    private DepartmentController departmentController;
+    private SerbaGunaView serbaGunaView;
+    private Vector cmbItems;
+    private List<Pair<String, String>> listCmb;
+    private Vector listJob;
     private Vector listDepartment;
-    private Vector listmanager;
+    private Vector listManager;
     private List<List<String>> listManagerId;
-    String idManager;
+    private String idManager;
     private TableRowSorter<TableModel> rowSorter;
     private int dialogButton;
 
@@ -473,7 +473,6 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
         else cmbManager.setSelectedItem(hasil);
         cmbDepartment.setSelectedItem(tblEmployee.getValueAt(row, 11).toString());
         txtEmployeeId.setEnabled(false);
-        controller.setTemp(txtLastName.getText());
         btnDrop.setEnabled(true);
     }//GEN-LAST:event_tblEmployeeMouseClicked
 
@@ -485,7 +484,8 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
         if (text.trim().length() == 0) {
             rowSorter.setRowFilter(null);
         } else {
-            rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text, cmbCategory.getSelectedIndex() + 1));
+            rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text, 
+                    cmbCategory.getSelectedIndex() + 1));
         }
 
     }//GEN-LAST:event_btnFindActionPerformed
@@ -500,7 +500,8 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
             if (text.trim().length() == 0) {
                 rowSorter.setRowFilter(null);
             } else {
-                rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text, cmbCategory.getSelectedIndex() + 1));
+                rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text,
+                        cmbCategory.getSelectedIndex() + 1));
             }
         }
     }//GEN-LAST:event_txtCariKeyReleased
@@ -515,6 +516,10 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
         return hasil;
     }
 
+    /**
+     * Digunakan untuk binding data terbaru
+     * @param employees 
+     */
     private void bindingEmployee(List<Employee> employees) {
         String[] header = {"No", "Employee ID", "First Name", "Last Name", "Email", "Phone Number", "Hire Date", "Job",
             "Salary", "Commission PCT", "Manager", "Department"};
@@ -560,6 +565,9 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
         tblEmployee.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
     }
 
+    /**
+     * Digunakan untuk mengeset data combo box category
+     */
     private void setCmbCategory() {
         listCmb.add(0, new Pair<>("employee_id", "Employee ID"));
         listCmb.add(1, new Pair<>("first_name", "First Name"));
@@ -579,6 +587,10 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
         cmbCategory.setModel(model);
     }
 
+    /**
+     * Digunakan untuk mendapatkan id manager agar nanti digunakan ketika save or update
+     * @return id manager
+     */
     private String getIdManager() {
         String hasil = "";
 //        for (List<String> name : listManagerId) {
@@ -589,46 +601,49 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
         return hasil;
     }
 
-    private int getIndex(String value) {
-        int hasil = 0;
-        switch (value) {
-            case "Employee ID":
-                hasil = 0;
-                break;
-            case "First Name":
-                hasil = 1;
-                break;
-            case "Last Name":
-                hasil = 2;
-                break;
-            case "Email":
-                hasil = 3;
-                break;
-            case "Phone Number":
-                hasil = 4;
-                break;
-            case "Hire Date":
-                hasil = 5;
-                break;
-            case "Job":
-                hasil = 6;
-                break;
-            case "Salary":
-                hasil = 7;
-                break;
-            case "Commission":
-                hasil = 8;
-                break;
-            case "Manager":
-                hasil = 9;
-                break;
-            case "Department":
-                hasil = 10;
-                break;
-        }
-        return hasil;
-    }
+//    private int getIndex(String value) {
+//        int hasil = 0;
+//        switch (value) {
+//            case "Employee ID":
+//                hasil = 0;
+//                break;
+//            case "First Name":
+//                hasil = 1;
+//                break;
+//            case "Last Name":
+//                hasil = 2;
+//                break;
+//            case "Email":
+//                hasil = 3;
+//                break;
+//            case "Phone Number":
+//                hasil = 4;
+//                break;
+//            case "Hire Date":
+//                hasil = 5;
+//                break;
+//            case "Job":
+//                hasil = 6;
+//                break;
+//            case "Salary":
+//                hasil = 7;
+//                break;
+//            case "Commission":
+//                hasil = 8;
+//                break;
+//            case "Manager":
+//                hasil = 9;
+//                break;
+//            case "Department":
+//                hasil = 10;
+//                break;
+//        }
+//        return hasil;
+//    }
 
+    /**
+     * Diguanakan untuk get nama job dan disimpan ke dalam listJob
+     */
     private void getCmbJob() {
         listJob = new Vector();
         for (int i = 0; i < jobController.viewJob().size(); i++) {
@@ -637,11 +652,17 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
         Collections.sort(listJob);
     }
 
+    /**
+     * Digunakan untuk mengeset data kedalam combo box job dari listJob
+     */
     private void setCmbJob() {
         final DefaultComboBoxModel model = new DefaultComboBoxModel(listJob);
         cmbJobId.setModel(model);
     }
 
+    /**
+     * Digunakan untuk get nama deparrtment dan disimpan ke dalam listDepartment
+     */
     private void getCmbDepartment() {
         listDepartment = new Vector();
         for (int i = 0; i < departmentController.viewDepartmentNames().size(); i++) {
@@ -650,27 +671,42 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
         Collections.sort(listDepartment);
     }
 
+    /**
+     * Digunakan untuk mengeset data ke dalam combo box department dari listDepartment
+     */
     private void setCmbDepartment() {
         final DefaultComboBoxModel model = new DefaultComboBoxModel(listDepartment);
         cmbDepartment.setModel(model);
     }
 
+    /**
+     * Digunakan untuk get id dan nama manager dan disimpan ke dalam listManager
+     */
     private void getCmbManager() {
-        listmanager = new Vector();
+        listManager = new Vector();
         for (int i = 0; i < controller.viewManager().size(); i++) {
-            listmanager.add(controller.viewManager().get(i).getEmployeeId() + "-" + controller.viewManager().get(i).getLastName());
+            listManager.add(controller.viewManager().get(i).getEmployeeId() + "-" + controller.viewManager().get(i).getLastName());
         }
     }
 
+    /**
+     * Digunakan untuk mengeset data ke dalam combo box manager dari listManager
+     */
     private void setCmbManager() {
-        final DefaultComboBoxModel model = new DefaultComboBoxModel(listmanager);
+        final DefaultComboBoxModel model = new DefaultComboBoxModel(listManager);
         cmbManager.setModel(model);
     }
 
+    /**
+     * Digunakan untuk mengeset id selanjutnya ke dalam txtEmployeeId
+     */
     private void setNewEmployeeId() {
         txtEmployeeId.setText(controller.getNextId() + "");
     }
 
+    /**
+     * Digunakan untuk mereset tiap text field dan combo box ke kondisi semula
+     */
     private void reset() {
         txtEmployeeId.setEnabled(true);
         txtEmployeeId.setEditable(false);

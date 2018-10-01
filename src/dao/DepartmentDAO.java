@@ -34,7 +34,12 @@ public class DepartmentDAO {
         this.ldao = new LocationDAO(koneksi);
         this.edao = new EmployeeDAO(koneksi);
     }
-
+    
+/**
+ * Mengambil data yang diinginkan dari database
+ * @param sql query yang ingin dijalankan
+ * @return list deparment
+ */
     public List<Department> getData(String sql) {
         List<Department> departments = new ArrayList<>();
         try {
@@ -60,6 +65,11 @@ public class DepartmentDAO {
         return departments;
     }
 
+    /**
+     * Mengambil data berdasarkan Id dari database
+     * @param sql query yang ingin dijalankan
+     * @return list department
+     */
     public List<Department> getDataById(String sql) {
         List<Department> departments = new ArrayList<>();
         try {
@@ -90,10 +100,19 @@ public class DepartmentDAO {
         return this.getData("SELECT * FROM DEPARTMENTS ORDER BY 1");
     }
 
+    /**
+     * Melakukan penambahan Id berdasarkan Id terakhir
+     * @return mengembalikan query untuk dijalankan di getData
+     */
     public int autoId() {
         return this.getData("SELECT MAX(department_id)+10 department_id, MAX(department_name) department_name, MAX(manager_id) manager_id, MAX(location_id) location_id FROM DEPARTMENTS").get(0).getDepartmentId();
     }
 
+    /**
+     * untuk mengeksekusi query
+     * @param sql query yang ingin dijalankan
+     * @return boolean
+     */
     public boolean eksekusi(String sql) {
         try {
             PreparedStatement statment = koneksi.prepareStatement(sql);
@@ -105,24 +124,49 @@ public class DepartmentDAO {
         return true;
     }
 
+    /**
+     * Mengambil data berdasarkan Id
+     * @param id Id yang ingin dicari
+     * @return mengembalikan query untuk mencari data berdasarkan Id ke method eksekusi
+     */
     public List<Department> getById(int id) {
         return this.getData("select * from departments where department_id = " + id + "");
     }
 
+    /**
+     * Mengambil Name berdasarkan Id
+     * @param id Id yang ingin dicari
+     * @return mengembaikan query untuk mencari Name berdasarkan Id ke method eksekusi
+     */
     public List<Department> getIdNameById(int id) {
         return this.getDataById("SELECT department_id, department_name from departments where department_id = " + id);
     }
 
+    /**
+     * Untuk menyimpan data yang dimasukan user
+     * @param department Objek dari department
+     * @return mengembalikan query untuk menyimpan data ke method eksekusi
+     */
     public boolean simpanDepartment(Department department) {
         int id = autoId();
         return this.eksekusi("INSERT INTO DEPARTMENTS VALUES (" + id + ",'" + department.getDepartmentName() + "',"
                 + department.getEmployee().getEmployeeId() + "," + department.getLocation().getLocation_id() + ")");
     }
 
+    /**
+     * Untuk menghapus data
+     * @param id Id yang ingin dicari
+     * @return mengembalikan query untuk menghapus berdasarkan Id ke method eksekusi
+     */
     public boolean hapusDepartment(String id) {
         return this.eksekusi("DELETE FROM DEPARTMENTS WHERE DEPARTMENT_ID ='" + id + "'");
     }
 
+    /**
+     * Untuk memperbarui data yang ada
+     * @param department Objek dari department
+     * @return mengembalikan query untuk memperbarui data ke method eksekusi
+     */
     public boolean updateDepartment(Department department) {
         return this.eksekusi("UPDATE DEPARTMENTS SET DEPARTMENT_NAME = '" + department.getDepartmentName()
                 + "', MANAGER_ID = " + department.getEmployee().getEmployeeId()
@@ -130,12 +174,22 @@ public class DepartmentDAO {
                 + " WHERE DEPARTMENT_ID = " + department.getDepartmentId());
     }
 
+    /**
+     * Untuk melakukan pencarian pada data
+     * @param category jenis kolom atau data yang ingin dicari
+     * @param cari data yang ingin dicari
+     * @return mengembalikan query untuk melakukan pencarian data ke method eksekusi
+     */
     public List<Department> search(String category, String cari) {
         return this.getData("SELECT * FROM DEPARTMENTS WHERE REGEXP_LIKE(" + category + ",'" + cari + "','i') order by 1");
     }
     
     
-    
+    /**
+     * Mengambil department_id dari database berdasarkan department_name
+     * @param departmentName nama department yang ingin dicari
+     * @return mengembalikan objek department
+     */
     public Department getByDepartmentName(String departmentName){
         Department department = new Department();
         String query = "SELECT department_id FROM departments where department_name ='" + departmentName +"'";
@@ -152,6 +206,10 @@ public class DepartmentDAO {
         return department;
     }
     
+    /**
+     * Mengambil Id dan Name dari database
+     * @return mengembalikan query untuk mengambil Id dan Name ke method eksekusi
+     */
     public List<Department> getIdName(){
         return this.getDataById("SELECT department_id, department_name FROM departments");
     }

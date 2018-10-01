@@ -19,7 +19,7 @@ public class Location {
     private Country country_id;
 
     /**
-     * constructor dari kelas location syang tidak memiliki parameter
+     * constructor dari kelas location yang tidak memiliki parameter
      */
     public Location() {
     }
