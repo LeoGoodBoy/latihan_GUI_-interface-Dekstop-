@@ -151,7 +151,7 @@ public class LocationView extends javax.swing.JInternalFrame {
 
         jLabel11.setText("State Province :");
 
-        jLabel12.setText("Country Name :");
+        jLabel12.setText("Country  :");
 
         btnSimpan.setText("SAVE");
         btnSimpan.setToolTipText("ini but simpan");
@@ -337,7 +337,7 @@ public class LocationView extends javax.swing.JInternalFrame {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-        int ok = JOptionPane.showConfirmDialog(null, "hapus pesan?");
+        int ok = JOptionPane.showConfirmDialog(null, "hapus pesan?", "warning bro", JOptionPane.YES_NO_OPTION);
         if(ok==0){
             String pesan = controller.hapusLocation(txtLocationId.getText());
             serbaGuna.tampilPesan(this, pesan, "Pesan Delete");
@@ -387,6 +387,7 @@ public class LocationView extends javax.swing.JInternalFrame {
         txtCity.setText(tblLocation.getValueAt(row, 4).toString());
         txtStateProvince.setText(tblLocation.getValueAt(row, 5).toString());
         txtCountryId.setText(tblLocation.getValueAt(row, 6).toString());
+        cmbCountryId.setSelectedItem(ABORT);
         edit();
     }//GEN-LAST:event_tblLocationMouseClicked
 
