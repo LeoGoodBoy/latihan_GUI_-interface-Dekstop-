@@ -65,7 +65,7 @@ public class JobController {
     /**
      * sebagai method controller untuk mencari data job 
      * @param category get kategori
-     * @param cari get cari
+     * @param cari get cari dari search
      * @return data tabel Jobs dari hasil pencarian berdasarkan kategori dan kata kunci
      */
     public List<Job> searchJob(String category, String cari){
