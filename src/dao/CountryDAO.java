@@ -52,18 +52,18 @@ public class CountryDAO {
                 country.setCountryId(resultSet.getNString(1));
                 country.setCountryName(resultSet.getNString(2));               
                // country.setRegion(new Region(resultSet.getInt("REGION_ID")));
-               int rId = 0;
-               String rName = "";
-               int lenght = rdao.getById(resultSet.getInt("Region_id")).size();
-               if (lenght > 0 ){
-                   rId = rdao.getById(resultSet.getInt("region_id")).get(0).getRegionId();
-                   rName = rdao.getById(resultSet.getInt("region_id")).get(0).getRegionName();
-               }
-               Region region;
-               if(rId == 0) region = new Region();
-               else region = new Region(rId, rName);
+//               int rId = 0;
+//               String rName = "";
+//               int lenght = rdao.getById(resultSet.getInt("Region_id")).size();
+//               if (lenght > 0 ){
+//                   rId = rdao.getById(resultSet.getInt("region_id")).get(0).getRegionId();
+//                   rName = rdao.getById(resultSet.getInt("region_id")).get(0).getRegionName();
+//               }
+//               Region region;
+//               if(rId == 0) region = new Region();
+//               else region = new Region(rId, rName);
                        
-                //Region region = rdao.getById(resultSet.getInt(3)).get(0);
+                Region region = rdao.getById(resultSet.getInt(3)).get(0);
                 //System.out.println(region.getRegionId());
                 country.setRegion(region);
                 countrys.add(country);
@@ -96,9 +96,11 @@ public class CountryDAO {
      * @return mengirimkan nilai kedalam method getData menggunakan query yang dijadikan parameter
      */
     public List<Country> searchCountry(String category, String cari){
-      return this.getData("select * from countries where regexp_like(" + category + ",'" + cari + "','i') order by "+category+""); 
-       //return this.getData("select c.country_id, c.country_name, r.region_name from countries c join regions r on c.region_id = r.region_id where regexp_like(" + category + ",'" + cari + "','i') order by "+category+""); 
-       // return this.getData("select c.country_id, c.country_name, r.region_name from countries c join regions r on c.region_id = r.region_id where "+category+" like '"+cari+"%' order by "+category+"");
+      //return this.getData("select * from countries where regexp_like(" + category + ",'" + cari + "','i') order by "+category+""); 
+       return this.getData("select c.country_id, c.country_name, r.region_id, r.region_name "
+               + "from countries c left join regions r on c.region_id = r.region_id "
+               + "where regexp_like(" + category + ",'" + cari + "','i') order by "+category+""); 
+        //return this.getData("select c.country_id, c.country_name, r.region_name from countries c join regions r on c.region_id = r.region_id where "+category+" like '"+cari+"%' order by "+category+"");
     }
 
     
