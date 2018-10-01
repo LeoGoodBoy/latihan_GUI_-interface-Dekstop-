@@ -485,7 +485,8 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
         if (text.trim().length() == 0) {
             rowSorter.setRowFilter(null);
         } else {
-            rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text, cmbCategory.getSelectedIndex() + 1));
+            rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text, 
+                    cmbCategory.getSelectedIndex() + 1));
         }
 
     }//GEN-LAST:event_btnFindActionPerformed
@@ -500,7 +501,8 @@ public class EmployeeViewSimple extends javax.swing.JInternalFrame {
             if (text.trim().length() == 0) {
                 rowSorter.setRowFilter(null);
             } else {
-                rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text, cmbCategory.getSelectedIndex() + 1));
+                rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text,
+                        cmbCategory.getSelectedIndex() + 1));
             }
         }
     }//GEN-LAST:event_txtCariKeyReleased

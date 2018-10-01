@@ -56,7 +56,6 @@ public class LocationView extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         txtLocationId = new javax.swing.JTextField();
-        txtStreetAddress = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         txtPostalCode = new javax.swing.JTextField();
@@ -69,6 +68,8 @@ public class LocationView extends javax.swing.JInternalFrame {
         btnSimpan = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         cmbCountryId = new javax.swing.JComboBox<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtStreetAddress = new javax.swing.JTextArea();
         txtKategori = new javax.swing.JTextField();
 
         setClosable(true);
@@ -180,6 +181,10 @@ public class LocationView extends javax.swing.JInternalFrame {
             }
         });
 
+        txtStreetAddress.setColumns(20);
+        txtStreetAddress.setRows(5);
+        jScrollPane2.setViewportView(txtStreetAddress);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -190,15 +195,15 @@ public class LocationView extends javax.swing.JInternalFrame {
                         .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
-                            .addComponent(jLabel8))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtStreetAddress, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
-                            .addComponent(txtPostalCode)
-                            .addComponent(txtLocationId)))
+                            .addComponent(jLabel8)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addComponent(jLabel9)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtPostalCode, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2)
+                    .addComponent(txtLocationId))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -219,7 +224,7 @@ public class LocationView extends javax.swing.JInternalFrame {
                         .addGap(101, 101, 101)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtCity, javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(txtStateProvince, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE))))
+                            .addComponent(txtStateProvince, javax.swing.GroupLayout.Alignment.CENTER))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -232,13 +237,15 @@ public class LocationView extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel9))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtStreetAddress)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPostalCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(26, 26, 26))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(3, 3, 3)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9)
+                    .addComponent(txtPostalCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
@@ -310,7 +317,7 @@ public class LocationView extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -403,7 +410,7 @@ public class LocationView extends javax.swing.JInternalFrame {
             txtKategori.setText("street_address");
         } else if (cmbKategori1.getSelectedItem().equals("Postal Code")) {
             txtKategori.setText("postal_code");
-        } else if (cmbKategori1.getSelectedItem().equals("City")) {
+        } else if (cmbKategori1.getSelectedItem().equals("Cityy")) {
             txtKategori.setText("city");
         } else if (cmbKategori1.getSelectedItem().equals("State Province")) {
             txtKategori.setText("state_province");
@@ -444,6 +451,7 @@ public class LocationView extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblLocation;
     private javax.swing.JTextField txtCity;
     private javax.swing.JTextField txtCountryId;
@@ -452,7 +460,7 @@ public class LocationView extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtPostalCode;
     private javax.swing.JTextField txtSearch;
     private javax.swing.JTextField txtStateProvince;
-    private javax.swing.JTextField txtStreetAddress;
+    private javax.swing.JTextArea txtStreetAddress;
     // End of variables declaration//GEN-END:variables
 
     private void bindingLocation(List<Location> location) {

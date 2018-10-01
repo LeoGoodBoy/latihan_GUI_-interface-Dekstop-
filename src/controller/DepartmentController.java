@@ -46,6 +46,15 @@ public class DepartmentController {
 //        return serbaGunaController.getMessage(ddao.updateDepartment(department));
 //    }
     
+    /**
+     * Method untuk melakukan simpan atau update data
+     * @param departmentId Id department
+     * @param departmentName Nama department
+     * @param managerId Id manager
+     * @param locationId Id location
+     * @param isSave kondisi IsSave
+     * @return mengembalikan isi pesan simpan atau update
+     */
     public String simpanUpdateDepartment(String departmentId, String departmentName, String managerId, String locationId, boolean isSave) {
         Employee managerID = new Employee(Integer.parseInt(managerId.substring(0, 3)));
         Location locationID = new Location(Integer.parseInt(locationId.substring(0, 4)));
@@ -57,21 +66,45 @@ public class DepartmentController {
         }
     }
     
+    /**
+     * Untuk menampilkan pesan saat mengeksekusi hapus
+     * @param departmentId Id department
+     * @return mengembalikan isi pesan hapus
+     */
     public String hapusDepartment(String departmentId){
         return serbaGunaController.getMessage(ddao.hapusDepartment(departmentId));
     }
     
+    /**
+     * Menampilkan seluruh data department
+     * @return mengembalikan seluruh data department
+     */
     public List<Department> viewDepartment(){
         return ddao.getAllData();
     }
     
+    /**
+     * Untuk melakukan pencarian data department
+     * @param category Jenis data atau kolo, yang ingin dicari
+     * @param cari data yang ingin dicari
+     * @return mengembalikan data yang ingin dicari
+     */
     public List<Department> searchDepartment(String category, String cari){
         return ddao.search(category, cari);
     }
-        
+    
+    /**
+     * Untuk melihat nama department
+     * @return mengembalikan method getIdName pada departmentDAO
+     */    
     public List<Department> viewDepartmentNames(){
         return ddao.getIdName();
     }
+    
+    /**
+     * Memasukan department_name pada combo box
+     * @param cmb Objek dari JComboBox
+     */
     public  void loadCmbDepartmentName(JComboBox cmb){
         List<Department> departments = ddao.getAllData();
         for (Department department : departments) {
@@ -79,6 +112,10 @@ public class DepartmentController {
         }
     }
     
+    /**
+     * Memasukan employee_id dan last_name pada combo box
+     * @param cmb Objek dari JComboBox
+     */
     public  void loadCmbManagerId(JComboBox cmb){
         List<Employee> employees = edao.getIdManagerName();
         for (Employee employee : employees) {
@@ -86,6 +123,10 @@ public class DepartmentController {
         }
     }
     
+    /**
+     * Memasukan location_id dan city pada combo box
+     * @param cmb Objek dari JComboBox
+     */
     public  void loadCmbLocationId(JComboBox cmb){
         List<Location> locations = ldao.getLocationIdAndCity(0);
         for (Location location : locations) {
