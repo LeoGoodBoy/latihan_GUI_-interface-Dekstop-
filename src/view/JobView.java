@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 import javafx.util.Pair;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Job;
 import tools.Koneksi;
@@ -23,7 +24,7 @@ import tools.Koneksi;
 public class JobView extends javax.swing.JInternalFrame {
     private final SerbaGunaView serbaGuna;
     private final JobController controller;
-//    Vector cmbItem;
+    private int dialogDrop;
     
     public JobView() {
         initComponents();
@@ -293,9 +294,11 @@ public class JobView extends javax.swing.JInternalFrame {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-        String pesan = controller.hapusJob(txtJobId.getText());
-        serbaGuna.tampilPesan(this, pesan, "Pesan Delete" );
-        bindingJobs(controller.viewJob());
+        dialogDrop=JOptionPane.showConfirmDialog(this, "Are you sure to delete this?","Delete Data", JOptionPane.YES_NO_OPTION);
+        if(dialogDrop==JOptionPane.YES_OPTION){
+            String pesan = controller.hapusJob(txtJobId.getText());
+            serbaGuna.tampilPesan(this, pesan, "Pesan Delete" );
+            bindingJobs(controller.viewJob());}
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void tblJobMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblJobMouseClicked
@@ -332,13 +335,10 @@ public class JobView extends javax.swing.JInternalFrame {
 
     private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
         // TODO add your handling code here:
-        
-        
     }//GEN-LAST:event_txtSearchActionPerformed
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
 //         TODO add your handling code here:
-//        String pesan="r";
         boolean isEdit = false;
         if(!txtJobId.isEnabled()) isEdit = true;
         String pesan=controller.saveOrUpdateJob(txtJobId.getText(), txtJobTitle.getText(), txtMinSalary.getText().toString(), 
@@ -355,17 +355,6 @@ public class JobView extends javax.swing.JInternalFrame {
 
     private void cmbKategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbKategoriActionPerformed
             // TODO add your handling code here:
-//            if(job_id.getSelectedItem().equals("Job ID")){
-//        if (cmbKategori.getSelectedItem().equals("JOB ID")) {
-//            txtKategori.setText("job_id");
-//        } else if (cmbKategori.getSelectedItem().equals("JOB TITLE")) {
-//            txtKategori.setText("job_title");
-//        } else if (cmbKategori.getSelectedItem().equals("MIN SALARY")) {
-//            txtKategori.setText("min_salary");
-//        } else if (cmbKategori.getSelectedItem().equals("MAX SALARY")) {
-//            txtKategori.setText("max_salary");
-//        } 
-        
     }//GEN-LAST:event_cmbKategoriActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
@@ -413,8 +402,6 @@ public class JobView extends javax.swing.JInternalFrame {
     
     private void edit(){
         txtJobId.setEnabled(false);
-//        btnSimpan.setEnabled(false);
-//        btnUpdate.setEnabled(true);
         btnDelete.setEnabled(true);
     }
 }
