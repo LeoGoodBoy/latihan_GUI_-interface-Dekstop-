@@ -261,7 +261,7 @@ public class JobView extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
     /**
      * Method untuk melakukan pencarian dari database di tabel Jobs dengan media Button Action Performed
-     * @param evt 
+     * @param evt merupakan suatu event
      */
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
@@ -296,7 +296,7 @@ public class JobView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtMaxSalaryActionPerformed
     /**
      * Method untuk memproses tombol delete/drop ketika ditekan
-     * @param evt 
+     * @param evt merupakan suatu event
      */
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
@@ -308,7 +308,7 @@ public class JobView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnDeleteActionPerformed
     /**
      * Method yang berguna untuk dapat melakukan select row
-     * @param evt 
+     * @param evt merupakan suatu event
      */
     private void tblJobMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblJobMouseClicked
         // TODO add your handling code here:
@@ -321,7 +321,7 @@ public class JobView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tblJobMouseClicked
     /**
      * Method untuk melakukan pencarian dari database di tabel Jobs dengan media Key Released
-     * @param evt 
+     * @param evt merupakan suatu event
      */
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
         // TODO add your handling code here:
@@ -350,7 +350,7 @@ public class JobView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtSearchActionPerformed
     /**
      * Method untuk memproses tombol simpan ketika ditekan
-     * @param evt 
+     * @param evt merupakan suatu event
      */
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
 //         TODO add your handling code here:
@@ -392,7 +392,7 @@ public class JobView extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
     /**
      * Method untuk menampilkan data Jobs ke tabel Job
-     * @param jobs 
+     * @param jobs list dari job
      */
     private void bindingJobs(List<Job> jobs){
         String[] header = {"No", "Job ID", "Job Title", "Min Salary", "Max Salary"};
@@ -421,7 +421,7 @@ public class JobView extends javax.swing.JInternalFrame {
         btnSearch.setEnabled(true);
     }
     /**
-     * Method untuk memunculkan button ketika dibutuhkan
+     * Method untuk memunculkan button ketika dibutuhkan 
      */    
     private void edit(){
         txtJobId.setEnabled(false);

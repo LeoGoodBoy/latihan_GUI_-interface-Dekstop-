@@ -20,7 +20,7 @@ public class JobController {
     private SerbaGunaController serbaGunaController;
     /**
      * Method konstruktor untuk koneksi
-     * @param Koneksi 
+     * @param Koneksi import dari Connection
      */
     public JobController(Connection Koneksi) {
         this.jdao = new JobDAO(Koneksi);
@@ -28,12 +28,12 @@ public class JobController {
     }
     /**
      * Sebagai method controller untuk menyimpan data baru ataupun melakukan update data.
-     * @param job_id get job id
-     * @param job_title get job title
-     * @param min_salary get min salary
-     * @param max_salary get max salary
-     * @param isEdit kondisi true or false
-     * @return pesan
+     * @param job_id get job id tipe data String
+     * @param job_title get job title tipe data String
+     * @param min_salary get min salary tipe data String
+     * @param max_salary get max salary tipe data String
+     * @param isEdit kondisi isEdit tipe data Boolean
+     * @return pesan, mengembalikan isi pesan save atau update
      */
     public String saveOrUpdateJob(String job_id, String job_title, String min_salary, String max_salary, boolean isEdit){
         Job job = new Job(job_id, job_title,Integer.parseInt(min_salary),Integer.parseInt(max_salary));
@@ -49,8 +49,8 @@ public class JobController {
 //    }
     /**
      * Sebagai method controller untuk menghapus data dari tabel Job
-     * @param jobId get jobid
-     * @return pesan
+     * @param jobId get jobid tip data String
+     * @return pesan, mengembalikan isi pesan hapus
      */
     public String hapusJob(String jobId){
         return this.serbaGunaController.getMessage(jdao.deleteJob(jobId));
@@ -64,8 +64,8 @@ public class JobController {
     }
     /**
      * sebagai method controller untuk mencari data job 
-     * @param category get kategori
-     * @param cari get cari dari search
+     * @param category get kategori tipe data String
+     * @param cari get cari dari search tipe data String
      * @return data tabel Jobs dari hasil pencarian berdasarkan kategori dan kata kunci
      */
     public List<Job> searchJob(String category, String cari){
