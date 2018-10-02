@@ -47,8 +47,8 @@ public class CountryDAO {
     
     /**
      * fungtion untuk melakukan eksekusi query
-     * @param sql
-     * @return 
+     * @param sql paremeter yang dibutuhkan untuk mendapatkan data country
+     * @return List Country
      */
     public List<Country> getData(String sql){
         List<Country> countrys = new ArrayList<>();
@@ -102,8 +102,9 @@ public class CountryDAO {
 
     /**
      * fungtion eksekusi bertipe boolean 
-     * @param sql
-     * @return 
+     * @param sql paremeter yang dibutuhkan untuk mendapatkan data country
+     * sesuai dengan query database
+     * @return hsail, mengembalikan nilai boolean untuk setiap eksekusi fungsi
      */
     public boolean eksekusi(String sql){
         boolean hasil = false;

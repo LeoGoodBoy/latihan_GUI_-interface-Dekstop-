@@ -57,7 +57,7 @@ public class JobDAO {
      * ada pada parameter
      * @param query - paremeter yang dibutuhkan untuk mendapatkan data job
      * sesuai dengan query
-     * @return List<job> - mengembalikan data pada tabel Job berupa List<job> 
+     * @return List job - mengembalikan data pada tabel Job berupa List 
      * yang sesuai dengan query
      */
     public List<Job> getData(String query) {
@@ -83,8 +83,8 @@ public class JobDAO {
     /**
      * Fungsi untuk mendapatkan semua data yang ada pada tabel Job dengan
      * memanggil fungsi getData()
-     * @return List<job> - mendapatkan semua data yang ada pada tabel Job 
-     * berupa List<Job>
+     * @return List job - mendapatkan semua data yang ada pada tabel Job 
+     * berupa List Job
      */
     public List<Job> getAllDatas() {
         return this.getData("SELECT * FROM jobs");
@@ -95,8 +95,8 @@ public class JobDAO {
      * ingin dicari
      * @param jobId - parameter yang dibutuhkan untuk mendapatkan data sesuai
      * dengan job_id
-     * @return List<Job> - mendapatkan semua data yang ada pada tabel Job berupa
-     * List<Job> dengan memanggil fungsi getData()
+     * @return List Job - mendapatkan semua data yang ada pada tabel Job berupa
+     * List Job dengan memanggil fungsi getData()
      */
     public List<Job> getById(String jobId) {
         return this.getData("SELECT * from jobs where job_id='" + jobId + "'");
@@ -108,7 +108,7 @@ public class JobDAO {
      * @param category - kategori pada tabel Job (job_id, job_title, max_salary
      * atau min_salary)
      * @param cari - kata kunci untuk kategori yang dicari
-     * @return mengembalikan nilai List<Job> sesuai dengan kategori dan kata kunci cari
+     * @return mengembalikan nilai List Job sesuai dengan kategori dan kata kunci cari
      */
     public List<Job> searchJob(String category, String cari) {
         return this.getData("SELECT * FROM jobs WHERE regexp_like(" + category
