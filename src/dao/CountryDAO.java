@@ -122,7 +122,7 @@ public class CountryDAO {
     /**
      * function simpan untuk melakukan query simpan dari data inputan.
      * @param country untuk mengambil atribut dari class country
-     * @return 
+     * @return get kueri simpan
      */
     public boolean simpanCountry(Country country){
         String query = "insert into COUNTRIES values ('"
@@ -134,7 +134,7 @@ public class CountryDAO {
     /**
      * function hapus country untuk query hapus dari data imputan berupa get id bertipe string
      * @param id karena di tabelnya country_id bertipe varchar2
-     * @return 
+     * @return get kueri delete
      */
     public boolean hapusCountry(String id){
         return this.eksekusi("delete from COUNTRIES where country_id ='"+id+"'");
@@ -142,8 +142,8 @@ public class CountryDAO {
     
     /**
      * funcytion untuk updatecountry untuk query uppdate dari data inputan berupa get atribut dari country
-     * @param country
-     * @return 
+     * @param country parameter dari object country
+     * @return get query update
      */
     public boolean updateCountry(Country country) {
         return this.eksekusi("update countries set country_name='" + country.getCountryName()
@@ -154,7 +154,7 @@ public class CountryDAO {
     /**
      * function getbyid untuk melakukan query select countries berdasarkan get id bertipe string
      * @param id karena varchar2
-     * @return 
+     * @return get query getByid
      */
     public List<Country> getById(String id) {
         return this.getData("select * from countries where country_id = '" + id + "'");

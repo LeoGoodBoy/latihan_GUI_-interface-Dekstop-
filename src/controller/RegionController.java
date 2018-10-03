@@ -21,7 +21,7 @@ public class RegionController {
    /**
     * merupakan constructor dari kelas regionController yang memiliki parameter yang bertipe connection dan bernama koneksi
     * didalam method ini berisi instansiasi dari kelas regionDAO dan kelas serbagunaController
-    * @param koneksi 
+    * @param koneksi get koneksi
     */
     public RegionController(Connection koneksi) {
         this.rdao = new RegionDAO(koneksi);

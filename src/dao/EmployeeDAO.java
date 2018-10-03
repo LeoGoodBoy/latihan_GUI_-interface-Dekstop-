@@ -160,7 +160,7 @@ public class EmployeeDAO {
 
     /**
      * Digunakan untuk mendapatkan semua data Employee berdasarkan employee_id
-     * @param id
+     * @param id inputen id yang dicari
      * @return List Employee
      */
     public List<Employee> getById(int id)  {
@@ -169,7 +169,7 @@ public class EmployeeDAO {
     
     /**
      * Digunakan untuk mendapatkan data employee_id dan last_name berdasarkan employee_id
-     * @param employeeId
+     * @param employeeId get inputan employeeId
      * @return sebuah data Employee
      */
     public Employee getIdName(int employeeId){
@@ -195,7 +195,7 @@ public class EmployeeDAO {
     /**
      * Digunakan untuk update data employee
      * @param employee object dari class Employee
-     * @return 
+     * @return get query update employees
      */
     public boolean updateEmployee(Employee employee) {
         String query = "UPDATE employees SET first_name = '"

@@ -32,7 +32,7 @@ public class LocationDAO {
     /**
      * method untuk mendapatkan koneksi ke Database
      *
-     * @return
+     * @return get koneksi
      */
     public Connection getKoneksi() {
         return koneksi;
@@ -54,7 +54,7 @@ public class LocationDAO {
      * di gunakan untuk fungsi lain
      *
      * @param sql untuk di isi dengan query perintah pada fungsi perintah
-     * @return
+     * @return get hasil eksekusi
      */
     public boolean eksekusi(String sql) {
         boolean hasil = false;

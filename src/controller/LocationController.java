@@ -91,7 +91,7 @@ public class LocationController {
      * method seearchLocaton bertipe List igunakan untuk melakukan pencarian data dari tabel location 
      * @param category digunakan untuk menyimpan nilai dari combobox data dari jenis pencarian yang akan dilakukan
      * @param cari digunakan untuk menyimpan nilai dari kunci pencarian yang berasal dari text field
-     * @return 
+     * @return  get lokasi yang dicari
      */
     public List<Location> searchLocation(String category, String cari) {
         if ("country_name".equals(category)) {

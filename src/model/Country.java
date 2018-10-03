@@ -52,7 +52,7 @@ public class Country {
 
     /** 
      * get country_id
-     * @return 
+     * @return get country id
      */
     public String getCountryId() {
         return countryId;
@@ -60,7 +60,7 @@ public class Country {
 
     /**
      * untuk setcountry_id
-     * @param countryId 
+     * @param countryId untuk get country id
      */
     public void setCountryId(String countryId) {
         this.countryId = countryId;
@@ -68,7 +68,7 @@ public class Country {
 
     /**
      * untuk get country_name
-     * @return 
+     * @return get countrynamw
      */
     public String getCountryName() {
         return countryName;
@@ -76,7 +76,7 @@ public class Country {
 
     /**
      * untuk setcountryName
-     * @param countryName 
+     * @param countryName berupa string
      */
     public void setCountryName(String countryName) {
         this.countryName = countryName;
@@ -84,7 +84,7 @@ public class Country {
 
     /**
      * untuk getregion
-     * @return 
+     * @return get object region
      */
     public Region getRegion() {
         return region;
@@ -92,7 +92,7 @@ public class Country {
 
     /**
      * untuk setRegion
-     * @param region 
+     * @param region set object region
      */
     public void setRegion(Region region) {
         this.region = region;

@@ -22,7 +22,7 @@ public class Employee {
 
     /**
      * Digunakan untuk instansiasi Employee dengan id yang sudah disiapkan
-     * @param employeeId 
+     * @param employeeId get employeeid
      */
     public Employee(int employeeId) {
         this.employeeId = employeeId;
@@ -30,8 +30,8 @@ public class Employee {
 
     /**
      * Digunakan untuk instansiasi Employee dengan id dan last name yang sudah disiapkan
-     * @param employeeId
-     * @param lastName 
+     * @param employeeId berupa integer
+     * @param lastName berupA string
      */
     public Employee(int employeeId, String lastName) {
         this.employeeId = employeeId;
@@ -40,15 +40,15 @@ public class Employee {
 
     /**
      * Digunakan untuk instansiasi Employee dengan data yang sudah disiapkan
-     * @param employeeId
-     * @param firstName
-     * @param lastName
-     * @param email
-     * @param phoneNumber
-     * @param hireDate
+     * @param employeeId berupa integer
+     * @param firstName berupa string
+     * @param lastName berupa string
+     * @param email berupa string
+     * @param phoneNumber berupa string
+     * @param hireDate berupa string
      * @param job instance dari class Job
-     * @param salary
-     * @param commissionPct
+     * @param salary berupa integer
+     * @param commissionPct berupa float
      * @param department instance dari class Department
      * @param manager instance dari class Employee
      */
